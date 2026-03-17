@@ -18,8 +18,6 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
-
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,248,245,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--bdr)}
 .nav-logo{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--lav-dark);font-style:italic}
@@ -37,8 +35,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:fl
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--text);text-decoration:none}
 .close-btn{position:absolute;top:24px;right:32px;font-size:28px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:var(--sans)}
-
-/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(232,228,248,.6) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(251,234,240,.5) 0%,transparent 60%),var(--cream)}
 .hero-content{position:relative;z-index:1;max-width:700px}
@@ -54,30 +50,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:fl
 .btn-ghost:hover{border-color:var(--lav-dark)}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--light),transparent);animation:scrollPulse 2s ease-in-out infinite;margin:48px auto 0}
 @keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
-
-/* LANG BAR */
 .lang-bar{background:var(--lav);padding:10px 32px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--lav-deep);font-weight:500}
 .lang-btn{padding:4px 14px;border-radius:20px;border:0.5px solid var(--lav-dark);background:transparent;color:var(--lav-dark);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .lang-btn.active{background:var(--lav-dark);color:#fff}
-
-/* SECTIONS */
 section{padding:80px 24px}
 .section-inner{max-width:1100px;margin:0 auto}
 .section-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--lav-dark);margin-bottom:12px}
 .section-title{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:300;line-height:1.15;color:var(--text);margin-bottom:16px}
 .section-title em{font-style:italic;color:var(--lav-dark)}
 .section-desc{font-size:15px;color:var(--muted);line-height:1.7;max-width:520px}
-
-/* PILLARS */
 .pillars{background:var(--white)}
-.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;border:0.5px solid var(--bdr);border-radius:20px;overflow:hidden;margin-top:48px;background:var(--bdr)}
-.pillar-card{background:var(--white);padding:40px 32px;transition:background .3s}
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;border:0.5px solid var(--bdr);border-radius:20px;overflow:hidden;margin-top:48px;background:var(--bdr)}
+.pillar-card{background:var(--white);padding:36px 28px;transition:background .3s}
 .pillar-card:hover{background:var(--lav)}
-.pillar-icon{font-size:28px;color:var(--lav-dark);margin-bottom:20px}
-.pillar-title{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--text);margin-bottom:10px}
-.pillar-desc{font-size:14px;color:var(--muted);line-height:1.65}
-
-/* EVENTS */
+.pillar-icon{font-size:26px;color:var(--lav-dark);margin-bottom:18px}
+.pillar-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);margin-bottom:10px}
+.pillar-desc{font-size:13px;color:var(--muted);line-height:1.65}
 .events{background:var(--cream)}
 .events-grid{display:flex;flex-direction:column;gap:1px;margin-top:48px;background:var(--bdr);border-radius:16px;overflow:hidden;min-height:80px}
 .event-row{background:var(--white);padding:28px 32px;display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;transition:background .2s}
@@ -90,32 +78,29 @@ section{padding:80px 24px}
 .event-tag{display:inline-block;margin-top:6px;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blush);color:var(--blush-dark);font-weight:500}
 .event-rsvp{padding:10px 22px;border-radius:40px;border:0.5px solid var(--lav-dark);background:transparent;color:var(--lav-dark);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--sans);transition:all .2s}
 .event-rsvp:hover{background:var(--lav-dark);color:#fff}
-.events-loading{padding:32px;text-align:center;font-size:14px;color:var(--muted)}
-
-/* HUB */
+.events-empty{padding:32px;text-align:center;font-size:14px;color:var(--muted);background:var(--white)}
 .hub{background:var(--lav)}
 .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:48px}
-.hub-card{background:var(--white);border-radius:16px;overflow:hidden;border:0.5px solid var(--bdr);transition:transform .2s;cursor:pointer}
+.hub-card{background:var(--white);border-radius:16px;overflow:hidden;border:0.5px solid var(--bdr);transition:transform .2s}
 .hub-card:hover{transform:translateY(-3px)}
-.hub-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:36px}
-.hub-thumb.audio{background:var(--blush)}.hub-thumb.video{background:#e8f0fb}.hub-thumb.guide{background:#eaf3de}.hub-thumb.meditation{background:var(--lav)}
-.hub-body{padding:16px 18px 20px}
+.hub-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:32px}
+.hub-thumb.audio{background:var(--blush)}.hub-thumb.video{background:#e8f0fb}.hub-thumb.pdf{background:#eaf3de}.hub-thumb.meditation{background:var(--lav)}.hub-thumb.other{background:#faeeda}
+.hub-body{padding:14px 16px 18px}
 .hub-type{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hub-title{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--text);margin-top:4px;line-height:1.3}
-.hub-duration{font-size:12px;color:var(--light);margin-top:6px}
-
-/* COMMUNITY */
+.hub-title{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--text);margin-top:4px;line-height:1.3}
+.hub-duration{font-size:12px;color:var(--light);margin-top:5px}
+.hub-link{display:inline-block;margin-top:10px;font-size:12px;color:var(--lav-dark);text-decoration:none;font-weight:500}
+.hub-link:hover{color:var(--lav-deep)}
+.hub-empty{padding:40px;text-align:center;font-size:14px;color:var(--muted);background:var(--white);border-radius:16px;border:0.5px solid var(--bdr)}
 .community{background:var(--white)}
 .community-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px}
 .member-list{display:flex;flex-direction:column;gap:1px;background:var(--bdr);border-radius:16px;overflow:hidden}
 .member-row{background:var(--white);padding:16px 20px;display:flex;align-items:center;gap:14px}
 .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:15px;flex-shrink:0}
-.av-lav{background:var(--lav);color:var(--lav-deep)}.av-blush{background:var(--blush);color:var(--blush-dark)}.av-green{background:#eaf3de;color:#3b6d11}
+.av-lav{background:var(--lav);color:var(--lav-deep)}.av-blush{background:var(--blush);color:var(--blush-dark)}.av-green{background:#eaf3de;color:#3b6d11}.av-amber{background:#faeeda;color:#854f0b}
 .member-name{font-size:14px;font-weight:500;color:var(--text)}.member-tag{font-size:12px;color:var(--muted)}
 .member-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500}
 .badge-host{background:var(--lav);color:var(--lav-deep)}.badge-new{background:var(--blush);color:var(--blush-dark)}
-
-/* WAITLIST */
 .waitlist{background:var(--text)}
 .waitlist .section-title{color:var(--white)}.waitlist .section-title em{color:var(--lav-mid)}.waitlist .section-desc{color:rgba(255,255,255,.5)}
 .waitlist-form{margin-top:48px;max-width:480px}
@@ -125,8 +110,6 @@ section{padding:80px 24px}
 .form-submit{width:100%;padding:14px;border-radius:12px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s;margin-top:10px}
 .form-submit:hover{background:var(--lav-deep)}.form-submit:disabled{opacity:.6;cursor:not-allowed}
 .form-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:12px}
-
-/* CONTACT */
 .contact-section{background:var(--cream)}
 .contact-form{max-width:560px;margin-top:48px}
 .contact-input,.contact-textarea{width:100%;padding:14px 18px;border-radius:12px;border:0.5px solid var(--bdr-mid);background:var(--white);color:var(--text);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px;transition:border-color .2s}
@@ -134,8 +117,6 @@ section{padding:80px 24px}
 .contact-input:focus,.contact-textarea:focus{border-color:var(--lav-dark)}
 .contact-submit{padding:14px 32px;border-radius:40px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .contact-submit:hover{background:var(--lav-deep)}.contact-submit:disabled{opacity:.6;cursor:not-allowed}
-
-/* FOOTER */
 footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .footer-logo{font-family:var(--serif);font-size:18px;font-weight:300;color:rgba(255,255,255,.6)}
 .footer-logo span{color:var(--lav-mid);font-style:italic}
@@ -143,16 +124,13 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
-
-/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,46,.75);z-index:200;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--white);border-radius:20px;padding:40px;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 .modal h3{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--text);margin-bottom:6px}
-.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:20px}
 .modal-input{width:100%;padding:12px 16px;border-radius:10px;border:0.5px solid var(--bdr-mid);background:var(--cream);color:var(--text);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px;transition:border-color .2s}
 .modal-input:focus{border-color:var(--lav-dark)}
-.modal-textarea{width:100%;padding:12px 16px;border-radius:10px;border:0.5px solid var(--bdr-mid);background:var(--cream);color:var(--text);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px;resize:vertical;min-height:80px}
 .modal-select{width:100%;padding:12px 16px;border-radius:10px;border:0.5px solid var(--bdr-mid);background:var(--cream);color:var(--text);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px}
 .modal-submit{width:100%;padding:13px;border-radius:10px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .modal-submit:hover{background:var(--lav-deep)}.modal-submit:disabled{opacity:.6;cursor:not-allowed}
@@ -160,56 +138,56 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .auth-tabs{display:flex;margin-bottom:24px;border-radius:10px;overflow:hidden;border:0.5px solid var(--bdr-mid)}
 .auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;background:var(--cream);color:var(--muted);border:none;font-family:var(--sans);transition:all .2s}
 .auth-tab.active{background:var(--lav-dark);color:#fff}
-.modal-label{font-size:12px;font-weight:500;color:var(--muted);margin-bottom:5px;display:block;letter-spacing:.03em}
-
-/* ADMIN PANEL */
+.modal-label{font-size:12px;font-weight:500;color:var(--muted);margin-bottom:5px;display:block;margin-top:4px}
+.file-upload-area{border:1.5px dashed var(--bdr-mid);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:border-color .2s;margin-bottom:12px;background:var(--cream)}
+.file-upload-area:hover{border-color:var(--lav-dark)}
+.file-upload-area input{display:none}
+.file-upload-label{font-size:13px;color:var(--muted)}
+.file-upload-label span{color:var(--lav-dark);font-weight:500;cursor:pointer}
+.file-selected{font-size:12px;color:var(--lav-deep);margin-top:6px;font-weight:500}
+.upload-progress{width:100%;height:4px;background:var(--lav);border-radius:2px;margin-bottom:12px;display:none}
+.upload-progress-bar{height:100%;background:var(--lav-dark);border-radius:2px;width:0%;transition:width .3s}
 .admin-panel{display:none;position:fixed;inset:0;z-index:500;background:#f8f7ff;overflow-y:auto}
 .admin-panel.open{display:block}
-.admin-nav{background:var(--text);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.admin-nav{background:var(--text);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:8px}
 .admin-nav-logo{font-family:var(--serif);font-size:18px;color:rgba(255,255,255,.7)}
 .admin-nav-logo span{color:var(--lav-mid);font-style:italic}
-.admin-tabs{display:flex;gap:4px}
-.admin-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;color:rgba(255,255,255,.5);background:transparent;border:none;font-family:var(--sans);transition:all .2s}
+.admin-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.admin-tab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;color:rgba(255,255,255,.5);background:transparent;border:none;font-family:var(--sans);transition:all .2s}
 .admin-tab.active{background:var(--lav-dark);color:#fff}
 .admin-close{font-size:13px;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;font-family:var(--sans)}
 .admin-close:hover{color:rgba(255,255,255,.8)}
 .admin-body{padding:32px;max-width:1000px;margin:0 auto}
 .admin-section{display:none}.admin-section.active{display:block}
-.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
 .admin-title{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--text)}
 .admin-add-btn{padding:10px 22px;border-radius:40px;background:var(--lav-dark);color:#fff;border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .admin-add-btn:hover{background:var(--lav-deep)}
 .admin-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;border:0.5px solid var(--bdr)}
 .admin-table th{padding:14px 20px;text-align:left;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:0.5px solid var(--bdr);background:var(--cream)}
-.admin-table td{padding:14px 20px;font-size:13px;color:var(--text);border-bottom:0.5px solid var(--bdr)}
+.admin-table td{padding:14px 20px;font-size:13px;color:var(--text);border-bottom:0.5px solid var(--bdr);vertical-align:top}
 .admin-table tr:last-child td{border-bottom:none}
 .admin-table tr:hover td{background:#faf8ff}
 .admin-action{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--bdr-mid);background:transparent;cursor:pointer;font-family:var(--sans);margin-right:4px;transition:all .2s}
-.admin-action.edit{color:var(--lav-dark);border-color:var(--lav-dark)}.admin-action.edit:hover{background:var(--lav);}.admin-action.del{color:var(--blush-dark);border-color:var(--blush-dark)}.admin-action.del:hover{background:var(--blush)}
+.admin-action.edit{color:var(--lav-dark);border-color:var(--lav-dark)}.admin-action.edit:hover{background:var(--lav)}
+.admin-action.del{color:var(--blush-dark);border-color:var(--blush-dark)}.admin-action.del:hover{background:var(--blush)}
+.admin-action.view{color:var(--muted);border-color:var(--bdr-mid)}.admin-action.view:hover{background:var(--lav)}
 .admin-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
 .admin-stat{background:var(--white);border-radius:16px;border:0.5px solid var(--bdr);padding:20px 24px}
 .admin-stat .stat-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .admin-stat .stat-value{font-family:var(--serif);font-size:40px;font-weight:300;color:var(--text);line-height:1.1;margin-top:4px}
 .admin-empty{padding:40px;text-align:center;font-size:14px;color:var(--muted)}
 .tag-pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blush);color:var(--blush-dark);font-weight:500}
-.delete-confirm{background:#fff0f0;border:0.5px solid #f7c1c1;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14px;color:#a32d2d}
-
-/* TOAST */
+.type-pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--lav);color:var(--lav-deep);font-weight:500}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--lav-deep);color:#fff;padding:14px 28px;border-radius:40px;font-size:14px;font-weight:500;transition:transform .4s cubic-bezier(.34,1.56,.64,1);z-index:600;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}.toast.error{background:#a32d2d}
-
-/* FADE */
 .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
 @media(max-width:768px){
   nav{padding:16px 20px}.nav-links,.nav-cta,.nav-login{display:none}.hamburger{display:flex}
   section{padding:60px 20px}.event-row{grid-template-columns:60px 1fr;gap:16px}.event-rsvp{display:none}
   .community-split{grid-template-columns:1fr;gap:32px}.hub-grid{grid-template-columns:1fr 1fr}
-  footer{flex-direction:column;align-items:flex-start}
-  .admin-tabs{gap:2px}.admin-tab{padding:6px 10px;font-size:11px}
-  .admin-body{padding:16px}
+  footer{flex-direction:column;align-items:flex-start}.admin-body{padding:16px}
 }
 @media(max-width:480px){.hub-grid,.pillars-grid{grid-template-columns:1fr}}
 </style>
@@ -241,14 +219,13 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   <a href="#lista" onclick="toggleMenu()" class="btn-primary">Únete</a>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content fade-in">
     <div class="hero-badge" data-es="Comunidad de bienestar femenino" data-en="Women's wellness community">Comunidad de bienestar femenino</div>
     <h1>Ella <em>Vibra</em></h1>
     <p class="hero-sub" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</p>
-    <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la terapia, el coaching, la sanación sonora y la comunidad." data-en="A sacred space for women seeking transformation through therapy, coaching, sound healing, and community.">Un espacio sagrado para mujeres que buscan transformación a través de la terapia, el coaching, la sanación sonora y la comunidad.</p>
+    <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad." data-en="A sacred space for women seeking transformation through therapeutic guidance, meditation, nutrition, and community.">Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad.</p>
     <div class="hero-actions">
       <a href="#lista" class="btn-primary" data-es="Reservar mi lugar" data-en="Save my spot">Reservar mi lugar</a>
       <a href="#eventos" class="btn-ghost" data-es="Ver eventos" data-en="See events">Ver eventos</a>
@@ -267,37 +244,55 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 <section class="pillars" id="pilares">
   <div class="section-inner">
     <p class="section-label" data-es="Lo que ofrecemos" data-en="What we offer">Lo que ofrecemos</p>
-    <h2 class="section-title">Cuatro pilares de <em>transformación</em></h2>
+    <h2 class="section-title">Cinco pilares de <em>transformación</em></h2>
     <div class="pillars-grid fade-in">
-      <div class="pillar-card"><div class="pillar-icon">✦</div><h3 class="pillar-title" data-es="Psicoterapia" data-en="Psychotherapy">Psicoterapia</h3><p class="pillar-desc" data-es="Sesiones individuales y grupales para sanar desde adentro, integrar experiencias y construir una vida más plena." data-en="Individual and group sessions to heal from within, integrate experiences, and build a fuller life.">Sesiones individuales y grupales para sanar desde adentro.</p></div>
-      <div class="pillar-card"><div class="pillar-icon">◎</div><h3 class="pillar-title" data-es="Coaching" data-en="Coaching">Coaching</h3><p class="pillar-desc" data-es="Acompañamiento para clarificar tu visión, superar bloqueos y dar pasos concretos hacia quien deseas ser." data-en="Guidance to clarify your vision, overcome blocks, and take concrete steps toward who you want to become.">Acompañamiento para clarificar tu visión y superar bloqueos.</p></div>
-      <div class="pillar-card"><div class="pillar-icon">♪</div><h3 class="pillar-title" data-es="Sanación sonora" data-en="Sound healing">Sanación sonora</h3><p class="pillar-desc" data-es="Círculos de cuencos tibetanos, meditaciones guiadas y experiencias sonoras para equilibrar cuerpo y mente." data-en="Tibetan bowl circles, guided meditations, and sound experiences to balance body and mind.">Círculos de cuencos tibetanos y meditaciones guiadas.</p></div>
-      <div class="pillar-card"><div class="pillar-icon">❋</div><h3 class="pillar-title" data-es="Comunidad" data-en="Community">Comunidad</h3><p class="pillar-desc" data-es="Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola." data-en="A space where women meet, support each other, and grow together. Because no journey is made alone.">Un espacio donde mujeres se encuentran y crecen juntas.</p></div>
+      <div class="pillar-card">
+        <div class="pillar-icon">✦</div>
+        <h3 class="pillar-title" data-es="Acompañamiento terapéutico" data-en="Therapeutic guidance">Acompañamiento terapéutico</h3>
+        <p class="pillar-desc" data-es="Un espacio seguro para explorar tus emociones, sanar heridas y avanzar hacia una versión más plena de ti misma." data-en="A safe space to explore your emotions, heal wounds, and move toward a fuller version of yourself.">Un espacio seguro para explorar tus emociones, sanar heridas y avanzar hacia una versión más plena de ti misma.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">◎</div>
+        <h3 class="pillar-title" data-es="Bienestar emocional" data-en="Emotional wellness">Bienestar emocional</h3>
+        <p class="pillar-desc" data-es="Herramientas prácticas para regular tu sistema nervioso, gestionar el estrés y cultivar equilibrio en tu vida diaria." data-en="Practical tools to regulate your nervous system, manage stress, and cultivate balance in your daily life.">Herramientas prácticas para regular tu sistema nervioso, gestionar el estrés y cultivar equilibrio en tu vida diaria.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">♪</div>
+        <h3 class="pillar-title" data-es="Meditación & Sanación sonora" data-en="Meditation & Sound healing">Meditación & Sanación sonora</h3>
+        <p class="pillar-desc" data-es="Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente." data-en="Guided meditations, conscious breathing, and Tibetan bowl circles to balance body and mind.">Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">❋</div>
+        <h3 class="pillar-title" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</h3>
+        <p class="pillar-desc" data-es="Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Con enfoque integral y sin dietas." data-en="Guidance to nourish your body from a place of love, not restriction. Holistic approach, no diets.">Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Con enfoque integral y sin dietas.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🤍</div>
+        <h3 class="pillar-title" data-es="Comunidad" data-en="Community">Comunidad</h3>
+        <p class="pillar-desc" data-es="Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola." data-en="A space where women meet, support each other, and grow together. Because no journey is made alone.">Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- EVENTS (dynamic) -->
+<!-- EVENTS -->
 <section class="events" id="eventos">
   <div class="section-inner">
     <p class="section-label" data-es="Próximos eventos" data-en="Upcoming events">Próximos eventos</p>
     <h2 class="section-title">Encuentra tu <em>momento</em></h2>
     <div class="events-grid fade-in" id="events-grid">
-      <div class="events-loading">Cargando eventos...</div>
+      <div class="events-empty">Cargando eventos...</div>
     </div>
   </div>
 </section>
 
-<!-- HUB -->
+<!-- RESOURCES -->
 <section class="hub" id="recursos">
   <div class="section-inner">
     <p class="section-label" data-es="Recursos" data-en="Resources">Recursos</p>
     <h2 class="section-title">Herramientas para tu <em>camino</em></h2>
-    <div class="hub-grid fade-in">
-      <div class="hub-card"><div class="hub-thumb audio">🎵</div><div class="hub-body"><div class="hub-type">Audio</div><div class="hub-title" data-es="Meditación guiada para soltar" data-en="Guided meditation for release">Meditación guiada para soltar</div><div class="hub-duration">20 min</div></div></div>
-      <div class="hub-card"><div class="hub-thumb video">▶</div><div class="hub-body"><div class="hub-type">Video</div><div class="hub-title" data-es="Introducción al trauma" data-en="Introduction to trauma">Introducción al trauma</div><div class="hub-duration">35 min</div></div></div>
-      <div class="hub-card"><div class="hub-thumb guide">📄</div><div class="hub-body"><div class="hub-type" data-es="Guía" data-en="Guide">Guía</div><div class="hub-title" data-es="Regulación nerviosa en 5 pasos" data-en="Nervous regulation in 5 steps">Regulación nerviosa en 5 pasos</div><div class="hub-duration" data-es="PDF descargable" data-en="Downloadable PDF">PDF descargable</div></div></div>
-      <div class="hub-card"><div class="hub-thumb meditation">✦</div><div class="hub-body"><div class="hub-type">Audio</div><div class="hub-title" data-es="Cuencos tibetanos" data-en="Tibetan bowls">Cuencos tibetanos</div><div class="hub-duration">20 min</div></div></div>
+    <div id="hub-container">
+      <div class="hub-empty">Cargando recursos...</div>
     </div>
   </div>
 </section>
@@ -313,10 +308,10 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
         <a href="#lista" class="btn-primary" data-es="Unirme a la comunidad" data-en="Join the community">Unirme a la comunidad</a>
       </div>
       <div class="member-list fade-in">
-        <div class="member-row"><div class="avatar av-lav">CG</div><div><div class="member-name">Camila García</div><div class="member-tag" data-es="Fundadora · Terapeuta" data-en="Founder · Therapist">Fundadora · Terapeuta</div></div><span class="member-badge badge-host">Host</span></div>
-        <div class="member-row"><div class="avatar av-blush">SR</div><div><div class="member-name">Sofía Ramos</div><div class="member-tag">Psicología · Bienestar</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
-        <div class="member-row"><div class="avatar av-green">LM</div><div><div class="member-name">Lucía Martínez</div><div class="member-tag">Coaching · Escritura</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
-        <div class="member-row"><div class="avatar av-lav">AP</div><div><div class="member-name">Andrea Pérez</div><div class="member-tag" data-es="Sanación sonora" data-en="Sound healing">Sanación sonora</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
+        <div class="member-row"><div class="avatar av-lav">CG</div><div><div class="member-name">Camila García</div><div class="member-tag" data-es="Fundadora · Acompañamiento terapéutico" data-en="Founder · Therapeutic guidance">Fundadora · Acompañamiento terapéutico</div></div><span class="member-badge badge-host">Host</span></div>
+        <div class="member-row"><div class="avatar av-amber">NN</div><div><div class="member-name" data-es="Tu amiga nutricionista" data-en="Nutritionist">Tu amiga nutricionista</div><div class="member-tag" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</div></div><span class="member-badge badge-host">Host</span></div>
+        <div class="member-row"><div class="avatar av-blush">SR</div><div><div class="member-name">Sofía Ramos</div><div class="member-tag">Bienestar · Meditación</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
+        <div class="member-row"><div class="avatar av-green">LM</div><div><div class="member-name">Lucía Martínez</div><div class="member-tag">Sanación sonora</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
       </div>
     </div>
   </div>
@@ -358,7 +353,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   <div class="footer-links">
     <a href="#pilares">Pilares</a><a href="#eventos">Eventos</a>
     <a href="#recursos">Recursos</a><a href="#contacto">Contacto</a>
-    <a href="#" onclick="openAdminLogin();return false;" style="color:rgba(255,255,255,.1)">·</a>
+    <a href="#" onclick="openAdminLogin();return false;" style="color:rgba(255,255,255,.08)">·</a>
   </div>
   <div class="footer-copy">© 2026 Ella Vibra</div>
 </footer>
@@ -369,9 +364,9 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <button class="modal-close" onclick="closeRSVP()">×</button>
     <h3 id="rsvp-title">Reservar lugar</h3>
     <p data-es="Te confirmaremos por correo." data-en="We'll confirm by email.">Te confirmaremos por correo.</p>
-    <input class="modal-input" type="text" id="rsvp-name" placeholder="Tu nombre" data-placeholder-es="Tu nombre" data-placeholder-en="Your name">
-    <input class="modal-input" type="email" id="rsvp-email" placeholder="Tu correo" data-placeholder-es="Tu correo" data-placeholder-en="Your email">
-    <button class="modal-submit" onclick="submitRSVP()" id="rsvp-btn" data-es="Confirmar ✦" data-en="Confirm ✦">Confirmar ✦</button>
+    <input class="modal-input" type="text" id="rsvp-name" placeholder="Tu nombre">
+    <input class="modal-input" type="email" id="rsvp-email" placeholder="Tu correo">
+    <button class="modal-submit" onclick="submitRSVP()" id="rsvp-btn">Confirmar ✦</button>
   </div>
 </div>
 
@@ -382,8 +377,8 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <h3 data-es="Bienvenida" data-en="Welcome">Bienvenida</h3>
     <p data-es="Tu espacio en Ella Vibra." data-en="Your space in Ella Vibra.">Tu espacio en Ella Vibra.</p>
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tab-login" onclick="setAuthTab('login')" data-es="Iniciar sesión" data-en="Sign in">Iniciar sesión</button>
-      <button class="auth-tab" id="tab-signup" onclick="setAuthTab('signup')" data-es="Crear cuenta" data-en="Create account">Crear cuenta</button>
+      <button class="auth-tab active" id="tab-login" onclick="setAuthTab('login')">Iniciar sesión</button>
+      <button class="auth-tab" id="tab-signup" onclick="setAuthTab('signup')">Crear cuenta</button>
     </div>
     <input class="modal-input" type="text" id="auth-name" placeholder="Tu nombre" style="display:none">
     <input class="modal-input" type="email" id="auth-email" placeholder="Tu correo">
@@ -392,7 +387,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   </div>
 </div>
 
-<!-- ADMIN LOGIN MODAL -->
+<!-- ADMIN LOGIN -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('adminLoginModal').classList.remove('open')">×</button>
@@ -411,23 +406,59 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <h3 id="event-form-title">Nuevo evento</h3>
     <p>Completa los campos del evento.</p>
     <input type="hidden" id="ef-id">
-    <label class="modal-label">Título (español)</label>
-    <input class="modal-input" type="text" id="ef-title-es" placeholder="Ej: Círculo de sanación sonora">
+    <label class="modal-label">Título (español) *</label>
+    <input class="modal-input" type="text" id="ef-title-es" placeholder="Círculo de sanación sonora">
     <label class="modal-label">Título (inglés)</label>
-    <input class="modal-input" type="text" id="ef-title-en" placeholder="Ex: Sound healing circle">
-    <label class="modal-label">Mes</label>
-    <input class="modal-input" type="text" id="ef-month" placeholder="Ej: ABR, MAY, JUN">
-    <label class="modal-label">Día</label>
-    <input class="modal-input" type="number" id="ef-day" placeholder="Ej: 15" min="1" max="31">
-    <label class="modal-label">Hora</label>
-    <input class="modal-input" type="text" id="ef-time" placeholder="Ej: 7:00 PM">
-    <label class="modal-label">Lugar</label>
+    <input class="modal-input" type="text" id="ef-title-en" placeholder="Sound healing circle">
+    <label class="modal-label">Mes *</label>
+    <input class="modal-input" type="text" id="ef-month" placeholder="ABR, MAY, JUN...">
+    <label class="modal-label">Día *</label>
+    <input class="modal-input" type="number" id="ef-day" placeholder="15" min="1" max="31">
+    <label class="modal-label">Hora *</label>
+    <input class="modal-input" type="text" id="ef-time" placeholder="7:00 PM">
+    <label class="modal-label">Lugar *</label>
     <input class="modal-input" type="text" id="ef-location" placeholder="Zoom / Presencial / Miami">
-    <label class="modal-label">Precio</label>
+    <label class="modal-label">Precio *</label>
     <input class="modal-input" type="text" id="ef-price" placeholder="Gratis / $45 / $120">
-    <label class="modal-label">Categoría</label>
+    <label class="modal-label">Categoría *</label>
     <input class="modal-input" type="text" id="ef-tag" placeholder="Sound healing / Coaching / Wellness">
     <button class="modal-submit" onclick="saveEvent()" id="ef-btn">Guardar evento ✦</button>
+  </div>
+</div>
+
+<!-- RESOURCE FORM MODAL -->
+<div class="modal-overlay" id="resourceFormModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeResourceForm()">×</button>
+    <h3 id="resource-form-title">Nuevo recurso</h3>
+    <p>Sube un archivo o agrega un recurso.</p>
+    <input type="hidden" id="rf-id">
+    <label class="modal-label">Título (español) *</label>
+    <input class="modal-input" type="text" id="rf-title-es" placeholder="Meditación guiada para soltar">
+    <label class="modal-label">Título (inglés)</label>
+    <input class="modal-input" type="text" id="rf-title-en" placeholder="Guided meditation for release">
+    <label class="modal-label">Tipo *</label>
+    <select class="modal-select" id="rf-type">
+      <option value="audio">Audio</option>
+      <option value="video">Video</option>
+      <option value="pdf">PDF / Guía</option>
+      <option value="meditation">Meditación</option>
+      <option value="other">Otro</option>
+    </select>
+    <label class="modal-label">Duración / descripción corta</label>
+    <input class="modal-input" type="text" id="rf-duration" placeholder="20 min / PDF descargable">
+    <label class="modal-label">Archivo</label>
+    <div class="file-upload-area" onclick="document.getElementById('rf-file').click()">
+      <input type="file" id="rf-file" accept=".pdf,.mp3,.mp4,.m4a,.wav,.jpg,.png" onchange="handleFileSelect()">
+      <div class="file-upload-label">Arrastra aquí o <span>selecciona un archivo</span></div>
+      <div class="file-selected" id="rf-file-name"></div>
+    </div>
+    <div class="upload-progress" id="upload-progress">
+      <div class="upload-progress-bar" id="upload-progress-bar"></div>
+    </div>
+    <label class="modal-label">O pega una URL externa</label>
+    <input class="modal-input" type="url" id="rf-url" placeholder="https://...">
+    <button class="modal-submit" onclick="saveResource()" id="rf-btn">Guardar recurso ✦</button>
   </div>
 </div>
 
@@ -436,40 +467,50 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   <div class="admin-nav">
     <div class="admin-nav-logo">Ella <span>Vibra</span> · Admin</div>
     <div class="admin-tabs">
-      <button class="admin-tab active" onclick="showAdminTab('dashboard')">Dashboard</button>
-      <button class="admin-tab" onclick="showAdminTab('events')">Eventos</button>
-      <button class="admin-tab" onclick="showAdminTab('waitlist')">Lista de espera</button>
-      <button class="admin-tab" onclick="showAdminTab('rsvps')">RSVPs</button>
-      <button class="admin-tab" onclick="showAdminTab('contacts')">Mensajes</button>
+      <button class="admin-tab active" onclick="showAdminTab('dashboard',event)">Dashboard</button>
+      <button class="admin-tab" onclick="showAdminTab('events',event)">Eventos</button>
+      <button class="admin-tab" onclick="showAdminTab('resources',event)">Recursos</button>
+      <button class="admin-tab" onclick="showAdminTab('waitlist',event)">Lista espera</button>
+      <button class="admin-tab" onclick="showAdminTab('rsvps',event)">RSVPs</button>
+      <button class="admin-tab" onclick="showAdminTab('contacts',event)">Mensajes</button>
     </div>
-    <button class="admin-close" onclick="closeAdmin()">Salir del panel ×</button>
+    <button class="admin-close" onclick="closeAdmin()">Salir ×</button>
   </div>
   <div class="admin-body">
 
-    <!-- DASHBOARD -->
     <div class="admin-section active" id="admin-dashboard">
       <div class="admin-header"><h2 class="admin-title">Dashboard</h2></div>
-      <div class="admin-stat-grid" id="dash-stats">
+      <div class="admin-stat-grid">
         <div class="admin-stat"><div class="stat-label">Lista de espera</div><div class="stat-value" id="stat-waitlist">—</div></div>
         <div class="admin-stat"><div class="stat-label">RSVPs totales</div><div class="stat-value" id="stat-rsvps">—</div></div>
         <div class="admin-stat"><div class="stat-label">Mensajes</div><div class="stat-value" id="stat-contacts">—</div></div>
         <div class="admin-stat"><div class="stat-label">Eventos activos</div><div class="stat-value" id="stat-events">—</div></div>
+        <div class="admin-stat"><div class="stat-label">Recursos</div><div class="stat-value" id="stat-resources">—</div></div>
       </div>
     </div>
 
-    <!-- EVENTS -->
     <div class="admin-section" id="admin-events">
       <div class="admin-header">
         <h2 class="admin-title">Eventos</h2>
         <button class="admin-add-btn" onclick="openEventForm()">+ Nuevo evento</button>
       </div>
       <table class="admin-table">
-        <thead><tr><th>Fecha</th><th>Título</th><th>Lugar</th><th>Precio</th><th>Categoría</th><th>Acciones</th></tr></thead>
+        <thead><tr><th>Fecha</th><th>Título</th><th>Lugar · Hora</th><th>Precio</th><th>Categoría</th><th>Acciones</th></tr></thead>
         <tbody id="events-tbody"><tr><td colspan="6" class="admin-empty">Cargando...</td></tr></tbody>
       </table>
     </div>
 
-    <!-- WAITLIST -->
+    <div class="admin-section" id="admin-resources">
+      <div class="admin-header">
+        <h2 class="admin-title">Recursos</h2>
+        <button class="admin-add-btn" onclick="openResourceForm()">+ Nuevo recurso</button>
+      </div>
+      <table class="admin-table">
+        <thead><tr><th>Título</th><th>Tipo</th><th>Duración</th><th>Archivo</th><th>Acciones</th></tr></thead>
+        <tbody id="resources-tbody"><tr><td colspan="5" class="admin-empty">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+
     <div class="admin-section" id="admin-waitlist">
       <div class="admin-header"><h2 class="admin-title">Lista de espera</h2></div>
       <table class="admin-table">
@@ -478,7 +519,6 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
       </table>
     </div>
 
-    <!-- RSVPS -->
     <div class="admin-section" id="admin-rsvps">
       <div class="admin-header"><h2 class="admin-title">RSVPs</h2></div>
       <table class="admin-table">
@@ -487,7 +527,6 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
       </table>
     </div>
 
-    <!-- CONTACTS -->
     <div class="admin-section" id="admin-contacts">
       <div class="admin-header"><h2 class="admin-title">Mensajes</h2></div>
       <table class="admin-table">
@@ -511,6 +550,10 @@ let lang = 'es';
 let rsvpEvent = '';
 let authMode = 'login';
 let editingEventId = null;
+let editingResourceId = null;
+
+const TYPE_ICONS = {audio:'🎵',video:'▶',pdf:'📄',meditation:'✦',other:'📎'};
+const TYPE_LABELS = {audio:'Audio',video:'Video',pdf:'PDF / Guía',meditation:'Meditación',other:'Recurso'};
 
 function toast(msg, err) {
   const t = document.getElementById('toast');
@@ -530,28 +573,47 @@ function setLang(l, e) {
   document.querySelectorAll('[data-placeholder-es]').forEach(el=>{
     el.placeholder=el.getAttribute('data-placeholder-'+l)||el.placeholder;
   });
+  loadEvents(); loadResources();
 }
 
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
 
 // EVENTS
 async function loadEvents() {
-  const {data,error} = await sb.from('events').select('*').eq('active',true).order('day');
-  const grid = document.getElementById('events-grid');
-  if(error||!data||data.length===0){grid.innerHTML='<div class="events-loading">No hay eventos próximos.</div>';return;}
-  grid.innerHTML = data.map(ev=>`
+  const {data,error}=await sb.from('events').select('*').eq('active',true).order('day');
+  const grid=document.getElementById('events-grid');
+  if(error||!data||data.length===0){grid.innerHTML='<div class="events-empty">No hay eventos próximos.</div>';return;}
+  grid.innerHTML=data.map(ev=>`
     <div class="event-row">
       <div class="event-date"><div class="month">${ev.month}</div><div class="day">${ev.day}</div></div>
       <div class="event-info">
-        <h3>${lang==='es'?ev.title_es:ev.title_en}</h3>
+        <h3>${lang==='es'?ev.title_es:(ev.title_en||ev.title_es)}</h3>
         <p class="event-meta">${ev.time} · ${ev.location} · ${ev.price}</p>
         <span class="event-tag">${ev.tag}</span>
       </div>
-      <button class="event-rsvp" onclick="openRSVP('${(lang==='es'?ev.title_es:ev.title_en).replace(/'/g,"\\'")}')">
+      <button class="event-rsvp" onclick="openRSVP('${(lang==='es'?ev.title_es:(ev.title_en||ev.title_es)).replace(/'/g,"\\'")}')">
         ${lang==='es'?'Reservar':'RSVP'}
       </button>
     </div>
   `).join('');
+}
+
+// RESOURCES
+async function loadResources() {
+  const {data,error}=await sb.from('resources').select('*').eq('active',true).order('created_at',{ascending:false});
+  const container=document.getElementById('hub-container');
+  if(error||!data||data.length===0){container.innerHTML='<div class="hub-empty">Los recursos estarán disponibles pronto.</div>';return;}
+  container.innerHTML=`<div class="hub-grid">${data.map(r=>`
+    <div class="hub-card">
+      <div class="hub-thumb ${r.type}">${TYPE_ICONS[r.type]||'📎'}</div>
+      <div class="hub-body">
+        <div class="hub-type">${TYPE_LABELS[r.type]||r.type}</div>
+        <div class="hub-title">${lang==='es'?r.title_es:(r.title_en||r.title_es)}</div>
+        ${r.duration?`<div class="hub-duration">${r.duration}</div>`:''}
+        ${r.file_url?`<a class="hub-link" href="${r.file_url}" target="_blank">${lang==='es'?'Ver recurso →':'View resource →'}</a>`:''}
+      </div>
+    </div>
+  `).join('')}</div>`;
 }
 
 // WAITLIST
@@ -629,7 +691,7 @@ async function submitAdminLogin(){
   const email=document.getElementById('admin-email').value.trim();
   const pass=document.getElementById('admin-pass').value;
   const btn=document.getElementById('admin-login-btn'); btn.disabled=true;
-  const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
   if(error){toast('Acceso denegado.',true);btn.disabled=false;return;}
   document.getElementById('adminLoginModal').classList.remove('open');
   document.getElementById('admin-email').value='';
@@ -638,33 +700,32 @@ async function submitAdminLogin(){
   btn.disabled=false;
 }
 
-// ADMIN PANEL
+// ADMIN
 async function openAdmin(){
   document.getElementById('adminPanel').classList.add('open');
-  loadDashboard(); loadAdminEvents(); loadWaitlist(); loadRSVPs(); loadContacts();
+  loadDashboard(); loadAdminEvents(); loadAdminResources(); loadWaitlist(); loadRSVPs(); loadContacts();
 }
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open')}
-
-function showAdminTab(tab){
+function showAdminTab(tab,e){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('admin-'+tab).classList.add('active');
-  event.target.classList.add('active');
+  if(e&&e.target) e.target.classList.add('active');
 }
-
 async function loadDashboard(){
-  const [w,r,c,e]=await Promise.all([
+  const [w,r,c,ev,res]=await Promise.all([
     sb.from('waitlist').select('id',{count:'exact',head:true}),
     sb.from('rsvps').select('id',{count:'exact',head:true}),
     sb.from('contacts').select('id',{count:'exact',head:true}),
-    sb.from('events').select('id',{count:'exact',head:true}).eq('active',true)
+    sb.from('events').select('id',{count:'exact',head:true}).eq('active',true),
+    sb.from('resources').select('id',{count:'exact',head:true}).eq('active',true)
   ]);
   document.getElementById('stat-waitlist').textContent=w.count??0;
   document.getElementById('stat-rsvps').textContent=r.count??0;
   document.getElementById('stat-contacts').textContent=c.count??0;
-  document.getElementById('stat-events').textContent=e.count??0;
+  document.getElementById('stat-events').textContent=ev.count??0;
+  document.getElementById('stat-resources').textContent=res.count??0;
 }
-
 async function loadAdminEvents(){
   const {data}=await sb.from('events').select('*').order('month').order('day');
   const tbody=document.getElementById('events-tbody');
@@ -683,54 +744,66 @@ async function loadAdminEvents(){
     </tr>
   `).join('');
 }
-
+async function loadAdminResources(){
+  const {data}=await sb.from('resources').select('*').order('created_at',{ascending:false});
+  const tbody=document.getElementById('resources-tbody');
+  if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="5" class="admin-empty">No hay recursos.</td></tr>';return;}
+  tbody.innerHTML=data.map(r=>`
+    <tr>
+      <td>${r.title_es}</td>
+      <td><span class="type-pill">${TYPE_LABELS[r.type]||r.type}</span></td>
+      <td>${r.duration||'—'}</td>
+      <td>${r.file_url?`<a href="${r.file_url}" target="_blank" style="color:var(--lav-dark);font-size:12px">Ver archivo</a>`:'—'}</td>
+      <td>
+        <button class="admin-action edit" onclick="editResource('${r.id}')">Editar</button>
+        <button class="admin-action del" onclick="deleteResource('${r.id}')">Eliminar</button>
+      </td>
+    </tr>
+  `).join('');
+}
 async function loadWaitlist(){
   const {data}=await sb.from('waitlist').select('*').order('created_at',{ascending:false});
   const tbody=document.getElementById('waitlist-tbody');
   if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="3" class="admin-empty">Nadie aún.</td></tr>';return;}
   tbody.innerHTML=data.map(r=>`<tr><td>${r.name}</td><td>${r.email}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
 }
-
 async function loadRSVPs(){
   const {data}=await sb.from('rsvps').select('*').order('created_at',{ascending:false});
   const tbody=document.getElementById('rsvps-tbody');
   if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="4" class="admin-empty">Sin RSVPs aún.</td></tr>';return;}
   tbody.innerHTML=data.map(r=>`<tr><td>${r.name}</td><td>${r.email}</td><td>${r.event_name}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
 }
-
 async function loadContacts(){
   const {data}=await sb.from('contacts').select('*').order('created_at',{ascending:false});
   const tbody=document.getElementById('contacts-tbody');
   if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="4" class="admin-empty">Sin mensajes aún.</td></tr>';return;}
-  tbody.innerHTML=data.map(r=>`<tr><td>${r.name}</td><td>${r.email}</td><td style="max-width:300px;word-break:break-word">${r.message}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
+  tbody.innerHTML=data.map(r=>`<tr><td>${r.name}</td><td>${r.email}</td><td style="max-width:280px;word-break:break-word">${r.message}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
 }
 
 // EVENT CRUD
-function openEventForm(ev){
+function openEventForm(){
   editingEventId=null;
   document.getElementById('event-form-title').textContent='Nuevo evento';
   ['ef-id','ef-title-es','ef-title-en','ef-month','ef-day','ef-time','ef-location','ef-price','ef-tag'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('eventFormModal').classList.add('open');
 }
 function closeEventForm(){document.getElementById('eventFormModal').classList.remove('open')}
-
 async function editEvent(id){
   const {data}=await sb.from('events').select('*').eq('id',id).single();
   if(!data) return;
   editingEventId=id;
   document.getElementById('event-form-title').textContent='Editar evento';
   document.getElementById('ef-id').value=data.id;
-  document.getElementById('ef-title-es').value=data.title_es;
-  document.getElementById('ef-title-en').value=data.title_en;
-  document.getElementById('ef-month').value=data.month;
-  document.getElementById('ef-day').value=data.day;
-  document.getElementById('ef-time').value=data.time;
-  document.getElementById('ef-location').value=data.location;
-  document.getElementById('ef-price').value=data.price;
-  document.getElementById('ef-tag').value=data.tag;
+  document.getElementById('ef-title-es').value=data.title_es||'';
+  document.getElementById('ef-title-en').value=data.title_en||'';
+  document.getElementById('ef-month').value=data.month||'';
+  document.getElementById('ef-day').value=data.day||'';
+  document.getElementById('ef-time').value=data.time||'';
+  document.getElementById('ef-location').value=data.location||'';
+  document.getElementById('ef-price').value=data.price||'';
+  document.getElementById('ef-tag').value=data.tag||'';
   document.getElementById('eventFormModal').classList.add('open');
 }
-
 async function saveEvent(){
   const payload={
     title_es:document.getElementById('ef-title-es').value.trim(),
@@ -742,24 +815,91 @@ async function saveEvent(){
     price:document.getElementById('ef-price').value.trim(),
     tag:document.getElementById('ef-tag').value.trim()
   };
-  if(!payload.title_es||!payload.month||!payload.day){toast('Completa los campos obligatorios.',true);return;}
+  if(!payload.title_es||!payload.month||!payload.day){toast('Completa los campos obligatorios (*)',true);return;}
   const btn=document.getElementById('ef-btn'); btn.disabled=true;
   let error;
-  if(editingEventId){
-    ({error}=await sb.from('events').update(payload).eq('id',editingEventId));
-  } else {
-    ({error}=await sb.from('events').insert([payload]));
-  }
+  if(editingEventId){({error}=await sb.from('events').update(payload).eq('id',editingEventId));}
+  else{({error}=await sb.from('events').insert([payload]));}
   if(error){toast('Error al guardar.',true);}
   else{closeEventForm();toast('Evento guardado ✦');loadAdminEvents();loadEvents();loadDashboard();}
   btn.disabled=false;
 }
-
 async function deleteEvent(id){
   if(!confirm('¿Eliminar este evento?')) return;
   const {error}=await sb.from('events').delete().eq('id',id);
   if(error){toast('Error al eliminar.',true);}
   else{toast('Evento eliminado.');loadAdminEvents();loadEvents();loadDashboard();}
+}
+
+// RESOURCE CRUD
+function openResourceForm(){
+  editingResourceId=null;
+  document.getElementById('resource-form-title').textContent='Nuevo recurso';
+  ['rf-id','rf-title-es','rf-title-en','rf-duration','rf-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('rf-type').value='audio';
+  document.getElementById('rf-file-name').textContent='';
+  document.getElementById('rf-file').value='';
+  document.getElementById('upload-progress').style.display='none';
+  document.getElementById('resourceFormModal').classList.add('open');
+}
+function closeResourceForm(){document.getElementById('resourceFormModal').classList.remove('open')}
+function handleFileSelect(){
+  const file=document.getElementById('rf-file').files[0];
+  if(file) document.getElementById('rf-file-name').textContent=file.name;
+}
+async function editResource(id){
+  const {data}=await sb.from('resources').select('*').eq('id',id).single();
+  if(!data) return;
+  editingResourceId=id;
+  document.getElementById('resource-form-title').textContent='Editar recurso';
+  document.getElementById('rf-id').value=data.id;
+  document.getElementById('rf-title-es').value=data.title_es||'';
+  document.getElementById('rf-title-en').value=data.title_en||'';
+  document.getElementById('rf-type').value=data.type||'audio';
+  document.getElementById('rf-duration').value=data.duration||'';
+  document.getElementById('rf-url').value=data.file_url||'';
+  document.getElementById('rf-file-name').textContent='';
+  document.getElementById('resourceFormModal').classList.add('open');
+}
+async function saveResource(){
+  const titleEs=document.getElementById('rf-title-es').value.trim();
+  if(!titleEs){toast('El título en español es obligatorio.',true);return;}
+  const btn=document.getElementById('rf-btn'); btn.disabled=true;
+  let fileUrl=document.getElementById('rf-url').value.trim();
+  const file=document.getElementById('rf-file').files[0];
+  if(file){
+    const progress=document.getElementById('upload-progress');
+    const bar=document.getElementById('upload-progress-bar');
+    progress.style.display='block'; bar.style.width='30%';
+    const ext=file.name.split('.').pop();
+    const path=`${Date.now()}-${Math.random().toString(36).substr(2,8)}.${ext}`;
+    const {data:uploadData,error:uploadError}=await sb.storage.from('resources').upload(path,file,{cacheControl:'3600',upsert:false});
+    bar.style.width='80%';
+    if(uploadError){toast('Error al subir el archivo.',true);btn.disabled=false;progress.style.display='none';return;}
+    const {data:urlData}=sb.storage.from('resources').getPublicUrl(path);
+    fileUrl=urlData.publicUrl;
+    bar.style.width='100%';
+    setTimeout(()=>{progress.style.display='none';bar.style.width='0%';},500);
+  }
+  const payload={
+    title_es:titleEs,
+    title_en:document.getElementById('rf-title-en').value.trim(),
+    type:document.getElementById('rf-type').value,
+    duration:document.getElementById('rf-duration').value.trim(),
+    file_url:fileUrl||null
+  };
+  let error;
+  if(editingResourceId){({error}=await sb.from('resources').update(payload).eq('id',editingResourceId));}
+  else{({error}=await sb.from('resources').insert([payload]));}
+  if(error){toast('Error al guardar.',true);}
+  else{closeResourceForm();toast('Recurso guardado ✦');loadAdminResources();loadResources();loadDashboard();}
+  btn.disabled=false;
+}
+async function deleteResource(id){
+  if(!confirm('¿Eliminar este recurso?')) return;
+  const {error}=await sb.from('resources').delete().eq('id',id);
+  if(error){toast('Error al eliminar.',true);}
+  else{toast('Recurso eliminado.');loadAdminResources();loadResources();loadDashboard();}
 }
 
 // FADE IN
@@ -769,6 +909,7 @@ setTimeout(()=>document.querySelector('.hero .fade-in').classList.add('visible')
 
 // INIT
 loadEvents();
+loadResources();
 </script>
 </body>
 </html>
