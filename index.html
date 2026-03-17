@@ -124,7 +124,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,46,.75);z-index:200;align-items:center;justify-content:center;padding:24px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,46,.75);z-index:600;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--white);border-radius:20px;padding:40px;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 .modal h3{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--text);margin-bottom:6px}
@@ -624,7 +624,7 @@ async function submitWaitlist() {
   const btn=document.getElementById('wl-btn'); btn.disabled=true; btn.textContent='...';
   const {error}=await sb.from('waitlist').insert([{name,email}]);
   if(error){toast(error.code==='23505'?(lang==='es'?'Ya estás en la lista ✦':'Already on the list ✦'):(lang==='es'?'Algo salió mal.':'Something went wrong.'),error.code!=='23505');}
-  else{document.getElementById('wl-name').value='';document.getElementById('wl-email').value='';toast(lang==='es'?'¡Listo! Te avisamos pronto ✦':'Done! We\'ll be in touch ✦');}
+  else{document.getElementById('wl-name').value='';document.getElementById('wl-email').value='';toast(lang==='es'?'¡Listo! Te avisamos pronto ✦':'Done! We\'ll be in touch ✦');loadWaitlist();loadDashboard();}
   btn.disabled=false; btn.textContent=lang==='es'?'Reservar mi lugar ✦':'Save my spot ✦';
 }
 
