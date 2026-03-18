@@ -624,7 +624,10 @@ async function submitWaitlist() {
   const btn=document.getElementById('wl-btn'); btn.disabled=true; btn.textContent='...';
   const {error}=await sb.from('waitlist').insert([{name,email}]);
   if(error){toast(error.code==='23505'?(lang==='es'?'Ya estás en la lista ✦':'Already on the list ✦'):(lang==='es'?'Algo salió mal.':'Something went wrong.'),error.code!=='23505');}
-  else{document.getElementById('wl-name').value='';document.getElementById('wl-email').value='';toast(lang==='es'?'¡Listo! Te avisamos pronto ✦':'Done! We\'ll be in touch ✦');loadWaitlist();loadDashboard();}
+  else{document.getElementById('wl-name').value='';document.getElementById('wl-email').value='';toast(lang==='es'?'¡Listo! Te avisamos pronto ✦':'Done! We\'ll be in touch ✦');
+    loadWaitlist();loadDashboard();
+    fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist',name,email})}).catch(()=>{});
+  }
   btn.disabled=false; btn.textContent=lang==='es'?'Reservar mi lugar ✦':'Save my spot ✦';
 }
 
@@ -638,7 +641,11 @@ async function submitRSVP(){
   const btn=document.getElementById('rsvp-btn'); btn.disabled=true;
   const {error}=await sb.from('rsvps').insert([{name,email,event_name:rsvpEvent}]);
   if(error){toast(lang==='es'?'Algo salió mal.':'Something went wrong.',true);}
-  else{closeRSVP();document.getElementById('rsvp-name').value='';document.getElementById('rsvp-email').value='';toast(lang==='es'?'¡Reservado! Nos vemos pronto ✦':'Reserved! See you soon ✦');}
+  else{
+    closeRSVP();document.getElementById('rsvp-name').value='';document.getElementById('rsvp-email').value='';
+    toast(lang==='es'?'¡Reservado! Nos vemos pronto ✦':'Reserved! See you soon ✦');
+    fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'rsvp',name,email,event_name:rsvpEvent})}).catch(()=>{});
+  }
   btn.disabled=false;
 }
 
