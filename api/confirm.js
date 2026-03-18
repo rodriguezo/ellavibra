@@ -9,26 +9,31 @@ export default async function handler(req, res) {
   let subject, html;
 
   if (type === 'waitlist') {
-    subject = '¡Ya estás en la lista! · Ella Vibra';
-    html = `<div style="font-family:Georgia,serif;max-width:500px;margin:0 auto;padding:40px 24px;color:#1e1a2e">
-      <h1 style="font-size:32px;font-weight:300;margin-bottom:8px">Ella <em style="color:#7f77dd">Vibra</em></h1>
-      <p style="font-size:18px;font-weight:300;color:#7a6e8a;margin-bottom:32px;font-style:italic">Sanar. Crecer. Florecer juntas.</p>
+    subject = '¡Bienvenida a Ella Vibra!';
+    html = `<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;padding:40px 24px;color:#1e1a2e">
+      <h1 style="font-size:32px;font-weight:300;margin-bottom:4px">Ella <em style="color:#7f77dd">Vibra</em></h1>
+      <p style="font-size:15px;font-style:italic;color:#7a6e8a;margin-bottom:32px">Sanar. Crecer. Florecer juntas.</p>
       <p style="font-size:15px;line-height:1.7">Hola <strong>${name}</strong>,</p>
-      <p style="font-size:15px;line-height:1.7;margin-top:16px">¡Gracias por unirte a la lista de Ella Vibra! Serás de las primeras en enterarte cuando abramos las puertas, con acceso anticipado a eventos, recursos y nuestra comunidad.</p>
-      <p style="font-size:15px;line-height:1.7;margin-top:16px">Con amor,<br><strong>Camila & el equipo de Ella Vibra</strong></p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">Gracias por unirte a nuestra comunidad. Estamos felices de tenerte aquí.</p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">Explora nuestros recursos, conoce los próximos eventos y siéntete en casa. Este es tu espacio.</p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">Únete a nuestra comunidad de WhatsApp para estar al día con todo lo que viene:</p>
+      <p style="margin-top:12px"><a href="https://chat.whatsapp.com/CJ2bRYitCIdDmMsDC2OqXX?mode=hq2tcli" style="display:inline-block;background:#7f77dd;color:#fff;padding:12px 24px;border-radius:40px;text-decoration:none;font-family:sans-serif;font-size:14px;font-weight:500">Unirme al WhatsApp ✦</a></p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">Si tienes alguna pregunta, escríbenos a <a href="mailto:hola@ellavibra.com" style="color:#7f77dd">hola@ellavibra.com</a> — estamos aquí para ti.</p>
+      <p style="font-size:15px;line-height:1.7;margin-top:24px">Con amor,<br><strong>Camila & el equipo de Ella Vibra</strong></p>
       <hr style="border:none;border-top:0.5px solid #e8e4f8;margin:32px 0">
-      <p style="font-size:12px;color:#b8afc8">ellavibra.com</p>
+      <a href="https://ellavibra.com" style="font-size:13px;color:#7f77dd;text-decoration:none">ellavibra.com</a>
     </div>`;
   } else if (type === 'rsvp') {
-    subject = `¡Reservado! ${event_name} · Ella Vibra`;
-    html = `<div style="font-family:Georgia,serif;max-width:500px;margin:0 auto;padding:40px 24px;color:#1e1a2e">
-      <h1 style="font-size:32px;font-weight:300;margin-bottom:8px">Ella <em style="color:#7f77dd">Vibra</em></h1>
-      <p style="font-size:18px;font-weight:300;color:#7a6e8a;margin-bottom:32px;font-style:italic">Sanar. Crecer. Florecer juntas.</p>
+    subject = `¡Tu lugar está reservado! – ${event_name}`;
+    html = `<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;padding:40px 24px;color:#1e1a2e">
+      <h1 style="font-size:32px;font-weight:300;margin-bottom:4px">Ella <em style="color:#7f77dd">Vibra</em></h1>
+      <p style="font-size:15px;font-style:italic;color:#7a6e8a;margin-bottom:32px">Sanar. Crecer. Florecer juntas.</p>
       <p style="font-size:15px;line-height:1.7">Hola <strong>${name}</strong>,</p>
-      <p style="font-size:15px;line-height:1.7;margin-top:16px">¡Tu lugar está reservado para <strong>${event_name}</strong>! Te enviaremos los detalles de acceso próximamente.</p>
-      <p style="font-size:15px;line-height:1.7;margin-top:16px">Con amor,<br><strong>Camila & el equipo de Ella Vibra</strong></p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">¡Tu lugar para <strong>${event_name}</strong> está confirmado! Pronto recibirás los detalles de acceso.</p>
+      <p style="font-size:15px;line-height:1.7;margin-top:16px">Si tienes alguna pregunta, escríbenos a <a href="mailto:hola@ellavibra.com" style="color:#7f77dd">hola@ellavibra.com</a>.</p>
+      <p style="font-size:15px;line-height:1.7;margin-top:24px">Con amor,<br><strong>Camila & el equipo de Ella Vibra</strong></p>
       <hr style="border:none;border-top:0.5px solid #e8e4f8;margin:32px 0">
-      <p style="font-size:12px;color:#b8afc8">ellavibra.com</p>
+      <a href="https://ellavibra.com" style="font-size:13px;color:#7f77dd;text-decoration:none">ellavibra.com</a>
     </div>`;
   }
 
