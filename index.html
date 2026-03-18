@@ -205,7 +205,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   </ul>
   <div class="nav-right">
     <button class="nav-login" onclick="openAuth()" id="nav-login-btn" data-es="Iniciar sesión" data-en="Sign in">Iniciar sesión</button>
-    <a href="#lista" class="nav-cta" data-es="Únete" data-en="Join Us">Únete</a>
+    <a href="#lista" class="nav-cta">Únete</a>
   </div>
   <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
@@ -227,15 +227,15 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <p class="hero-sub" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</p>
     <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad." data-en="A sacred space for women seeking transformation through therapeutic guidance, meditation, nutrition, and community.">Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad.</p>
     <div class="hero-actions">
-      <a href="#lista" class="btn-primary" data-es="Reservar mi lugar" data-en="Save my spot">Reservar mi lugar</a>
+      <a href="#lista" class="btn-primary">Únete a la comunidad</a>
       <a href="#eventos" class="btn-ghost" data-es="Ver eventos" data-en="See events">Ver eventos</a>
     </div>
     <div class="scroll-line"></div>
   </div>
 </section>
 
-<div class="lang-bar">
-  <span data-es="Idioma:" data-en="Language:">Idioma:</span>
+<div class="lang-bar" style="display:none">
+  <span>Idioma:</span>
   <button class="lang-btn active" onclick="setLang('es',event)">ES</button>
   <button class="lang-btn" onclick="setLang('en',event)">EN</button>
 </div>
@@ -305,13 +305,13 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
         <p class="section-label" data-es="Comunidad" data-en="Community">Comunidad</p>
         <h2 class="section-title">No estás <em>sola</em></h2>
         <p class="section-desc" style="margin-bottom:28px" data-es="Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son." data-en="Ella Vibra is a space for women who dare to heal, grow, and show up as they are.">Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son.</p>
-        <a href="#lista" class="btn-primary" data-es="Unirme a la comunidad" data-en="Join the community">Unirme a la comunidad</a>
+        <a href="#lista" class="btn-primary">Unirme a la comunidad</a>
+        <a href="https://chat.whatsapp.com/CJ2bRYitCIdDmMsDC2OqXX?mode=hq2tcli" target="_blank" class="btn-ghost" style="margin-top:12px;display:inline-block" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
       </div>
       <div class="member-list fade-in">
-        <div class="member-row"><div class="avatar av-lav">CG</div><div><div class="member-name">Camila García</div><div class="member-tag" data-es="Fundadora · Acompañamiento terapéutico" data-en="Founder · Therapeutic guidance">Fundadora · Acompañamiento terapéutico</div></div><span class="member-badge badge-host">Host</span></div>
-        <div class="member-row"><div class="avatar av-amber">NN</div><div><div class="member-name" data-es="Tu amiga nutricionista" data-en="Nutritionist">Tu amiga nutricionista</div><div class="member-tag" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</div></div><span class="member-badge badge-host">Host</span></div>
-        <div class="member-row"><div class="avatar av-blush">SR</div><div><div class="member-name">Sofía Ramos</div><div class="member-tag">Bienestar · Meditación</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
-        <div class="member-row"><div class="avatar av-green">LM</div><div><div class="member-name">Lucía Martínez</div><div class="member-tag">Sanación sonora</div></div><span class="member-badge badge-new" data-es="Nueva" data-en="New">Nueva</span></div>
+        <div class="member-row"><div class="avatar av-lav">CR</div><div><div class="member-name">Camila Rodriguez</div><div class="member-tag" data-es="Fundadora · Mindfulness Coaching" data-en="Founder · Mindfulness Coaching">Fundadora · Mindfulness Coaching</div></div><span class="member-badge badge-host">Host</span></div>
+        <div class="member-row"><div class="avatar av-amber">KF</div><div><div class="member-name">Karin Farfan</div><div class="member-tag" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</div></div><span class="member-badge badge-host">Host</span></div>
+        <div class="member-row"><div class="avatar av-blush">AB</div><div><div class="member-name">Andrea Briceño</div><div class="member-tag" data-es="Coaching & Sanación sonora" data-en="Coaching & Sound healing">Coaching & Sanación sonora</div></div><span class="member-badge badge-host">Host</span></div>
       </div>
     </div>
   </div>
@@ -320,16 +320,21 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 <!-- WAITLIST -->
 <section class="waitlist" id="lista">
   <div class="section-inner">
-    <p class="section-label" style="color:var(--lav-mid)" data-es="Lista de espera" data-en="Waitlist">Lista de espera</p>
-    <h2 class="section-title">Sé de las <em>primeras</em></h2>
-    <p class="section-desc" data-es="Únete ahora y recibe acceso anticipado a eventos, recursos exclusivos y nuestra comunidad." data-en="Join now and receive early access to events, exclusive resources, and our community.">Únete ahora y recibe acceso anticipado a eventos, recursos exclusivos y nuestra comunidad.</p>
-    <div class="waitlist-form fade-in">
-      <div class="form-row">
-        <input class="form-input" type="text" id="wl-name" placeholder="Tu nombre" data-placeholder-es="Tu nombre" data-placeholder-en="Your name">
-        <input class="form-input" type="email" id="wl-email" placeholder="Tu correo" data-placeholder-es="Tu correo" data-placeholder-en="Your email">
+    <p class="section-label" style="color:var(--lav-mid)">Únete</p>
+    <h2 class="section-title">Forma parte de <em>Ella Vibra</em></h2>
+    <p class="section-desc" style="color:rgba(255,255,255,.5)">Crea tu cuenta y accede a eventos, recursos exclusivos y nuestra comunidad.</p>
+    <div class="waitlist-form fade-in" id="signup-form">
+      <div class="auth-tabs" style="margin-top:32px;border-color:rgba(255,255,255,.15)">
+        <button class="auth-tab active" id="join-tab-signup" onclick="setJoinTab('signup')" style="background:var(--lav-dark);color:#fff">Crear cuenta</button>
+        <button class="auth-tab" id="join-tab-login" onclick="setJoinTab('login')" style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:none">Ya tengo cuenta</button>
       </div>
-      <button class="form-submit" onclick="submitWaitlist()" id="wl-btn" data-es="Reservar mi lugar ✦" data-en="Save my spot ✦">Reservar mi lugar ✦</button>
-      <p class="form-note" data-es="Sin spam. Solo lo que importa." data-en="No spam. Only what matters.">Sin spam. Solo lo que importa.</p>
+      <input class="form-input" type="text" id="join-name" placeholder="Tu nombre" style="margin-top:12px" id="join-name-field">
+      <div class="form-row" style="margin-top:0">
+        <input class="form-input" type="email" id="join-email" placeholder="Tu correo">
+        <input class="form-input" type="password" id="join-pass" placeholder="Contraseña">
+      </div>
+      <button class="form-submit" onclick="submitJoin()" id="join-btn">Crear mi cuenta ✦</button>
+      <p class="form-note">Sin spam. Solo lo que importa.</p>
     </div>
   </div>
 </section>
@@ -687,8 +692,54 @@ async function submitContact(){
   btn.disabled=false; btn.textContent=lang==='es'?'Enviar mensaje':'Send message';
 }
 
-// AUTH
-function openAuth(){document.getElementById('authModal').classList.add('open')}
+// JOIN SECTION
+let joinMode = 'signup';
+function setJoinTab(mode) {
+  joinMode = mode;
+  const btnSignup = document.getElementById('join-tab-signup');
+  const btnLogin = document.getElementById('join-tab-login');
+  const nameField = document.getElementById('join-name');
+  const submitBtn = document.getElementById('join-btn');
+  if(mode === 'signup') {
+    btnSignup.style.background='var(--lav-dark)'; btnSignup.style.color='#fff';
+    btnLogin.style.background='rgba(255,255,255,.07)'; btnLogin.style.color='rgba(255,255,255,.5)';
+    nameField.style.display='block';
+    submitBtn.textContent='Crear mi cuenta ✦';
+  } else {
+    btnLogin.style.background='var(--lav-dark)'; btnLogin.style.color='#fff';
+    btnSignup.style.background='rgba(255,255,255,.07)'; btnSignup.style.color='rgba(255,255,255,.5)';
+    nameField.style.display='none';
+    submitBtn.textContent='Iniciar sesión ✦';
+  }
+}
+
+async function submitJoin() {
+  const email = document.getElementById('join-email').value.trim();
+  const password = document.getElementById('join-pass').value;
+  const name = document.getElementById('join-name').value.trim();
+  if(!email || !password) { toast('Completa todos los campos.',true); return; }
+  const btn = document.getElementById('join-btn'); btn.disabled=true; btn.textContent='...';
+  if(joinMode === 'signup') {
+    if(!name) { toast('Por favor ingresa tu nombre.',true); btn.disabled=false; btn.textContent='Crear mi cuenta ✦'; return; }
+    const {error} = await sb.auth.signUp({email, password, options:{data:{name}}});
+    if(error) { toast(error.message, true); }
+    else {
+      toast('¡Bienvenida! Revisa tu correo para confirmar tu cuenta ✦');
+      fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist',name,email})}).catch(()=>{});
+      document.getElementById('join-email').value='';
+      document.getElementById('join-pass').value='';
+      document.getElementById('join-name').value='';
+    }
+  } else {
+    const {error} = await sb.auth.signInWithPassword({email, password});
+    if(error) { toast('Credenciales incorrectas.',true); }
+    else { toast('¡Bienvenida de vuelta ✦'); }
+  }
+  btn.disabled=false;
+  btn.textContent = joinMode==='signup'?'Crear mi cuenta ✦':'Iniciar sesión ✦';
+}
+
+
 function closeAuth(){document.getElementById('authModal').classList.remove('open')}
 function setAuthTab(mode){
   authMode=mode;
