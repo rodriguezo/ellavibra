@@ -422,6 +422,13 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <input class="modal-input" type="text" id="ef-price" placeholder="Gratis / $45 / $120">
     <label class="modal-label">Categoría *</label>
     <input class="modal-input" type="text" id="ef-tag" placeholder="Sound healing / Coaching / Wellness">
+    <label class="modal-label">¿Evento de pago?</label>
+    <select class="modal-select" id="ef-is-paid">
+      <option value="false">Gratis</option>
+      <option value="true">De pago</option>
+    </select>
+    <label class="modal-label">Stripe Price ID (solo si es de pago)</label>
+    <input class="modal-input" type="text" id="ef-price-id" placeholder="price_1ABC...">
     <button class="modal-submit" onclick="saveEvent()" id="ef-btn">Guardar evento ✦</button>
   </div>
 </div>
@@ -591,8 +598,8 @@ async function loadEvents() {
         <p class="event-meta">${ev.time} · ${ev.location} · ${ev.price}</p>
         <span class="event-tag">${ev.tag}</span>
       </div>
-      <button class="event-rsvp" onclick="openRSVP('${(lang==='es'?ev.title_es:(ev.title_en||ev.title_es)).replace(/'/g,"\\'")}')">
-        ${lang==='es'?'Reservar':'RSVP'}
+      <button class="event-rsvp" onclick="openRSVP('${(lang==='es'?ev.title_es:(ev.title_en||ev.title_es)).replace(/'/g,"\\'")}','${ev.price_id||''}',${ev.is_paid||false})">
+        ${ev.is_paid?'💳 ':''} ${lang==='es'?'Reservar':'RSVP'}
       </button>
     </div>
   `).join('');
@@ -632,13 +639,31 @@ async function submitWaitlist() {
 }
 
 // RSVP
-function openRSVP(ev){rsvpEvent=ev;document.getElementById('rsvp-title').textContent=ev;document.getElementById('rsvpModal').classList.add('open')}
+let rsvpPriceId='';
+let rsvpIsPaid=false;
+function openRSVP(ev,priceId='',isPaid=false){
+  rsvpEvent=ev;rsvpPriceId=priceId;rsvpIsPaid=isPaid;
+  document.getElementById('rsvp-title').textContent=ev;
+  const btn=document.getElementById('rsvp-btn');
+  btn.textContent=isPaid?(lang==='es'?'Pagar y reservar ✦':'Pay & reserve ✦'):(lang==='es'?'Confirmar ✦':'Confirm ✦');
+  document.getElementById('rsvpModal').classList.add('open');
+}
 function closeRSVP(){document.getElementById('rsvpModal').classList.remove('open')}
 async function submitRSVP(){
   const name=document.getElementById('rsvp-name').value.trim();
   const email=document.getElementById('rsvp-email').value.trim();
   if(!name||!email){toast(lang==='es'?'Completa todos los campos.':'Fill in all fields.',true);return;}
-  const btn=document.getElementById('rsvp-btn'); btn.disabled=true;
+  const btn=document.getElementById('rsvp-btn'); btn.disabled=true; btn.textContent='...';
+  if(rsvpIsPaid && rsvpPriceId){
+    try{
+      const res=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({price_id:rsvpPriceId,event_name:rsvpEvent,email,name})});
+      const data=await res.json();
+      if(data.url){ window.location.href=data.url; return; }
+      else{ toast(lang==='es'?'Error al procesar el pago.':'Payment error.',true); }
+    }catch(e){ toast(lang==='es'?'Error al procesar el pago.':'Payment error.',true); }
+    btn.disabled=false; btn.textContent=lang==='es'?'Pagar y reservar ✦':'Pay & reserve ✦';
+    return;
+  }
   const {error}=await sb.from('rsvps').insert([{name,email,event_name:rsvpEvent}]);
   if(error){toast(lang==='es'?'Algo salió mal.':'Something went wrong.',true);}
   else{
@@ -791,7 +816,8 @@ async function loadContacts(){
 function openEventForm(){
   editingEventId=null;
   document.getElementById('event-form-title').textContent='Nuevo evento';
-  ['ef-id','ef-title-es','ef-title-en','ef-month','ef-day','ef-time','ef-location','ef-price','ef-tag'].forEach(id=>document.getElementById(id).value='');
+  ['ef-id','ef-title-es','ef-title-en','ef-month','ef-day','ef-time','ef-location','ef-price','ef-tag','ef-price-id'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ef-is-paid').value='false';
   document.getElementById('eventFormModal').classList.add('open');
 }
 function closeEventForm(){document.getElementById('eventFormModal').classList.remove('open')}
@@ -809,6 +835,8 @@ async function editEvent(id){
   document.getElementById('ef-location').value=data.location||'';
   document.getElementById('ef-price').value=data.price||'';
   document.getElementById('ef-tag').value=data.tag||'';
+  document.getElementById('ef-is-paid').value=data.is_paid?'true':'false';
+  document.getElementById('ef-price-id').value=data.price_id||'';
   document.getElementById('eventFormModal').classList.add('open');
 }
 async function saveEvent(){
@@ -820,7 +848,9 @@ async function saveEvent(){
     time:document.getElementById('ef-time').value.trim(),
     location:document.getElementById('ef-location').value.trim(),
     price:document.getElementById('ef-price').value.trim(),
-    tag:document.getElementById('ef-tag').value.trim()
+    tag:document.getElementById('ef-tag').value.trim(),
+    is_paid:document.getElementById('ef-is-paid').value==='true',
+    price_id:document.getElementById('ef-price-id').value.trim()||null
   };
   if(!payload.title_es||!payload.month||!payload.day){toast('Completa los campos obligatorios (*)',true);return;}
   const btn=document.getElementById('ef-btn'); btn.disabled=true;
