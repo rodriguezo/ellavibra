@@ -320,7 +320,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
         </div>
       </div>
 
-      <p class="featured-event-desc" data-es="Un encuentro de 4 horas diseñado para crear un espacio de pausa y reconexión. A través de conversación, prácticas guiadas y rituales de cuidado consciente, exploramos la relación con el cuerpo desde una mirada más amable y presente. Integramos reflexión, movimiento suave, sonido y cocina consciente como formas de volver a nosotras mismas." data-en="A 4-hour gathering designed to create a space for pause and reconnection. Through conversation, guided practices, and conscious care rituals, we explore our relationship with the body from a kinder, more present perspective. We integrate reflection, gentle movement, sound, and conscious cooking as ways of returning to ourselves.">Un encuentro de 4 horas diseñado para crear un espacio de pausa y reconexión. A través de conversación, prácticas guiadas y rituales de cuidado consciente, exploramos la relación con el cuerpo desde una mirada más amable y presente. Integramos reflexión, movimiento suave, sonido y cocina consciente como formas de volver a nosotras mismas.</p>
+      <p class="featured-event-desc" data-es="Ella Vibra: Glow Consciente es una experiencia de cuatro horas diseñada para la mujer que ya sabe que el brillo real no viene de afuera — viene de estar presente, de decirse la verdad y de recordar quién es cuando nadie la necesita. A través de movimiento consciente, yoga facial, dinámicas de conexión, sound healing con cacao y una cena de longevidad, crearemos juntas un espacio para parar, sentir y volver a ti — sin exigencia, sin performance, solo presencia real." data-en="Ella Vibra: Glow Consciente is a four-hour experience designed for the woman who already knows that real glow doesn't come from the outside — it comes from being present, telling herself the truth, and remembering who she is when no one needs her. Through conscious movement, facial yoga, connection practices, sound healing with cacao, and a longevity dinner, we'll create a space together to pause, feel, and return to yourself — no demands, no performance, just real presence.">Ella Vibra: Glow Consciente es una experiencia de cuatro horas diseñada para la mujer que ya sabe que el brillo real no viene de afuera — viene de estar presente, de decirse la verdad y de recordar quién es cuando nadie la necesita. A través de movimiento consciente, yoga facial, dinámicas de conexión, sound healing con cacao y una cena de longevidad, crearemos juntas un espacio para parar, sentir y volver a ti — sin exigencia, sin performance, solo presencia real.</p>
 
       <div class="featured-event-block">
         <p class="block-label" data-es="Guiado por" data-en="Guided by">Guiado por</p>
@@ -334,10 +334,8 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
       <div class="featured-event-block">
         <p class="block-label" data-es="Qué traer" data-en="What to bring">Qué traer</p>
         <ul class="bring-list">
-          <li data-es="Ropa cómoda y fluida en tonos cálidos (rojos, rosas, neutros)" data-en="Comfortable, flowing clothing in warm tones (reds, pinks, neutrals)">Ropa cómoda y fluida en tonos cálidos (rojos, rosas, neutros)</li>
-          <li data-es="Algo que te dé alegría — un objeto, un aroma, una canción" data-en="Something that brings you joy — an object, a scent, a song">Algo que te dé alegría — un objeto, un aroma, una canción</li>
-          <li data-es="Un diario" data-en="A journal">Un diario</li>
-          <li data-es="Avísanos sobre alergias alimentarias o sensibilidades al sonido" data-en="Let us know about any food allergies or sound sensitivities">Avísanos sobre alergias alimentarias o sensibilidades al sonido</li>
+          <li data-es="Ropa cómoda (tipo yoga) en tonos de primavera — Glow Goddess con blanco o amarillo (oro, kaki, beige). Mientras más natural te sientas, mejor." data-en="Comfortable clothing (yoga style) in spring tones — Glow Goddess with white or yellow (gold, khaki, beige). The more natural you feel, the better.">Ropa cómoda (tipo yoga) en tonos de primavera — Glow Goddess con blanco o amarillo (oro, kaki, beige). Mientras más natural te sientas, mejor.</li>
+          <li data-es="Te recomendamos venir con poco o nada de maquillaje para disfrutar plenamente de la experiencia de cuidado y conexión con tu piel." data-en="We recommend coming with little to no makeup so you can fully enjoy the experience of skincare and connection with your skin.">Te recomendamos venir con poco o nada de maquillaje para disfrutar plenamente de la experiencia de cuidado y conexión con tu piel.</li>
         </ul>
       </div>
 
@@ -348,10 +346,6 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
         <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-ghost" data-es="Comunidad WhatsApp" data-en="WhatsApp Community">Comunidad WhatsApp</a>
       </div>
     </article>
-
-    <div class="events-grid fade-in" id="events-grid" style="margin-top:32px">
-      <div class="events-empty">Cargando eventos...</div>
-    </div>
   </div>
 </section>
 
@@ -654,8 +648,9 @@ function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('op
 
 // EVENTS
 async function loadEvents() {
-  const {data,error}=await sb.from('events').select('*').eq('active',true).order('day');
   const grid=document.getElementById('events-grid');
+  if(!grid) return; // Public page no longer has the dynamic grid — featured card handles it
+  const {data,error}=await sb.from('events').select('*').eq('active',true).order('day');
   if(error||!data||data.length===0){grid.innerHTML='<div class="events-empty">No hay eventos próximos.</div>';return;}
   grid.innerHTML=data.map(ev=>`
     <div class="event-row">
