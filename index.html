@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ella Vibra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --lav:#e8e4f8;--lav-mid:#c4b8ef;--lav-dark:#7f77dd;--lav-deep:#534ab7;
-  --blush:#fbeaf0;--blush-mid:#f4c0d1;--blush-dark:#d4537e;
-  --cream:#faf8f5;--white:#fff;--text:#1e1a2e;--muted:#7a6e8a;--light:#b8afc8;
-  --bdr:rgba(127,119,221,0.15);--bdr-mid:rgba(127,119,221,0.25);
-  --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;
+  --lav:#F5E6DA;--lav-mid:#E07A3F;--lav-dark:#C46A3C;--lav-deep:#A5532C;
+  --blush:#FCE4DC;--blush-mid:#EE9B9B;--blush-dark:#D94A4A;
+  --cream:#FDF8F3;--white:#fff;--text:#2B1810;--muted:#8A6E5A;--light:#C8B8A8;
+  --bdr:rgba(196,106,60,0.15);--bdr-mid:rgba(196,106,60,0.25);
+  --display:'Playfair Display',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,248,245,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--bdr)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(253,248,243,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--bdr)}
 .nav-logo{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--lav-dark);font-style:italic}
 .nav-links{display:flex;gap:28px;list-style:none}
@@ -36,10 +36,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:fl
 .mobile-menu a{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--text);text-decoration:none}
 .close-btn{position:absolute;top:24px;right:32px;font-size:28px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:var(--sans)}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(232,228,248,.6) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(251,234,240,.5) 0%,transparent 60%),var(--cream)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(245,230,218,.7) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(224,122,63,.15) 0%,transparent 60%),var(--cream)}
 .hero-content{position:relative;z-index:1;max-width:700px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--lav);color:var(--lav-deep);font-size:12px;font-weight:500;padding:6px 16px;border-radius:40px;margin-bottom:28px;letter-spacing:.06em;text-transform:uppercase}
-.hero h1{font-family:var(--serif);font-size:clamp(52px,8vw,88px);font-weight:300;line-height:1.05;color:var(--text);margin-bottom:8px}
+.hero h1{font-family:var(--display);font-size:clamp(52px,8vw,88px);font-weight:400;line-height:1.05;color:var(--text);margin-bottom:8px}
 .hero h1 em{font-style:italic;color:var(--lav-dark)}
 .hero-sub{font-family:var(--serif);font-size:clamp(18px,3vw,24px);font-weight:300;color:var(--muted);margin-bottom:20px;font-style:italic}
 .hero-desc{font-size:15px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto 40px}
@@ -56,7 +56,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:fl
 section{padding:80px 24px}
 .section-inner{max-width:1100px;margin:0 auto}
 .section-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--lav-dark);margin-bottom:12px}
-.section-title{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:300;line-height:1.15;color:var(--text);margin-bottom:16px}
+.section-title{font-family:var(--display);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.15;color:var(--text);margin-bottom:16px}
 .section-title em{font-style:italic;color:var(--lav-dark)}
 .section-desc{font-size:15px;color:var(--muted);line-height:1.7;max-width:520px}
 .pillars{background:var(--white)}
@@ -79,6 +79,26 @@ section{padding:80px 24px}
 .event-rsvp{padding:10px 22px;border-radius:40px;border:0.5px solid var(--lav-dark);background:transparent;color:var(--lav-dark);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--sans);transition:all .2s}
 .event-rsvp:hover{background:var(--lav-dark);color:#fff}
 .events-empty{padding:32px;text-align:center;font-size:14px;color:var(--muted);background:var(--white)}
+.featured-event{background:var(--white);border:0.5px solid var(--bdr);border-radius:20px;padding:40px;margin-top:48px;display:grid;gap:28px;position:relative;overflow:hidden}
+.featured-event::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--lav-dark),var(--lav-mid),var(--blush-dark))}
+.featured-event-header{display:flex;flex-direction:column;gap:6px}
+.featured-badge{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-dark);width:fit-content}
+.featured-event-title{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:400;color:var(--text);line-height:1.15}
+.featured-event-title em{font-style:italic;color:var(--lav-dark)}
+.featured-event-tag{font-size:13px;color:var(--muted);letter-spacing:.04em}
+.featured-event-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;padding:20px 24px;background:var(--lav);border-radius:12px}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-deep)}
+.meta-value{font-size:14px;color:var(--text);font-weight:500}
+.featured-event-desc{font-size:15px;color:var(--muted);line-height:1.7}
+.featured-event-block .block-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-dark);margin-bottom:10px}
+.facilitator-list,.bring-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.facilitator-list li,.bring-list li{font-size:14px;color:var(--text);line-height:1.5;padding-left:20px;position:relative}
+.facilitator-list li::before,.bring-list li::before{content:'·';position:absolute;left:6px;color:var(--lav-mid);font-weight:700}
+.facilitator-list strong{font-weight:500}
+.featured-event-policy{font-size:12px;color:var(--muted);font-style:italic;padding-top:16px;border-top:0.5px solid var(--bdr)}
+.featured-event-actions{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:640px){.featured-event{padding:28px 24px}.featured-event-meta{grid-template-columns:1fr 1fr;padding:18px}}
 .hub{background:var(--lav)}
 .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:48px}
 .hub-card{background:var(--white);border-radius:16px;overflow:hidden;border:0.5px solid var(--bdr);transition:transform .2s}
@@ -123,8 +143,10 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .footer-links{display:flex;gap:24px}
 .footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:rgba(255,255,255,.7)}
+.footer-links a.footer-ig{color:var(--lav-mid);font-weight:500}
+.footer-links a.footer-ig:hover{color:var(--lav-dark)}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,46,.75);z-index:600;align-items:center;justify-content:center;padding:24px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(43,24,16,.75);z-index:600;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--white);border-radius:20px;padding:40px;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 .modal h3{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--text);margin-bottom:6px}
@@ -147,7 +169,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .file-selected{font-size:12px;color:var(--lav-deep);margin-top:6px;font-weight:500}
 .upload-progress{width:100%;height:4px;background:var(--lav);border-radius:2px;margin-bottom:12px;display:none}
 .upload-progress-bar{height:100%;background:var(--lav-dark);border-radius:2px;width:0%;transition:width .3s}
-.admin-panel{display:none;position:fixed;inset:0;z-index:500;background:#f8f7ff;overflow-y:auto}
+.admin-panel{display:none;position:fixed;inset:0;z-index:500;background:#FDF8F3;overflow-y:auto}
 .admin-panel.open{display:block}
 .admin-nav{background:var(--text);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:8px}
 .admin-nav-logo{font-family:var(--serif);font-size:18px;color:rgba(255,255,255,.7)}
@@ -167,7 +189,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .admin-table th{padding:14px 20px;text-align:left;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:0.5px solid var(--bdr);background:var(--cream)}
 .admin-table td{padding:14px 20px;font-size:13px;color:var(--text);border-bottom:0.5px solid var(--bdr);vertical-align:top}
 .admin-table tr:last-child td{border-bottom:none}
-.admin-table tr:hover td{background:#faf8ff}
+.admin-table tr:hover td{background:#FAF0E6}
 .admin-action{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--bdr-mid);background:transparent;cursor:pointer;font-family:var(--sans);margin-right:4px;transition:all .2s}
 .admin-action.edit{color:var(--lav-dark);border-color:var(--lav-dark)}.admin-action.edit:hover{background:var(--lav)}
 .admin-action.del{color:var(--blush-dark);border-color:var(--blush-dark)}.admin-action.del:hover{background:var(--blush)}
@@ -244,18 +266,8 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 <section class="pillars" id="pilares">
   <div class="section-inner">
     <p class="section-label" data-es="Lo que ofrecemos" data-en="What we offer">Lo que ofrecemos</p>
-    <h2 class="section-title">Cinco pilares de <em>transformación</em></h2>
+    <h2 class="section-title" data-es="Tres pilares de <em>transformación</em>" data-en="Three pillars of <em>transformation</em>">Tres pilares de <em>transformación</em></h2>
     <div class="pillars-grid fade-in">
-      <div class="pillar-card">
-        <div class="pillar-icon">✦</div>
-        <h3 class="pillar-title" data-es="Acompañamiento terapéutico" data-en="Therapeutic guidance">Acompañamiento terapéutico</h3>
-        <p class="pillar-desc" data-es="Un espacio seguro para explorar tus emociones, sanar heridas y avanzar hacia una versión más plena de ti misma." data-en="A safe space to explore your emotions, heal wounds, and move toward a fuller version of yourself.">Un espacio seguro para explorar tus emociones, sanar heridas y avanzar hacia una versión más plena de ti misma.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-icon">◎</div>
-        <h3 class="pillar-title" data-es="Bienestar emocional" data-en="Emotional wellness">Bienestar emocional</h3>
-        <p class="pillar-desc" data-es="Herramientas prácticas para regular tu sistema nervioso, gestionar el estrés y cultivar equilibrio en tu vida diaria." data-en="Practical tools to regulate your nervous system, manage stress, and cultivate balance in your daily life.">Herramientas prácticas para regular tu sistema nervioso, gestionar el estrés y cultivar equilibrio en tu vida diaria.</p>
-      </div>
       <div class="pillar-card">
         <div class="pillar-icon">♪</div>
         <h3 class="pillar-title" data-es="Meditación & Sanación sonora" data-en="Meditation & Sound healing">Meditación & Sanación sonora</h3>
@@ -280,7 +292,64 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   <div class="section-inner">
     <p class="section-label" data-es="Próximos eventos" data-en="Upcoming events">Próximos eventos</p>
     <h2 class="section-title">Encuentra tu <em>momento</em></h2>
-    <div class="events-grid fade-in" id="events-grid">
+
+    <!-- Featured: Glow Consciente -->
+    <article class="featured-event fade-in">
+      <div class="featured-event-header">
+        <span class="featured-badge" data-es="✦ Próximo encuentro" data-en="✦ Next gathering">✦ Próximo encuentro</span>
+        <h3 class="featured-event-title">Ella Vibra: <em>Glow Consciente</em></h3>
+        <p class="featured-event-tag" data-es="Encuentro de mujeres · 4 horas" data-en="Women's gathering · 4 hours">Encuentro de mujeres · 4 horas</p>
+      </div>
+
+      <div class="featured-event-meta">
+        <div class="meta-item">
+          <span class="meta-label" data-es="Fecha" data-en="Date">Fecha</span>
+          <span class="meta-value" data-es="Domingo, 3 de mayo, 2026" data-en="Sunday, May 3, 2026">Domingo, 3 de mayo, 2026</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label" data-es="Hora" data-en="Time">Hora</span>
+          <span class="meta-value">4:00 — 8:00 PM</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label" data-es="Ubicación" data-en="Location">Ubicación</span>
+          <span class="meta-value" data-es="Miami, FL · Dirección al registrarte" data-en="Miami, FL · Address upon registration">Miami, FL · Dirección al registrarte</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label" data-es="Inversión" data-en="Investment">Inversión</span>
+          <span class="meta-value">$111 <span style="color:var(--muted);font-weight:400" data-es="· Cupo limitado a 25" data-en="· Limited to 25 spots">· Cupo limitado a 25</span></span>
+        </div>
+      </div>
+
+      <p class="featured-event-desc" data-es="Un encuentro de 4 horas diseñado para crear un espacio de pausa y reconexión. A través de conversación, prácticas guiadas y rituales de cuidado consciente, exploramos la relación con el cuerpo desde una mirada más amable y presente. Integramos reflexión, movimiento suave, sonido y cocina consciente como formas de volver a nosotras mismas." data-en="A 4-hour gathering designed to create a space for pause and reconnection. Through conversation, guided practices, and conscious care rituals, we explore our relationship with the body from a kinder, more present perspective. We integrate reflection, gentle movement, sound, and conscious cooking as ways of returning to ourselves.">Un encuentro de 4 horas diseñado para crear un espacio de pausa y reconexión. A través de conversación, prácticas guiadas y rituales de cuidado consciente, exploramos la relación con el cuerpo desde una mirada más amable y presente. Integramos reflexión, movimiento suave, sonido y cocina consciente como formas de volver a nosotras mismas.</p>
+
+      <div class="featured-event-block">
+        <p class="block-label" data-es="Guiado por" data-en="Guided by">Guiado por</p>
+        <ul class="facilitator-list">
+          <li><strong>Camila Rodríguez</strong> · <span data-es="Amor Propio y Presencia" data-en="Self-Love & Presence">Amor Propio y Presencia</span></li>
+          <li><strong>Karin Farfán</strong> · <span data-es="Nutrición Consciente" data-en="Conscious Nourishment">Nutrición Consciente</span></li>
+          <li><strong>Andrea Briceño</strong> · <span data-es="Sanación Sonora y Energía" data-en="Sound Healing & Energy">Sanación Sonora y Energía</span></li>
+        </ul>
+      </div>
+
+      <div class="featured-event-block">
+        <p class="block-label" data-es="Qué traer" data-en="What to bring">Qué traer</p>
+        <ul class="bring-list">
+          <li data-es="Ropa cómoda y fluida en tonos cálidos (rojos, rosas, neutros)" data-en="Comfortable, flowing clothing in warm tones (reds, pinks, neutrals)">Ropa cómoda y fluida en tonos cálidos (rojos, rosas, neutros)</li>
+          <li data-es="Algo que te dé alegría — un objeto, un aroma, una canción" data-en="Something that brings you joy — an object, a scent, a song">Algo que te dé alegría — un objeto, un aroma, una canción</li>
+          <li data-es="Un diario" data-en="A journal">Un diario</li>
+          <li data-es="Avísanos sobre alergias alimentarias o sensibilidades al sonido" data-en="Let us know about any food allergies or sound sensitivities">Avísanos sobre alergias alimentarias o sensibilidades al sonido</li>
+        </ul>
+      </div>
+
+      <p class="featured-event-policy" data-es="Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro." data-en="No refunds. If an emergency arises, we save your spot for the next gathering.">Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro.</p>
+
+      <div class="featured-event-actions">
+        <a href="https://checkout.camilarodriguez.co/b/28E14p4Re9JC5F3cCb5Rm04" target="_blank" class="btn-primary" data-es="Reservar mi cupo · $111" data-en="Reserve my spot · $111">Reservar mi cupo · $111</a>
+        <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-ghost" data-es="Comunidad WhatsApp" data-en="WhatsApp Community">Comunidad WhatsApp</a>
+      </div>
+    </article>
+
+    <div class="events-grid fade-in" id="events-grid" style="margin-top:32px">
       <div class="events-empty">Cargando eventos...</div>
     </div>
   </div>
@@ -305,8 +374,10 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
         <p class="section-label" data-es="Comunidad" data-en="Community">Comunidad</p>
         <h2 class="section-title">No estás <em>sola</em></h2>
         <p class="section-desc" style="margin-bottom:28px" data-es="Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son." data-en="Ella Vibra is a space for women who dare to heal, grow, and show up as they are.">Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son.</p>
-        <a href="#lista" class="btn-primary">Unirme a la comunidad</a>
-        <a href="https://chat.whatsapp.com/CJ2bRYitCIdDmMsDC2OqXX?mode=hq2tcli" target="_blank" class="btn-ghost" style="margin-top:12px;display:inline-block" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-primary" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
+          <a href="https://www.instagram.com/ellavibramiami/" target="_blank" class="btn-ghost" data-es="Síguenos en Instagram" data-en="Follow on Instagram">Síguenos en Instagram</a>
+        </div>
       </div>
       <div class="member-list fade-in">
         <div class="member-row"><div class="avatar av-lav">CR</div><div><div class="member-name">Camila Rodriguez</div><div class="member-tag">Mindfulness Coaching</div></div><span class="member-badge badge-host">Host</span></div>
@@ -317,24 +388,14 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
   </div>
 </section>
 
-<!-- WAITLIST -->
+<!-- JOIN -->
 <section class="waitlist" id="lista">
   <div class="section-inner">
-    <p class="section-label" style="color:var(--lav-mid)">Únete</p>
-    <h2 class="section-title">Forma parte de <em>Ella Vibra</em></h2>
-    <p class="section-desc" style="color:rgba(255,255,255,.5)">Crea tu cuenta y accede a eventos, recursos exclusivos y nuestra comunidad.</p>
-    <div class="waitlist-form fade-in" id="signup-form">
-      <div class="auth-tabs" style="margin-top:32px;border-color:rgba(255,255,255,.15)">
-        <button class="auth-tab active" id="join-tab-signup" onclick="setJoinTab('signup')" style="background:var(--lav-dark);color:#fff">Crear cuenta</button>
-        <button class="auth-tab" id="join-tab-login" onclick="setJoinTab('login')" style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:none">Ya tengo cuenta</button>
-      </div>
-      <input class="form-input" type="text" id="join-name" placeholder="Tu nombre" style="margin-top:12px" id="join-name-field">
-      <div class="form-row" style="margin-top:0">
-        <input class="form-input" type="email" id="join-email" placeholder="Tu correo">
-        <input class="form-input" type="password" id="join-pass" placeholder="Contraseña">
-      </div>
-      <button class="form-submit" onclick="submitJoin()" id="join-btn">Crear mi cuenta ✦</button>
-      <p class="form-note">Sin spam. Solo lo que importa.</p>
+    <p class="section-label" style="color:var(--lav-mid)" data-es="Únete" data-en="Join">Únete</p>
+    <h2 class="section-title" data-es="Forma parte de <em>Ella Vibra</em>" data-en="Become part of <em>Ella Vibra</em>">Forma parte de <em>Ella Vibra</em></h2>
+    <p class="section-desc" style="color:rgba(255,255,255,.5)" data-es="Únete a nuestra comunidad de WhatsApp y mantente al día con eventos, recursos y conversaciones que importan." data-en="Join our WhatsApp community to stay in touch with events, resources, and conversations that matter.">Únete a nuestra comunidad de WhatsApp y mantente al día con eventos, recursos y conversaciones que importan.</p>
+    <div style="margin-top:32px">
+      <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-primary" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
     </div>
   </div>
 </section>
@@ -356,6 +417,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 <footer>
   <div class="footer-logo">Ella <span>Vibra</span></div>
   <div class="footer-links">
+    <a href="https://www.instagram.com/ellavibramiami/" target="_blank" class="footer-ig" data-es="Síguenos en Instagram" data-en="Follow on Instagram">✦ @ellavibramiami</a>
     <a href="#pilares">Pilares</a><a href="#eventos">Eventos</a>
     <a href="#recursos">Recursos</a><a href="#contacto">Contacto</a>
     <a href="#" onclick="openAdminLogin();return false;" style="color:rgba(255,255,255,.08)">·</a>
