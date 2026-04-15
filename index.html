@@ -226,7 +226,6 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
   <div class="nav-right">
-    <button class="nav-login" onclick="openAuth()" id="nav-login-btn" data-es="Iniciar sesión" data-en="Sign in">Iniciar sesión</button>
     <a href="#lista" class="nav-cta">Únete</a>
   </div>
   <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
@@ -827,7 +826,8 @@ async function submitAuth(){
   btn.disabled=false;
 }
 sb.auth.onAuthStateChange((_,session)=>{
-  document.getElementById('nav-login-btn').textContent=session?(lang==='es'?'Mi cuenta':'My account'):(lang==='es'?'Iniciar sesión':'Sign in');
+  const btn=document.getElementById('nav-login-btn');
+  if(btn) btn.textContent=session?(lang==='es'?'Mi cuenta':'My account'):(lang==='es'?'Iniciar sesión':'Sign in');
 });
 
 // ADMIN LOGIN
