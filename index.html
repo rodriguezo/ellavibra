@@ -247,7 +247,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
     <div class="hero-badge" data-es="Comunidad de bienestar femenino" data-en="Women's wellness community">Comunidad de bienestar femenino</div>
     <h1>Ella <em>Vibra</em></h1>
     <p class="hero-sub" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</p>
-    <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad." data-en="A sacred space for women seeking transformation through therapeutic guidance, meditation, nutrition, and community.">Un espacio sagrado para mujeres que buscan transformación a través del acompañamiento terapéutico, la meditación, la nutrición y la comunidad.</p>
+    <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición y la comunidad." data-en="A sacred space for women seeking transformation through meditation, nutrition, and community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición y la comunidad.</p>
     <div class="hero-actions">
       <a href="#lista" class="btn-primary">Únete a la comunidad</a>
       <a href="#eventos" class="btn-ghost" data-es="Ver eventos" data-en="See events">Ver eventos</a>
@@ -344,7 +344,7 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
       <p class="featured-event-policy" data-es="Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro." data-en="No refunds. If an emergency arises, we save your spot for the next gathering.">Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro.</p>
 
       <div class="featured-event-actions">
-        <a href="https://checkout.camilarodriguez.co/b/28E14p4Re9JC5F3cCb5Rm04" target="_blank" class="btn-primary" data-es="Reservar mi cupo · $111" data-en="Reserve my spot · $111">Reservar mi cupo · $111</a>
+        <a href="https://buy.stripe.com/eVqaEZ3Na3leaZn6dN5Rm05" target="_blank" class="btn-primary" data-es="Reservar mi cupo · $111" data-en="Reserve my spot · $111">Reservar mi cupo · $111</a>
         <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-ghost" data-es="Comunidad WhatsApp" data-en="WhatsApp Community">Comunidad WhatsApp</a>
       </div>
     </article>
@@ -750,7 +750,12 @@ async function submitContact(){
   const btn=document.getElementById('ct-btn'); btn.disabled=true; btn.textContent='...';
   const {error}=await sb.from('contacts').insert([{name,email,message}]);
   if(error){toast(lang==='es'?'Algo salió mal.':'Something went wrong.',true);}
-  else{document.getElementById('ct-name').value='';document.getElementById('ct-email').value='';document.getElementById('ct-msg').value='';toast(lang==='es'?'Mensaje enviado ✦':'Message sent ✦');}
+  else{
+    // Notify the team by email (non-blocking — toast still shows on failure)
+    fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message})}).catch(()=>{});
+    document.getElementById('ct-name').value='';document.getElementById('ct-email').value='';document.getElementById('ct-msg').value='';
+    toast(lang==='es'?'Mensaje enviado ✦':'Message sent ✦');
+  }
   btn.disabled=false; btn.textContent=lang==='es'?'Enviar mensaje':'Send message';
 }
 
