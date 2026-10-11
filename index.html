@@ -1,151 +1,1527 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Vibra</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ella Vibra — Comunidad de bienestar femenino en Miami</title>
+<meta name="description" content="Ella Vibra: comunidad de bienestar femenino en Miami. Meditación y sanación sonora, nutrición consciente y comunidad. Sanar. Crecer. Florecer juntas.">
+<meta property="og:title" content="Ella Vibra — Sanar. Crecer. Florecer juntas.">
+<meta property="og:description" content="Comunidad de bienestar femenino en Miami: meditación y sanación sonora, nutrición consciente y comunidad.">
+<meta property="og:image" content="https://ellavibra.com/img/hero-circulo.jpg">
+<meta name="theme-color" content="#FDFAF6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Mona+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  /* ───────────────── tokens ───────────────── */
+  :root{
+    /* Concha — signature palette (always-on, default) */
+    --bg:          #FDFAF6;
+    --bg-soft:     #FFFEFB;
+    --bg-deep:     #FFE3D3;
+    --ink:         #2D0E22;
+    --ink-soft:    #4A1B37;
+    --ink-mute:    #7C4A66;
+    --line:        rgba(45,14,34,.12);
+    --line-soft:   rgba(45,14,34,.06);
+    --accent:      #DC4080;   /* magenta-rose — the orchid lip */
+    --accent-deep: #B22463;
+    --pop:         #DC4080;
+    --pop-deep:    #B22463;
+    --brown:       #F0AD45;   /* honey amber (second voice) */
+    --cream:       #FDFAF6;
+    --on-accent:   #FFFEFB;
+
+    /* type — Confident System */
+    --serif: "DM Serif Display", "Iowan Old Style", Georgia, serif;
+    --sans:  "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono:  "DM Mono", ui-monospace, "SFMono-Regular", monospace;
+
+    /* sizing */
+    --pad-x:  clamp(20px, 5vw, 96px);
+    --maxw:   1320px;
+  }
+
+  /* palette: Brote — Spring */
+  [data-palette="brote"]{
+    --bg:#FFF8F2; --bg-soft:#FFFCF8; --bg-deep:#FFD2C9;
+    --ink:#2D0E22; --ink-soft:#4A1B37; --ink-mute:#7C4A66;
+    --line:rgba(45,14,34,.12); --line-soft:rgba(45,14,34,.06);
+    --accent:#E84D75; --accent-deep:#B62A52;
+    --pop:#E84D75;   --pop-deep:#B62A52;
+    --brown:#F4B655; --on-accent:#FFFCF8;
+  }
+  /* palette: Sol — Summer */
+  [data-palette="sol"]{
+    --bg:#FFFAEE; --bg-soft:#FFFEF8; --bg-deep:#FFD8AF;
+    --ink:#2D0E22; --ink-soft:#4A1B37; --ink-mute:#7E5269;
+    --line:rgba(45,14,34,.12); --line-soft:rgba(45,14,34,.06);
+    --accent:#E04075; --accent-deep:#B22458;
+    --pop:#E04075;   --pop-deep:#B22458;
+    --brown:#F2A93D; --on-accent:#FFFEF8;
+  }
+  /* palette: Cosecha — Fall */
+  [data-palette="cosecha"]{
+    --bg:#FDF4E8; --bg-soft:#FFFAF1; --bg-deep:#F8B79B;
+    --ink:#2A0C1F; --ink-soft:#471832; --ink-mute:#7A4A64;
+    --line:rgba(42,12,31,.12); --line-soft:rgba(42,12,31,.06);
+    --accent:#CC3066; --accent-deep:#9B1A48;
+    --pop:#CC3066;   --pop-deep:#9B1A48;
+    --brown:#DC8B40; --on-accent:#FFFAF1;
+  }
+  /* palette: Llama — Winter */
+  [data-palette="llama"]{
+    --bg:#FDF1ED; --bg-soft:#FFFAF6; --bg-deep:#FFB8B0;
+    --ink:#28091F; --ink-soft:#42162E; --ink-mute:#7A4660;
+    --line:rgba(40,9,31,.12); --line-soft:rgba(40,9,31,.06);
+    --accent:#D02E5C; --accent-deep:#9E173E;
+    --pop:#D02E5C;   --pop-deep:#9E173E;
+    --brown:#DD7843; --on-accent:#FFFAF6;
+  }
+
+  /* ───────────────── base ───────────────── */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* ────────────── primitives ────────────── */
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 var(--pad-x); }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:24px; height:1px;
+    background:currentColor;
+    opacity:.55;
+    display:inline-block;
+  }
+  .eyebrow.no-rule::before{ display:none }
+
+  h1,h2,h3,h4{
+    font-family:var(--serif);
+    font-weight:400;
+    line-height:1.02;
+    letter-spacing:-.012em;
+    margin:0;
+    color:var(--ink);
+  }
+  h2{ font-size:clamp(40px, 6vw, 84px); line-height:1; }
+  h3{ font-size:clamp(26px, 2.6vw, 36px); line-height:1.1; letter-spacing:-.005em }
+  .italic{ font-style:italic; font-weight:300 }
+
+  p{ color:var(--ink-soft); font-size:16px; line-height:1.6; }
+  .lede{ font-family:var(--serif); font-size:clamp(20px,1.6vw,24px); font-weight:300; font-style:italic; color:var(--ink-soft); line-height:1.45 }
+  a{ color:inherit; text-decoration:none }
+
+  .rule{ height:1px; background:var(--line); border:0; margin:0 }
+
+  /* buttons */
+  .btn{
+    appearance:none; border:0; cursor:pointer;
+    font:500 13.5px/1 var(--sans);
+    letter-spacing:.04em;
+    padding:16px 24px;
+    border-radius:999px;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    text-transform:uppercase;
+  }
+  .btn-primary{ background:var(--ink); color:var(--bg-soft); }
+  .btn-primary:hover{ background:var(--accent-deep); transform:translateY(-1px) }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); transform:translateY(-1px) }
+  .btn-accent{ background:var(--accent); color:var(--on-accent); }
+  .btn-accent:hover{ background:var(--accent-deep); transform:translateY(-1px) }
+
+  .btn .arr{
+    display:inline-block;
+    transition:transform .25s ease;
+  }
+  .btn:hover .arr{ transform:translateX(3px) }
+
+  /* scroll reveals */
+  .rv{ opacity:0; transform:translateY(22px); transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1) }
+  .rv.in{ opacity:1; transform:none }
+  .rv.d1{ transition-delay:.08s }
+  .rv.d2{ transition-delay:.16s }
+  .rv.d3{ transition-delay:.24s }
+  .rv.d4{ transition-delay:.32s }
+
+  /* utility */
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 10px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font:500 10.5px/1 var(--sans);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--bg-soft);
+  }
+
+  ::selection{ background:var(--accent); color:var(--on-accent); }
+
+  /* ornament */
+  .ornament{
+    display:inline-block;
+    color:var(--accent);
+  }
+
+  /* image-cover defaults */
+  .img-cover{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* tasteful focus rings */
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px }
+
+  /* lock body when modal open */
+  body.locked{ overflow:hidden }
+
+  /* divider headline */
+  .h-rule{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px;
+  }
+  .h-rule::before,.h-rule::after{ content:""; height:1px; background:var(--line) }
+
+  /* ────────────── splash ────────────── */
+  #splash{
+    position:fixed; inset:0; z-index:50;
+    background:var(--bg);
+    display:grid; place-items:center;
+    transition:opacity .8s ease;
+  }
+  #splash.gone{ opacity:0; pointer-events:none }
+  #splash svg.splash-orchid{
+    width:96px; height:96px;
+    animation:bloom 1.8s ease-in-out infinite;
+  }
+  @keyframes bloom{
+    0%,100%{ opacity:.55; transform:scale(.96) }
+    50%   { opacity:1;   transform:scale(1.04) }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .rv{ opacity:1; transform:none; transition:none }
+    html{ scroll-behavior:auto }
+  }
+
+
+/* ── orchid: orchidStyles ── */
+  .ev-orchid-line{
+    display:inline-flex; align-items:center; gap:.18em;
+    font-family:var(--serif);
+    font-size: var(--evw-fs, 22px);
+    line-height:1;
+    letter-spacing:-.012em;
+    color:var(--ink);
+  }
+  .ev-orchid-line .ev-w-ella{ font-weight:500 }
+  .ev-orchid-line .ev-w-vibra{
+    font-style:italic; font-weight:300;
+    color:var(--accent);
+  }
+  .ev-orchid-line .ev-w-orchid{
+    transform: translateY(-.04em);
+    margin: 0 .04em;
+  }
+
+  .ev-orchid-stack{
+    display:inline-flex; flex-direction:column; align-items:center; gap:.04em;
+    font-family:var(--serif);
+    line-height:.86;
+    letter-spacing:-.018em;
+  }
+  .ev-orchid-stack .ev-w-ella{ font-weight:500; font-size: var(--evw-fs) }
+  .ev-orchid-stack .ev-w-vibra{
+    font-style:italic; font-weight:300;
+    font-size: calc(var(--evw-fs) * 1.18);
+    color:var(--accent);
+  }
+
+/* ── nav: navStyles ── */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:30;
+    transition: background .35s ease, border-color .35s ease, padding .3s ease, backdrop-filter .3s ease;
+    border-bottom:1px solid transparent;
+    padding:18px 0;
+  }
+  .nav.scrolled{
+    background:color-mix(in oklab, var(--bg) 86%, transparent);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom-color:var(--line-soft);
+    padding:12px 0;
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .wordmark{
+    font-family:var(--serif);
+    font-size:22px;
+    line-height:1;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    display:inline-flex; gap:.16em; align-items:center;
+  }
+  .wordmark > span:first-child{ font-weight:500 }
+  .wordmark .v{ font-style:italic; font-weight:400; color:var(--accent); }
+  .wordmark-orchid{ display:inline-block; transform:translateY(-.04em); margin:0 .04em }
+  .nav-links{
+    display:flex; gap:34px; align-items:center;
+  }
+  .nav-links a{
+    font:500 12.5px/1 var(--sans);
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    position:relative;
+    padding:6px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:0;
+    height:1px; background:var(--accent);
+    transform:scaleX(0); transform-origin:left center;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-links a:hover{ color:var(--ink) }
+  .nav-links a:hover::after{ transform:scaleX(1) }
+
+  .nav-right{ display:flex; align-items:center; gap:18px }
+  .lang-tog{
+    appearance:none; border:1px solid var(--line);
+    background:transparent;
+    padding:6px 4px;
+    border-radius:999px;
+    font:500 11px/1 var(--sans);
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    display:inline-flex; align-items:center; cursor:pointer;
+    overflow:hidden;
+  }
+  .lang-tog span{
+    padding:4px 10px;
+    border-radius:999px;
+    transition:background .25s ease, color .25s ease;
+  }
+  .lang-tog span.on{ background:var(--ink); color:var(--bg-soft); }
+
+  .nav-cta{
+    padding:10px 18px;
+    font-size:12px;
+    letter-spacing:.08em;
+  }
+
+  /* mobile */
+  .nav-burger{
+    display:none;
+    appearance:none; border:0; background:transparent;
+    width:36px; height:36px;
+    padding:0;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .nav-burger svg{ width:22px; height:22px; display:block; margin:auto }
+
+  @media (max-width:880px){
+    .nav-links{ display:none }
+    .nav-burger{ display:inline-flex; align-items:center; justify-content:center }
+    .nav-cta{ display:none }
+  }
+
+  .menu-overlay{
+    position:fixed; inset:0; z-index:40;
+    background:var(--bg);
+    transform:translateY(-100%);
+    transition:transform .55s cubic-bezier(.6,.2,.2,1);
+    display:flex; flex-direction:column;
+  }
+  .menu-overlay.open{ transform:none }
+  .menu-overlay header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px var(--pad-x);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .menu-overlay .links{
+    flex:1; padding:30px var(--pad-x);
+    display:flex; flex-direction:column; gap:6px;
+    justify-content:center;
+  }
+  .menu-overlay .links a{
+    font-family:var(--serif);
+    font-size:44px;
+    font-weight:300;
+    color:var(--ink);
+    line-height:1.15;
+    padding:6px 0;
+    display:inline-flex; align-items:baseline; gap:14px;
+  }
+  .menu-overlay .links a span.num{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.2em;
+    color:var(--ink-mute);
+  }
+  .menu-overlay .menu-foot{
+    padding:24px var(--pad-x);
+    border-top:1px solid var(--line-soft);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:12px; color:var(--ink-mute);
+    letter-spacing:.06em;
+  }
+
+/* ── hero: heroStyles ── */
+  .hero{
+    position:relative;
+    padding:140px 0 80px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+    gap:64px;
+    align-items:end;
+  }
+  .hero-left{ position:relative; padding-top:32px }
+
+  .hero-cap{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:48px;
+    border-top:1px solid var(--line);
+    padding-top:16px;
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+  .hero-cap b{ font-weight:500; color:var(--ink-soft) }
+
+  /* the wordmark */
+  .ev-mark{
+    display:flex; flex-direction:column;
+    font-family:var(--serif);
+    color:var(--ink);
+    line-height:.86;
+    letter-spacing:-.025em;
+    margin:0;
+  }
+  .ev-mark .ella{
+    font-weight:500;
+    font-size:clamp(96px, 17vw, 240px);
+    display:block;
+  }
+  .ev-mark .vibra{
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(112px, 19vw, 280px);
+    display:block;
+    margin-left:.16em;
+    margin-top:-.04em;
+    color:var(--accent);
+    position:relative;
+  }
+  .ev-mark .vibra .mark-orchid{
+    display:inline-block;
+    width:.32em; height:.32em;
+    margin-left:.06em;
+    vertical-align:.46em;
+  }
+
+  .hero-tag{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(22px, 2.2vw, 32px);
+    color:var(--ink-soft);
+    margin-top:28px;
+    line-height:1.25;
+    max-width:560px;
+  }
+
+  .hero-body{
+    margin-top:20px;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-mute);
+    max-width:480px;
+  }
+
+  .hero-ctas{
+    display:flex; gap:12px; flex-wrap:wrap;
+    margin-top:36px;
+  }
+
+  /* right column image stack */
+  .hero-right{
+    position:relative;
+    aspect-ratio: 3 / 4.2;
+    min-height:520px;
+    max-height:720px;
+  }
+  .hero-photo{
+    position:absolute; inset:0;
+    border-radius:2px;
+    overflow:hidden;
+    background:var(--bg-deep);
+  }
+  .hero-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(42,31,23,.22) 100%);
+    pointer-events:none;
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; display:block;
+    transform:scale(1.02); transition:transform 1.6s ease;
+  }
+  .hero-photo:hover img{ transform:scale(1.05) }
+
+  /* floating label badges on photo */
+  .hero-photo-mark{
+    position:absolute;
+    top:18px; left:18px;
+    color:var(--bg-soft);
+    font:500 10px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    display:flex; flex-direction:column; gap:6px;
+    text-shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+  .hero-photo-mark .num{ font-size:14px; letter-spacing:.05em }
+
+  .hero-photo-quote{
+    position:absolute;
+    left:18px; right:18px; bottom:18px;
+    color:var(--bg-soft);
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    line-height:1.35;
+    text-shadow:0 1px 4px rgba(0,0,0,.3);
+  }
+  .hero-photo-quote::before{
+    content:"";
+    display:block; width:32px; height:1px;
+    background:var(--bg-soft); opacity:.7;
+    margin-bottom:10px;
+  }
+
+  /* small running marquee */
+  .hero-marquee{
+    margin-top:96px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+  }
+  .hero-marquee-inner{
+    display:inline-flex; align-items:center; gap:60px;
+    animation: marquee 38s linear infinite;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(28px, 3.4vw, 48px);
+    color:var(--ink);
+  }
+  .hero-marquee-inner > span{ display:inline-flex; align-items:center; gap:60px; flex-shrink:0; padding-right:60px }
+  .hero-marquee-inner i.dot{
+    font-style:normal;
+    color:var(--accent);
+    font-size:.7em;
+    transform:translateY(-.15em);
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0) }
+    to{ transform:translateX(-50%) }
+  }
+
+  /* corner mark */
+  .hero-corner{
+    position:absolute;
+    right:var(--pad-x);
+    top:120px;
+    font:500 10px/1.4 var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    text-align:right;
+  }
+
+  @media (max-width:980px){
+    .hero{ padding:120px 0 60px }
+    .hero-grid{ grid-template-columns:1fr; gap:32px }
+    .hero-right{ aspect-ratio: 4/3.4; min-height:auto; max-height:520px; order:-1 }
+    .hero-corner{ display:none }
+  }
+
+/* ── archetypes ── */
+  .arquetipos{ padding:120px 0 100px; background:color-mix(in srgb, var(--bg-deep) 35%, var(--bg)) }
+  .arquetipos .pillars-head h2{ font-weight:400; font-size:clamp(44px,6vw,84px) }
+  .arquetipos .pillars-head h2 .italic{ display:block; color:var(--accent) }
+  .arquetipos .pillars-head .right p{ font-size:17px; color:var(--ink-mute); max-width:480px; line-height:1.6 }
+  .arq-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--line) }
+  .arq-card{ position:relative; padding:40px 28px 48px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; flex-direction:column; gap:14px; transition:background .4s ease }
+  .arq-card:last-child{ border-right:0 }
+  .arq-card:hover{ background:var(--bg) }
+  .arq-card.is-next{ background:var(--bg) }
+  .arq-card.is-next::before{ content:""; position:absolute; top:-1px; left:0; right:0; height:3px; background:var(--accent) }
+  .arq-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:2px }
+  .arq-imgwrap{ width:100%; aspect-ratio:4/5; overflow:hidden; margin-bottom:12px; background:var(--bg-deep) }
+  .arq-img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s ease }
+  .arq-card:hover .arq-img{ transform:scale(1.04) }
+  .arq-month{ font:500 11px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase; color:var(--ink-mute) }
+  .arq-card h3{ font-family:var(--serif); font-weight:400; font-size:clamp(28px,2.4vw,36px); line-height:1.05; color:var(--ink) }
+  .arq-verb{ font:500 11px/1 var(--mono); letter-spacing:.2em; text-transform:uppercase; color:var(--accent) }
+  .arq-card p{ font-size:15px; line-height:1.6; color:var(--ink-soft) }
+  .arq-card .arq-for{ font-family:var(--serif); font-style:italic; font-size:17px; line-height:1.4; color:var(--ink-mute); margin-top:auto; padding-top:8px }
+  .arq-next{ align-self:flex-start; font:500 10px/1 var(--mono); letter-spacing:.18em; text-transform:uppercase; color:#fff; background:var(--accent); padding:7px 10px; border-radius:999px }
+  @media (max-width:980px){ .arq-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } .arq-card:nth-child(2){ border-right:0 } .arq-card:nth-child(3){ border-right:1px solid var(--line) } }
+  @media (max-width:560px){ .arquetipos{ padding:80px 0 64px } .arq-grid{ grid-template-columns:1fr } .arq-card{ border-right:0 !important; padding:32px 4px 40px } }
+
+/* ── pillars: pillarsStyles ── */
+  .pillars{
+    padding:120px 0 80px;
+    position:relative;
+  }
+  .pillars-head{
+    display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap:48px;
+    align-items:end; margin-bottom:80px;
+  }
+  .pillars-head h2{
+    font-weight:400;
+    font-size:clamp(48px, 7vw, 96px);
+  }
+  .pillars-head h2 .italic{ display:block; color:var(--accent) }
+  .pillars-head .right p{
+    font-size:17px; color:var(--ink-mute); max-width:480px;
+    line-height:1.6;
+  }
+  .pillars-head .right .more{
+    margin-top:18px; display:inline-flex; align-items:center; gap:10px;
+    font:500 12px/1 var(--sans); letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:6px;
+  }
+
+  .pillars-grid{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .pillar{
+    position:relative;
+    padding:48px 32px 56px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    display:flex; flex-direction:column;
+    transition: background .4s ease;
+  }
+  .pillar:last-child{ border-right:0 }
+  .pillar:hover{ background:var(--bg-soft) }
+  .pillar:hover .pillar-img{ transform:scale(1.04) }
+  .pillar:hover .pillar-cta{ color:var(--accent) }
+
+  .pillar-num{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    color:var(--ink-mute);
+    margin-bottom:40px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .pillar-num .glyph{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:32px;
+    color:var(--accent);
+    letter-spacing:0;
+  }
+
+  .pillar-imgwrap{
+    width:100%;
+    aspect-ratio: 4 / 3.4;
+    overflow:hidden;
+    margin-bottom:32px;
+    background:var(--bg-deep);
+    border-radius:2px;
+    position:relative;
+  }
+  .pillar-img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition: transform .9s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .pillar h3{
+    font-size:clamp(26px, 2.2vw, 32px);
+    font-weight:400;
+    line-height:1.1;
+    margin-bottom:14px;
+    letter-spacing:-.005em;
+  }
+  .pillar h3 em{ font-style:italic; font-weight:300; color:var(--accent) }
+  .pillar p{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--ink-mute);
+    margin:0 0 28px;
+    flex:1;
+  }
+  .pillar-cta{
+    font:500 11.5px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:inline-flex; align-items:center; gap:10px;
+    transition: color .3s ease;
+  }
+  .pillar-cta .arr{ transition: transform .3s ease }
+  .pillar:hover .pillar-cta .arr{ transform: translateX(4px) }
+
+  /* alternating pillar backgrounds for visual rhythm */
+  .pillar:nth-child(2){ background:var(--bg-soft) }
+
+  @media (max-width:880px){
+    .pillars{ padding:80px 0 40px }
+    .pillars-head{ grid-template-columns:1fr; gap:24px; margin-bottom:48px }
+    .pillars-grid{ grid-template-columns:1fr }
+    .pillar{ border-right:0 }
+    .pillar:nth-child(2){ background:var(--bg) }
+  }
+
+/* ── event: eventStyles ── */
+  .event-section{
+    background:var(--bg-soft);
+    padding:120px 0 120px;
+    position:relative;
+    overflow:hidden;
+  }
+  .event-section::before{
+    content:""; position:absolute;
+    top:-1px; left:0; right:0; height:1px; background:var(--line);
+  }
+  .event-head{
+    display:grid; grid-template-columns: 1fr auto 1fr; align-items:end; gap:24px;
+    margin-bottom:64px;
+  }
+  .event-head .l{ text-align:left }
+  .event-head .c{ text-align:center }
+  .event-head .r{ text-align:right }
+  .event-head h2{
+    grid-column:1/-1;
+    text-align:center;
+    font-size:clamp(48px, 8vw, 112px);
+    font-weight:400;
+    line-height:.95;
+    margin-top:16px;
+  }
+  .event-head h2 .italic{ color:var(--accent); display:inline-block; margin-left:.18em }
+  .event-head .l .eyebrow{ justify-content:flex-start }
+  .event-head .r .eyebrow{ justify-content:flex-end }
+  .event-head .r .eyebrow::before{ display:none }
+  .event-head .r .eyebrow::after{
+    content:""; width:24px; height:1px; background:currentColor; opacity:.55; margin-left:10px;
+  }
+
+  /* invitation card spread */
+  .invite{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 20px 50px -30px rgba(42,31,23,.18);
+  }
+  .invite-left{
+    padding:56px 56px 48px;
+    display:flex; flex-direction:column;
+    border-right:1px solid var(--line);
+  }
+  .invite-pill{
+    align-self:flex-start;
+    background:var(--accent);
+    color:var(--on-accent);
+    padding:8px 14px;
+    border-radius:999px;
+    font:500 10.5px/1 var(--mono);
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    margin-bottom:36px;
+  }
+  .invite-title{
+    font-family:var(--serif);
+    line-height:.95;
+    letter-spacing:-.02em;
+  }
+  .invite-title .k{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    display:block;
+    margin-bottom:18px;
+    font-style:normal;
+  }
+  .invite-title .name{
+    font-size:clamp(48px, 6.5vw, 86px);
+    font-weight:400;
+    display:block;
+  }
+  .invite-title .name em{
+    font-style:italic;
+    font-weight:300;
+    color:var(--accent);
+  }
+
+  .invite-desc{
+    margin-top:36px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:21px;
+    line-height:1.42;
+    color:var(--ink-soft);
+    max-width:520px;
+  }
+  .invite-desc + p{
+    margin-top:18px;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-mute);
+    max-width:520px;
+  }
+
+  .invite-ctas{
+    margin-top:auto;
+    padding-top:48px;
+    display:flex; gap:12px; flex-wrap:wrap;
+  }
+
+  /* right column: meta + photo + guides */
+  .invite-right{
+    display:grid;
+    grid-template-rows: 320px auto auto;
+  }
+  .invite-photo{
+    position:relative;
+    overflow:hidden;
+    background:var(--bg-deep);
+  }
+  .invite-photo img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition: transform 1.4s ease;
+  }
+  .invite-photo:hover img{ transform:scale(1.06) }
+  .invite-photo::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(42,31,23,.4));
+  }
+  .invite-photo .ph-label{
+    position:absolute; left:24px; bottom:20px; right:24px;
+    color:var(--bg-soft);
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    line-height:1.3;
+  }
+  .invite-photo .ph-label::before{
+    content:""; display:block; width:28px; height:1px;
+    background:var(--bg-soft); opacity:.7; margin-bottom:8px;
+  }
+
+  .invite-meta{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    border-top:1px solid var(--line);
+  }
+  .invite-meta dl{
+    margin:0;
+    padding:24px 28px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .invite-meta dl:nth-child(even){ border-right:0 }
+  .invite-meta dl:nth-last-child(-n+2){ border-bottom:0 }
+  .invite-meta dt{
+    font:500 10px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    margin-bottom:10px;
+  }
+  .invite-meta dd{
+    margin:0;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:18px;
+    line-height:1.25;
+    color:var(--ink);
+    letter-spacing:-.005em;
+  }
+  .invite-meta dd .small{
+    display:block; font-family:var(--sans); font-size:12px;
+    color:var(--ink-mute); margin-top:3px; letter-spacing:0;
+  }
+
+  /* sub spread: guides + what to bring */
+  .invite-sub{
+    margin-top:48px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:40px;
+    align-items:start;
+  }
+  .invite-block{
+    background:var(--bg);
+    border:1px solid var(--line);
+    padding:36px 36px 32px;
+    border-radius:2px;
+  }
+  .invite-block h4{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    margin:0 0 24px;
+  }
+  .guides-list{ display:flex; flex-direction:column; gap:18px }
+  .guide{
+    display:flex; gap:16px; align-items:center;
+  }
+  .guide-avatar{
+    width:46px; height:46px; border-radius:50%;
+    background:var(--accent);
+    color:var(--on-accent);
+    display:grid; place-items:center;
+    font-family:var(--serif);
+    font-size:18px;
+    font-weight:400;
+    letter-spacing:.04em;
+    flex-shrink:0;
+    overflow:hidden;
+  }
+  .guide-avatar.b{ background:var(--brown) }
+  .guide-avatar.c{ background:var(--ink-soft) }
+  .guide-name{
+    font-family:var(--serif);
+    font-size:20px;
+    font-weight:400;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  .guide-role{
+    font:400 12px/1.4 var(--sans);
+    color:var(--ink-mute);
+    letter-spacing:.04em;
+    margin-top:2px;
+  }
+
+  .bring-list{
+    display:flex; flex-direction:column; gap:14px;
+    list-style:none; padding:0; margin:0;
+  }
+  .bring-list li{
+    display:flex; gap:14px;
+    font-size:14.5px; line-height:1.55;
+    color:var(--ink-soft);
+    padding-bottom:14px;
+    border-bottom:1px dashed var(--line-soft);
+  }
+  .bring-list li:last-child{ border-bottom:0 }
+  .bring-list li::before{
+    content:"✦";
+    color:var(--accent);
+    flex-shrink:0;
+    font-size:13px;
+    margin-top:3px;
+  }
+
+  .event-fineprint{
+    margin-top:36px;
+    font-size:12px; line-height:1.55;
+    color:var(--ink-mute);
+    text-align:center;
+    letter-spacing:.02em;
+  }
+
+  @media (max-width:980px){
+    .event-head h2{ font-size:clamp(48px, 11vw, 80px) }
+    .invite{ grid-template-columns:1fr }
+    .invite-left{ border-right:0; border-bottom:1px solid var(--line); padding:36px 28px }
+    .invite-right{ grid-template-rows: 280px auto }
+    .invite-meta{ grid-template-columns:1fr 1fr }
+    .invite-sub{ grid-template-columns:1fr; gap:20px }
+    .event-head{ grid-template-columns:1fr; text-align:center }
+    .event-head .l .eyebrow,.event-head .r .eyebrow{ justify-content:center }
+    .event-head .l .eyebrow::before, .event-head .r .eyebrow::after{ display:none }
+  }
+
+/* ── recursos: recursosStyles ── */
+  .recursos{
+    padding:120px 0 100px;
+    position:relative;
+  }
+  .recursos-head{
+    display:grid; grid-template-columns: 1fr 1fr; gap:48px;
+    align-items:end; margin-bottom:64px;
+  }
+  .recursos-head h2{
+    font-size:clamp(48px, 7vw, 96px);
+    font-weight:400;
+    line-height:.95;
+  }
+  .recursos-head h2 .italic{ color:var(--accent); display:block }
+  .recursos-head .right{ display:flex; flex-direction:column; align-items:flex-end; gap:18px; text-align:right }
+  .recursos-head .right p{ font-size:17px; color:var(--ink-mute); max-width:360px; line-height:1.6 }
+
+  .rec-grid{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap:24px;
+  }
+
+  .rec-card{
+    position:relative;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+    aspect-ratio: 4 / 4.6;
+    transition: transform .35s ease, border-color .35s ease;
+    cursor:pointer;
+  }
+  .rec-card:hover{ transform: translateY(-3px); border-color:var(--ink-mute) }
+  .rec-card:hover .rec-play{ background:var(--accent); color:var(--on-accent); transform:scale(1.06) }
+
+  .rec-cover{
+    position:relative;
+    flex:1;
+    overflow:hidden;
+    background:var(--bg-deep);
+  }
+  .rec-cover.a{ background: linear-gradient(160deg, #FFD2C9 0%, #DC4080 100%) }
+  .rec-cover.b{ background: linear-gradient(160deg, #FFE3D3 0%, #F0AD45 100%) }
+  .rec-cover.c{ background: linear-gradient(160deg, #FFA8C8 0%, #2D0E22 100%) }
+  .rec-cover.d{ background: linear-gradient(160deg, #FFFEFB 0%, #B22463 100%) }
+
+  /* abstract sound-wave / orbits pattern */
+  .rec-cover svg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    color: rgba(245,239,230,.55);
+  }
+
+  .rec-play{
+    position:absolute;
+    right:18px; bottom:18px;
+    width:48px; height:48px;
+    border-radius:50%;
+    background: rgba(42,31,23,.88);
+    color:var(--bg-soft);
+    display:grid; place-items:center;
+    font-size:14px;
+    backdrop-filter: blur(4px);
+    transition: background .3s ease, color .3s ease, transform .3s ease;
+  }
+
+  .rec-tag{
+    position:absolute;
+    top:18px; left:18px;
+    font:500 10px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color: var(--bg-soft);
+    background: rgba(42,31,23,.55);
+    padding:6px 10px;
+    border-radius:999px;
+    backdrop-filter:blur(8px);
+  }
+
+  .rec-dur{
+    position:absolute;
+    top:18px; right:18px;
+    font:500 10px/1 var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color: var(--bg-soft);
+  }
+
+  .rec-foot{
+    padding:18px 20px 20px;
+    border-top:1px solid var(--line);
+    background:var(--bg);
+  }
+  .rec-foot h4{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:22px;
+    line-height:1.15;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-.005em;
+  }
+  .rec-foot .kind{
+    font:400 12px/1 var(--sans);
+    color:var(--ink-mute);
+    margin-top:8px;
+    letter-spacing:.02em;
+  }
+
+  .rec-foot-row{
+    margin-top:48px;
+    display:flex; align-items:center; justify-content:space-between;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+  }
+  .rec-foot-row .count{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+
+  @media (max-width:980px){
+    .recursos{ padding:80px 0 60px }
+    .recursos-head{ grid-template-columns:1fr; gap:24px; margin-bottom:36px }
+    .recursos-head .right{ align-items:flex-start; text-align:left }
+    .rec-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) }
+  }
+  @media (max-width:560px){
+    .rec-grid{ grid-template-columns:1fr }
+  }
+
+/* ── founders: foundersStyles ── */
+  .founders{
+    padding:120px 0 120px;
+    background:var(--ink);
+    color:var(--bg-soft);
+    position:relative;
+    overflow:hidden;
+  }
+  .founders *{ color:inherit }
+  .founders p{ color: color-mix(in oklab, var(--bg-soft) 75%, transparent) }
+
+  .founders-head{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap:64px;
+    align-items:end; margin-bottom:80px;
+  }
+  .founders-head h2{
+    color:var(--bg-soft);
+    font-size:clamp(56px, 8vw, 120px);
+    font-weight:400;
+    line-height:.95;
+    letter-spacing:-.015em;
+  }
+  .founders-head h2 .italic{
+    color:var(--accent);
+    display:block;
+    font-weight:300;
+  }
+  .founders-head .eyebrow{
+    color: color-mix(in oklab, var(--bg-soft) 60%, transparent);
+  }
+  .founders-head .right p{
+    font-size:17px; line-height:1.65; max-width:380px; text-align:right; margin-left:auto;
+  }
+  .founders-head .right .ctas{
+    display:flex; gap:10px; justify-content:flex-end; margin-top:22px;
+  }
+  .founders .btn-ghost{
+    color:var(--bg-soft);
+    border-color: color-mix(in oklab, var(--bg-soft) 22%, transparent);
+  }
+  .founders .btn-ghost:hover{ border-color:var(--bg-soft) }
+
+  .founders-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:0;
+    border-top:1px solid color-mix(in oklab, var(--bg-soft) 14%, transparent);
+  }
+  .founder{
+    padding:48px 36px 8px;
+    border-right:1px solid color-mix(in oklab, var(--bg-soft) 14%, transparent);
+    display:flex; flex-direction:column;
+  }
+  .founder:last-child{ border-right:0 }
+
+  .founder-portrait{
+    width:100%;
+    aspect-ratio: 4/4.6;
+    overflow:hidden;
+    background: color-mix(in oklab, var(--bg-soft) 6%, transparent);
+    border-radius:2px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .founder-portrait img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter: grayscale(.2) brightness(.95);
+    transition: filter .8s ease, transform 1.2s ease;
+  }
+  .founder:hover .founder-portrait img{
+    filter:none; transform: scale(1.04);
+  }
+  .founder-portrait::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,.35));
+  }
+
+  .founder-num{
+    position:absolute;
+    top:14px; left:14px;
+    font:500 10px/1 var(--mono);
+    letter-spacing:.22em;
+    color:var(--bg-soft);
+    text-shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  .founder-tag{
+    position:absolute;
+    bottom:14px; left:14px; right:14px;
+    color:var(--bg-soft);
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    line-height:1.25;
+  }
+
+  .founder h3{
+    font-family:var(--serif);
+    font-size:30px;
+    font-weight:400;
+    color:var(--bg-soft);
+    line-height:1.05;
+    margin:0 0 6px;
+    letter-spacing:-.01em;
+  }
+  .founder .role{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:18px;
+  }
+  .founder .bio{
+    font-size:14.5px;
+    line-height:1.6;
+    margin:0 0 32px;
+  }
+
+  /* light decorative quote at bottom */
+  .founders-quote{
+    margin-top:80px;
+    text-align:center;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(24px, 3vw, 36px);
+    line-height:1.3;
+    color:var(--bg-soft);
+    max-width:760px;
+    margin-left:auto; margin-right:auto;
+  }
+  .founders-quote::before, .founders-quote::after{
+    content:"";
+    display:block;
+    width:32px; height:1px;
+    background:var(--accent);
+    margin:24px auto;
+  }
+
+  @media (max-width:880px){
+    .founders{ padding:80px 0 80px }
+    .founders-head{ grid-template-columns:1fr; gap:24px; margin-bottom:48px }
+    .founders-head .right p{ text-align:left; margin-left:0 }
+    .founders-head .right .ctas{ justify-content:flex-start }
+    .founders-grid{ grid-template-columns:1fr }
+    .founder{ border-right:0; border-bottom:1px solid color-mix(in oklab, var(--bg-soft) 14%, transparent); padding-bottom:36px }
+  }
+
+/* ── join: joinStyles ── */
+  .join{
+    padding:120px 0 100px;
+    position:relative;
+  }
+  .join-inner{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap:64px;
+    align-items:center;
+  }
+  .join h2{
+    font-size:clamp(56px, 8vw, 112px);
+    font-weight:400;
+    line-height:.95;
+  }
+  .join h2 .italic{ color:var(--accent); display:block }
+  .join p{ font-size:17px; color:var(--ink-mute); line-height:1.65; max-width:520px; margin:24px 0 0 }
+  .join-ctas{ display:flex; gap:12px; flex-wrap:wrap; margin-top:36px }
+
+  .join-right{
+    position:relative;
+    aspect-ratio: 5/6;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    padding:32px;
+    display:flex; flex-direction:column;
+    justify-content:space-between;
+  }
+  .join-right::after{
+    content:""; position:absolute; right:-80px; top:-80px;
+    width:280px; height:280px; border-radius:50%;
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 38%, transparent), transparent);
+    pointer-events:none;
+  }
+  .join-stats{
+    display:flex; flex-direction:column; gap:0;
+    border-top:1px solid var(--line);
+    margin-top:32px;
+  }
+  .stat{
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns: 1fr auto; align-items:baseline; gap:16px;
+  }
+  .stat:last-child{ border-bottom:0 }
+  .stat .n{
+    font-family:var(--serif);
+    font-size:48px;
+    font-weight:400;
+    line-height:1;
+    color:var(--ink);
+    letter-spacing:-.02em;
+  }
+  .stat .l{
+    font:500 11px/1.3 var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    text-align:right;
+    max-width:160px;
+  }
+  .join-eyebrow-card{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+  .join-quote{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    line-height:1.25;
+    color:var(--ink);
+    letter-spacing:-.005em;
+    margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  @media (max-width:880px){
+    .join{ padding:80px 0 60px }
+    .join-inner{ grid-template-columns:1fr; gap:36px }
+    .stat .n{ font-size:36px }
+  }
+
+/* ── contact: contactStyles ── */
+  .contact{
+    padding:120px 0 80px;
+    background:var(--bg-soft);
+    border-top:1px solid var(--line);
+    position:relative;
+  }
+  .contact-inner{
+    display:grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap:80px;
+    align-items:start;
+  }
+  .contact h2{
+    font-size:clamp(48px, 7vw, 96px);
+    font-weight:400;
+    line-height:.95;
+  }
+  .contact h2 .italic{ color:var(--accent); font-style:italic; font-weight:300 }
+  .contact p.sub{ font-size:16.5px; color:var(--ink-mute); line-height:1.65; max-width:380px; margin:24px 0 0 }
+
+  .contact-meta{
+    margin-top:48px;
+    display:flex; flex-direction:column; gap:20px;
+  }
+  .contact-meta dt{
+    font:500 10px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink-mute);
+    margin-bottom:4px;
+  }
+  .contact-meta dd{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .contact-meta a:hover{ color:var(--accent) }
+
+  /* form */
+  .form{
+    display:flex; flex-direction:column; gap:20px;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:40px;
+  }
+  .field{ display:flex; flex-direction:column; gap:6px }
+  .field label{
+    font:500 10px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+  .field input,
+  .field textarea{
+    appearance:none;
+    background:transparent;
+    border:0;
+    border-bottom:1px solid var(--line);
+    padding:14px 0 10px;
+    font:400 17px/1.4 var(--serif);
+    color:var(--ink);
+    transition: border-color .25s ease;
+    resize:none;
+  }
+  .field textarea{ min-height:120px; font-size:16px }
+  .field input:focus,
+  .field textarea:focus{
+    outline:none;
+    border-bottom-color:var(--accent);
+  }
+  .field input::placeholder, .field textarea::placeholder{
+    color: color-mix(in oklab, var(--ink-mute) 65%, transparent);
+    font-style:italic;
+  }
+  .form-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    margin-top:8px;
+  }
+  .form-note{
+    font-size:12px; color:var(--ink-mute);
+    letter-spacing:.04em;
+    max-width:240px;
+  }
+  .form-sent{
+    background: color-mix(in oklab, var(--accent) 18%, var(--bg));
+    border:1px solid var(--accent);
+    color:var(--ink);
+    padding:14px 18px;
+    border-radius:2px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:18px;
+  }
+
+  /* footer */
+  .footer{
+    background:var(--bg);
+    border-top:1px solid var(--line);
+    padding:80px 0 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap:48px;
+    padding-bottom:80px;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-mark{
+    font-family:var(--serif);
+    font-size:clamp(64px, 9vw, 132px);
+    line-height:.9;
+    font-weight:400;
+    letter-spacing:-.02em;
+    color:var(--ink);
+    margin-bottom:16px;
+    display:inline-flex; align-items:center; gap:.1em;
+    flex-wrap:wrap;
+  }
+  .footer-mark .e{ font-weight:500 }
+  .footer-mark em{ font-style:italic; font-weight:300; color:var(--accent) }
+  .footer-mark .fm-orchid{ display:inline-block; transform:translateY(-.03em) }
+  .footer-tag{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:20px;
+    color:var(--ink-soft);
+    font-weight:300;
+  }
+  .footer-col h5{
+    font:500 11px/1 var(--mono);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    margin:0 0 18px;
+  }
+  .footer-col ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px }
+  .footer-col a{
+    font-size:15px;
+    color:var(--ink-soft);
+    transition: color .2s ease;
+  }
+  .footer-col a:hover{ color:var(--accent) }
+
+  .footer-foot{
+    padding-top:24px;
+    display:flex; justify-content:space-between; align-items:center;
+    font:500 11px/1.4 var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    flex-wrap:wrap; gap:12px;
+  }
+  .footer-foot a:hover{ color:var(--accent) }
+
+  @media (max-width:880px){
+    .contact{ padding:80px 0 48px }
+    .contact-inner{ grid-template-columns:1fr; gap:36px }
+    .form{ padding:24px }
+    .footer-grid{ grid-template-columns:1fr 1fr; gap:32px }
+    .footer-mark{ font-size:64px }
+  }
+
+
+/* ── legacy: admin panel, modals, toast ── */
 :root{
-  --lav:#F5E6DA;--lav-mid:#E07A3F;--lav-dark:#C46A3C;--lav-deep:#A5532C;
-  --blush:#FCE4DC;--blush-mid:#EE9B9B;--blush-dark:#D94A4A;
-  --cream:#FDF8F3;--white:#fff;--text:#2B1810;--muted:#8A6E5A;--light:#C8B8A8;
-  --bdr:rgba(196,106,60,0.15);--bdr-mid:rgba(196,106,60,0.25);
-  --display:'Playfair Display',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;
+  /* legacy admin/modal tokens, mapped onto the plum palette */
+  --lav:#FFE3D3;--lav-mid:#DC4080;--lav-dark:#B22463;--lav-deep:#8E1A4E;
+  --blush:#FFE3D3;--blush-mid:#F08FB2;--blush-dark:#B22463;
+  --white:#fff;--text:#2D0E22;--muted:#7C4A66;--light:#C9A9BB;
+  --bdr:rgba(45,14,34,.12);--bdr-mid:rgba(45,14,34,.22);
 }
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(253,248,243,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--bdr)}
-.nav-logo{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--text);text-decoration:none}
-.nav-logo span{color:var(--lav-dark);font-style:italic}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--lav-dark)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-cta{font-size:13px;font-weight:500;padding:9px 22px;border-radius:40px;background:var(--lav-dark);color:#fff;border:none;cursor:pointer;text-decoration:none;font-family:var(--sans);transition:background .2s}
-.nav-cta:hover{background:var(--lav-deep)}
-.nav-login{font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans)}
-.nav-login:hover{color:var(--lav-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.hamburger span{display:block;width:22px;height:1.5px;background:var(--text)}
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--cream);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--text);text-decoration:none}
-.close-btn{position:absolute;top:24px;right:32px;font-size:28px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:var(--sans)}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(245,230,218,.7) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(224,122,63,.15) 0%,transparent 60%),var(--cream)}
-.hero-content{position:relative;z-index:1;max-width:700px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--lav);color:var(--lav-deep);font-size:12px;font-weight:500;padding:6px 16px;border-radius:40px;margin-bottom:28px;letter-spacing:.06em;text-transform:uppercase}
-.hero h1{font-family:var(--display);font-size:clamp(52px,8vw,88px);font-weight:400;line-height:1.05;color:var(--text);margin-bottom:8px}
-.hero h1 em{font-style:italic;color:var(--lav-dark)}
-.hero-sub{font-family:var(--serif);font-size:clamp(18px,3vw,24px);font-weight:300;color:var(--muted);margin-bottom:20px;font-style:italic}
-.hero-desc{font-size:15px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto 40px}
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary{padding:14px 32px;border-radius:40px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s;font-family:var(--sans)}
-.btn-primary:hover{background:var(--lav-deep)}
-.btn-ghost{padding:14px 32px;border-radius:40px;background:transparent;color:var(--text);border:0.5px solid var(--bdr-mid);font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--sans);transition:border-color .2s}
-.btn-ghost:hover{border-color:var(--lav-dark)}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--light),transparent);animation:scrollPulse 2s ease-in-out infinite;margin:48px auto 0}
-@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
-.lang-bar{background:var(--lav);padding:10px 32px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--lav-deep);font-weight:500}
-.lang-btn{padding:4px 14px;border-radius:20px;border:0.5px solid var(--lav-dark);background:transparent;color:var(--lav-dark);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .2s}
-.lang-btn.active{background:var(--lav-dark);color:#fff}
-section{padding:80px 24px}
-.section-inner{max-width:1100px;margin:0 auto}
-.section-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--lav-dark);margin-bottom:12px}
-.section-title{font-family:var(--display);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.15;color:var(--text);margin-bottom:16px}
-.section-title em{font-style:italic;color:var(--lav-dark)}
-.section-desc{font-size:15px;color:var(--muted);line-height:1.7;max-width:520px}
-.pillars{background:var(--white)}
-.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;border:0.5px solid var(--bdr);border-radius:20px;overflow:hidden;margin-top:48px;background:var(--bdr)}
-.pillar-card{background:var(--white);padding:36px 28px;transition:background .3s}
-.pillar-card:hover{background:var(--lav)}
-.pillar-icon{font-size:26px;color:var(--lav-dark);margin-bottom:18px}
-.pillar-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);margin-bottom:10px}
-.pillar-desc{font-size:13px;color:var(--muted);line-height:1.65}
-.events{background:var(--cream)}
-.events-grid{display:flex;flex-direction:column;gap:1px;margin-top:48px;background:var(--bdr);border-radius:16px;overflow:hidden;min-height:80px}
-.event-row{background:var(--white);padding:28px 32px;display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;transition:background .2s}
-.event-row:hover{background:var(--lav)}
-.event-date{text-align:center;border-right:0.5px solid var(--bdr);padding-right:24px}
-.event-date .month{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--lav-dark)}
-.event-date .day{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--text);line-height:1}
-.event-info h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);margin-bottom:4px}
-.event-meta{font-size:13px;color:var(--muted)}
-.event-tag{display:inline-block;margin-top:6px;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blush);color:var(--blush-dark);font-weight:500}
-.event-rsvp{padding:10px 22px;border-radius:40px;border:0.5px solid var(--lav-dark);background:transparent;color:var(--lav-dark);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--sans);transition:all .2s}
-.event-rsvp:hover{background:var(--lav-dark);color:#fff}
-.events-empty{padding:32px;text-align:center;font-size:14px;color:var(--muted);background:var(--white)}
-.featured-event{background:var(--white);border:0.5px solid var(--bdr);border-radius:20px;padding:40px;margin-top:48px;display:grid;gap:28px;position:relative;overflow:hidden}
-.featured-event::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--lav-dark),var(--lav-mid),var(--blush-dark))}
-.featured-event-header{display:flex;flex-direction:column;gap:6px}
-.featured-badge{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-dark);width:fit-content}
-.featured-event-title{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:400;color:var(--text);line-height:1.15}
-.featured-event-title em{font-style:italic;color:var(--lav-dark)}
-.featured-event-tag{font-size:13px;color:var(--muted);letter-spacing:.04em}
-.featured-event-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;padding:20px 24px;background:var(--lav);border-radius:12px}
-.meta-item{display:flex;flex-direction:column;gap:2px}
-.meta-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-deep)}
-.meta-value{font-size:14px;color:var(--text);font-weight:500}
-.featured-event-desc{font-size:15px;color:var(--muted);line-height:1.7}
-.featured-event-block .block-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lav-dark);margin-bottom:10px}
-.facilitator-list,.bring-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-.facilitator-list li,.bring-list li{font-size:14px;color:var(--text);line-height:1.5;padding-left:20px;position:relative}
-.facilitator-list li::before,.bring-list li::before{content:'·';position:absolute;left:6px;color:var(--lav-mid);font-weight:700}
-.facilitator-list strong{font-weight:500}
-.featured-event-policy{font-size:12px;color:var(--muted);font-style:italic;padding-top:16px;border-top:0.5px solid var(--bdr)}
-.featured-event-actions{display:flex;gap:12px;flex-wrap:wrap}
-@media(max-width:640px){.featured-event{padding:28px 24px}.featured-event-meta{grid-template-columns:1fr 1fr;padding:18px}}
-.hub{background:var(--lav)}
-.hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:48px}
-.hub-card{background:var(--white);border-radius:16px;overflow:hidden;border:0.5px solid var(--bdr);transition:transform .2s}
-.hub-card:hover{transform:translateY(-3px)}
-.hub-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:32px}
-.hub-thumb.audio{background:var(--blush)}.hub-thumb.video{background:#e8f0fb}.hub-thumb.pdf{background:#eaf3de}.hub-thumb.meditation{background:var(--lav)}.hub-thumb.other{background:#faeeda}
-.hub-body{padding:14px 16px 18px}
-.hub-type{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hub-title{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--text);margin-top:4px;line-height:1.3}
-.hub-duration{font-size:12px;color:var(--light);margin-top:5px}
-.hub-link{display:inline-block;margin-top:10px;font-size:12px;color:var(--lav-dark);text-decoration:none;font-weight:500}
-.hub-link:hover{color:var(--lav-deep)}
-.hub-empty{padding:40px;text-align:center;font-size:14px;color:var(--muted);background:var(--white);border-radius:16px;border:0.5px solid var(--bdr)}
-.community{background:var(--white)}
-.community-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px}
-.member-list{display:flex;flex-direction:column;gap:1px;background:var(--bdr);border-radius:16px;overflow:hidden}
-.member-row{background:var(--white);padding:16px 20px;display:flex;align-items:center;gap:14px}
-.avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:15px;flex-shrink:0}
-.av-lav{background:var(--lav);color:var(--lav-deep)}.av-blush{background:var(--blush);color:var(--blush-dark)}.av-green{background:#eaf3de;color:#3b6d11}.av-amber{background:#faeeda;color:#854f0b}
-.member-name{font-size:14px;font-weight:500;color:var(--text)}.member-tag{font-size:12px;color:var(--muted)}
-.member-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500}
-.badge-host{background:var(--lav);color:var(--lav-deep)}.badge-new{background:var(--blush);color:var(--blush-dark)}
-.waitlist{background:var(--text)}
-.waitlist .section-title{color:var(--white)}.waitlist .section-title em{color:var(--lav-mid)}.waitlist .section-desc{color:rgba(255,255,255,.5)}
-.waitlist-form{margin-top:48px;max-width:480px}
-.form-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.form-input{flex:1;min-width:200px;padding:14px 18px;border-radius:12px;border:0.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;font-size:14px;font-family:var(--sans);outline:none;transition:border-color .2s}
-.form-input::placeholder{color:rgba(255,255,255,.3)}.form-input:focus{border-color:var(--lav-mid)}
-.form-submit{width:100%;padding:14px;border-radius:12px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s;margin-top:10px}
-.form-submit:hover{background:var(--lav-deep)}.form-submit:disabled{opacity:.6;cursor:not-allowed}
-.form-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:12px}
-.contact-section{background:var(--cream)}
-.contact-form{max-width:560px;margin-top:48px}
-.contact-input,.contact-textarea{width:100%;padding:14px 18px;border-radius:12px;border:0.5px solid var(--bdr-mid);background:var(--white);color:var(--text);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px;transition:border-color .2s}
-.contact-textarea{resize:vertical;min-height:120px}
-.contact-input:focus,.contact-textarea:focus{border-color:var(--lav-dark)}
-.contact-submit{padding:14px 32px;border-radius:40px;background:var(--lav-dark);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s}
-.contact-submit:hover{background:var(--lav-deep)}.contact-submit:disabled{opacity:.6;cursor:not-allowed}
-footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-family:var(--serif);font-size:18px;font-weight:300;color:rgba(255,255,255,.6)}
-.footer-logo span{color:var(--lav-mid);font-style:italic}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:rgba(255,255,255,.7)}
-.footer-links a.footer-ig{color:var(--lav-mid);font-weight:500}
-.footer-links a.footer-ig:hover{color:var(--lav-dark)}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(43,24,16,.75);z-index:600;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--white);border-radius:20px;padding:40px;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
@@ -203,220 +1579,446 @@ footer{background:var(--text);border-top:0.5px solid rgba(255,255,255,.08);paddi
 .type-pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--lav);color:var(--lav-deep);font-weight:500}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--lav-deep);color:#fff;padding:14px 28px;border-radius:40px;font-size:14px;font-weight:500;transition:transform .4s cubic-bezier(.34,1.56,.64,1);z-index:600;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}.toast.error{background:#a32d2d}
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){
-  nav{padding:16px 20px}.nav-links,.nav-cta,.nav-login{display:none}.hamburger{display:flex}
-  section{padding:60px 20px}.event-row{grid-template-columns:60px 1fr;gap:16px}.event-rsvp{display:none}
-  .community-split{grid-template-columns:1fr;gap:32px}.hub-grid{grid-template-columns:1fr 1fr}
-  footer{flex-direction:column;align-items:flex-start}.admin-body{padding:16px}
-}
-@media(max-width:480px){.hub-grid,.pillars-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.admin-body{padding:16px}}
+
+/* ── site additions (live data, monograms, splash) ── */
+#splash .splash-orchid{ display:block; width:96px; height:96px; animation:bloom 1.8s ease-in-out infinite }
+#splash .splash-orchid svg{ width:96px; height:96px; display:block }
+[data-orchid]{ display:inline-block; line-height:0 }
+.ev-mark .vibra .mark-orchid svg{ width:100%; height:100% }
+.founder-portrait.mono{ display:grid; place-items:center }
+.founder-portrait.mono.a{ background:var(--accent) }
+.founder-portrait.mono.b{ background:var(--brown) }
+.founder-portrait.mono.c{ background:var(--ink-soft) }
+.mono-initials{ font-family:var(--serif); font-size:clamp(88px,9vw,148px); line-height:1; color:var(--bg-soft); opacity:.92; letter-spacing:.02em; position:relative; z-index:1 }
+.founder-portrait .founder-num, .founder-portrait .founder-tag{ z-index:2 }
+a.rec-card{ color:inherit }
+.rec-empty{ padding:56px 24px; border:1px dashed var(--line); border-radius:2px; text-align:center; color:var(--ink-mute); font-family:var(--serif); font-style:italic; font-size:20px }
+.admin-dot{ color:var(--ink-mute); opacity:.3; margin-left:6px }
+.form .btn[disabled]{ opacity:.6; cursor:not-allowed }
+.toast{ opacity:0 } .toast.show{ opacity:1 }
+/* keep the hero wordmark inside its column */
+.ev-mark .ella{ font-size:clamp(88px, 13vw, 200px) }
+.ev-mark .vibra{ font-size:clamp(100px, 14.5vw, 228px); white-space:nowrap }
+.hero-cap{ gap:16px; flex-wrap:wrap }
+.pillars-head h2{ font-size:clamp(44px, 5.6vw, 84px) }
+.footer-mark .fm-orchid svg{ width:.72em; height:.72em }
+.founders-photo{ margin:80px auto 0; max-width:480px; aspect-ratio:4/5; overflow:hidden; border-radius:2px }
+.founders-photo img{ width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block }
+.founder-portrait img{ object-position:center 20% }
+.guide-avatar img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block }
+/* "Conoce más" host bio pop-up */
+.bio-more{ appearance:none; background:none; border:0; padding:0; cursor:pointer; font:500 11px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase; color:var(--bg-soft); display:inline-flex; gap:10px; align-items:center; margin-bottom:32px; border-bottom:1px solid color-mix(in oklab, var(--bg-soft) 30%, transparent); padding-bottom:6px }
+.bio-more:hover{ color:var(--accent); border-color:var(--accent) }
+.bio-back{ position:fixed; inset:0; z-index:700; background:color-mix(in oklab, var(--ink) 72%, transparent); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:grid; place-items:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .35s ease }
+.bio-back.open{ opacity:1; pointer-events:auto }
+.bio-card{ width:min(860px,100%); max-height:calc(100vh - 48px); overflow-y:auto; background:var(--bg); border-radius:4px; display:grid; grid-template-columns:.8fr 1.2fr; position:relative; box-shadow:0 30px 80px -30px rgba(0,0,0,.45) }
+.bio-img{ width:100%; height:100%; min-height:420px; object-fit:cover; object-position:center 20%; display:block }
+.bio-body{ padding:44px 40px 40px }
+.bio-name{ font-family:var(--serif); font-size:40px; line-height:1.05; color:var(--ink); margin:12px 0 24px }
+.bio-text p{ font-size:15px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px }
+.bio-quote{ margin-top:22px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--serif); font-style:italic; font-size:19px; line-height:1.4; color:var(--accent-deep) }
+.bio-x{ position:absolute; top:14px; right:14px; width:38px; height:38px; border-radius:50%; border:0; background:var(--bg-soft); color:var(--ink); font-size:18px; cursor:pointer; z-index:2 }
+@media (max-width:700px){ .bio-card{ grid-template-columns:1fr } .bio-img{ min-height:0; height:300px } .bio-body{ padding:28px 22px } .bio-name{ font-size:32px } }
+@media (max-width:880px){ .join-right{ aspect-ratio:auto } .stat .n{ font-size:32px } }
+
 </style>
 </head>
 <body>
+<div id="splash"><span data-orchid="96" class="splash-orchid"></span></div>
 
-<nav>
-  <a href="#" class="nav-logo">Ella <span>Vibra</span></a>
-  <ul class="nav-links">
-    <li><a href="#pilares" data-es="Pilares" data-en="Pillars">Pilares</a></li>
-    <li><a href="#eventos" data-es="Eventos" data-en="Events">Eventos</a></li>
-    <li><a href="#recursos" data-es="Recursos" data-en="Resources">Recursos</a></li>
-    <li><a href="#comunidad" data-es="Comunidad" data-en="Community">Comunidad</a></li>
-    <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="#lista" class="nav-cta">Únete</a>
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="wordmark" aria-label="Ella Vibra"><span>Ella</span><span data-orchid="24" class="wordmark-orchid"></span><span class="v">Vibra</span></a>
+    <div class="nav-links">
+      <a href="#pilares" data-es="Pilares" data-en="Pillars">Pilares</a>
+      <a href="#eventos" data-es="Eventos" data-en="Events">Eventos</a>
+      <a href="#recursos" data-es="Recursos" data-en="Resources">Recursos</a>
+      <a href="#comunidad" data-es="Comunidad" data-en="Community">Comunidad</a>
+      <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-tog" type="button" aria-label="Language toggle"><span class="on" data-l="es">ES</span><span data-l="en">EN</span></button>
+      <a href="#lista" class="btn btn-primary nav-cta"><span data-es="Únete" data-en="Join">Únete</span> <span class="arr">→</span></a>
+      <button class="nav-burger" type="button" id="menuOpen" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7h18M3 17h18"/></svg></button>
+    </div>
   </div>
-  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <button class="close-btn" onclick="toggleMenu()">×</button>
-  <a href="#pilares" onclick="toggleMenu()">Pilares</a>
-  <a href="#eventos" onclick="toggleMenu()">Eventos</a>
-  <a href="#recursos" onclick="toggleMenu()">Recursos</a>
-  <a href="#comunidad" onclick="toggleMenu()">Comunidad</a>
-  <a href="#lista" onclick="toggleMenu()" class="btn-primary">Únete</a>
-</div>
-
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content fade-in">
-    <div class="hero-badge" data-es="Comunidad de bienestar femenino" data-en="Women's wellness community">Comunidad de bienestar femenino</div>
-    <h1>Ella <em>Vibra</em></h1>
-    <p class="hero-sub" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</p>
-    <p class="hero-desc" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición y la comunidad." data-en="A sacred space for women seeking transformation through meditation, nutrition, and community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición y la comunidad.</p>
-    <div class="hero-actions">
-      <a href="#lista" class="btn-primary">Únete a la comunidad</a>
-      <a href="#eventos" class="btn-ghost" data-es="Ver eventos" data-en="See events">Ver eventos</a>
-    </div>
-    <div class="scroll-line"></div>
+<div class="menu-overlay" id="menu" aria-hidden="true">
+  <header>
+    <a href="#top" class="wordmark" aria-label="Ella Vibra"><span>Ella</span><span data-orchid="24" class="wordmark-orchid"></span><span class="v">Vibra</span></a>
+    <button class="nav-burger" type="button" id="menuClose" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </header>
+  <div class="links">
+    <a href="#pilares"><span class="num">01</span><span data-es="Pilares" data-en="Pillars">Pilares</span></a>
+    <a href="#eventos"><span class="num">02</span><span data-es="Eventos" data-en="Events">Eventos</span></a>
+    <a href="#recursos"><span class="num">03</span><span data-es="Recursos" data-en="Resources">Recursos</span></a>
+    <a href="#comunidad"><span class="num">04</span><span data-es="Comunidad" data-en="Community">Comunidad</span></a>
+    <a href="#contacto"><span class="num">05</span><span data-es="Contacto" data-en="Contact">Contacto</span></a>
   </div>
-</section>
-
-<div class="lang-bar" style="display:none">
-  <span>Idioma:</span>
-  <button class="lang-btn active" onclick="setLang('es',event)">ES</button>
-  <button class="lang-btn" onclick="setLang('en',event)">EN</button>
+  <div class="menu-foot">
+    <button class="lang-tog" type="button" aria-label="Language toggle"><span class="on" data-l="es">ES</span><span data-l="en">EN</span></button>
+    <span>@ellavibramiami</span>
+  </div>
 </div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-cap rv">
+          <span data-es="Comunidad de bienestar femenino · Miami, FL" data-en="Women's wellness community · Miami, FL">Comunidad de bienestar femenino · Miami, FL</span>
+          <span><b>🐺 La Salvaje</b> · <span data-es="Enero 2027" data-en="January 2027">Enero 2027</span></span>
+        </div>
+        <h1 class="ev-mark rv d1">
+          <span class="ella">Ella</span>
+          <span class="vibra">Vibra<span data-orchid="64" class="mark-orchid"></span></span>
+        </h1>
+        <div class="hero-tag rv d2" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</div>
+        <p class="hero-body rv d3" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real." data-en="A sacred space for women seeking transformation through meditation, conscious nutrition, and real community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real.</p>
+        <div class="hero-ctas rv d4">
+          <a href="#lista" class="btn btn-primary"><span data-es="Únete a la comunidad" data-en="Join the community">Únete a la comunidad</span> <span class="arr">→</span></a>
+          <a href="#eventos" class="btn btn-ghost"><span data-es="Ver próximo encuentro" data-en="See next gathering">Ver próximo encuentro</span> <span class="arr">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-right rv d2">
+        <div class="hero-photo">
+          <img src="img/hero-circulo.jpg" alt="Círculo de mujeres de Ella Vibra en Miami" loading="eager">
+          <div class="hero-photo-mark"><span data-orchid="28" data-variant="line" data-color="#FBF6EE"></span><span>Plate</span><span class="num">— 01</span></div>
+          <div class="hero-photo-quote" data-es="&quot;La mujer que eras antes de que te domesticaran.&quot;" data-en="&quot;The woman you were before you were tamed.&quot;">"La mujer que eras antes de que te domesticaran."</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-corner">Miami, FL<br>La Salvaje · MMXXVII</div>
+  </div>
+  <div class="hero-marquee" aria-hidden="true"><div class="hero-marquee-inner" id="marquee"></div></div>
+</section>
 
 <!-- PILLARS -->
 <section class="pillars" id="pilares">
-  <div class="section-inner">
-    <p class="section-label" data-es="Lo que ofrecemos" data-en="What we offer">Lo que ofrecemos</p>
-    <h2 class="section-title" data-es="Tres pilares de <em>transformación</em>" data-en="Three pillars of <em>transformation</em>">Tres pilares de <em>transformación</em></h2>
-    <div class="pillars-grid fade-in">
-      <div class="pillar-card">
-        <div class="pillar-icon">♪</div>
-        <h3 class="pillar-title" data-es="Meditación & Sanación sonora" data-en="Meditation & Sound healing">Meditación & Sanación sonora</h3>
-        <p class="pillar-desc" data-es="Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente." data-en="Guided meditations, conscious breathing, and Tibetan bowl circles to balance body and mind.">Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente.</p>
+  <div class="wrap">
+    <div class="pillars-head">
+      <div class="rv">
+        <span class="eyebrow" data-es="Lo que ofrecemos" data-en="What we offer">Lo que ofrecemos</span>
+        <h2 style="margin-top:24px" data-es="Tres pilares de<br><span class=&quot;italic&quot;>transformación.</span>" data-en="Three pillars of<br><span class=&quot;italic&quot;>transformation.</span>">Tres pilares de<br><span class="italic">transformación.</span></h2>
       </div>
-      <div class="pillar-card">
-        <div class="pillar-icon">❋</div>
-        <h3 class="pillar-title" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</h3>
-        <p class="pillar-desc" data-es="Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Con enfoque integral y sin dietas." data-en="Guidance to nourish your body from a place of love, not restriction. Holistic approach, no diets.">Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Con enfoque integral y sin dietas.</p>
+      <div class="right rv d1">
+        <p data-es="Tres caminos que se cruzan en el mismo lugar — el regreso a ti. Cada pilar es una práctica viva, no una promesa." data-en="Three paths that converge in the same place — the return to yourself. Each pillar is a living practice, not a promise.">Tres caminos que se cruzan en el mismo lugar — el regreso a ti. Cada pilar es una práctica viva, no una promesa.</p>
+        <a href="#eventos" class="more"><span data-es="Ver cómo se practican" data-en="See how we practice">Ver cómo se practican</span> →</a>
       </div>
-      <div class="pillar-card">
-        <div class="pillar-icon">🤍</div>
-        <h3 class="pillar-title" data-es="Comunidad" data-en="Community">Comunidad</h3>
-        <p class="pillar-desc" data-es="Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola." data-en="A space where women meet, support each other, and grow together. Because no journey is made alone.">Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola.</p>
-      </div>
+    </div>
+    <div class="pillars-grid">
+      <article class="pillar rv d1">
+        <div class="pillar-num"><span>01 / 03</span><span class="glyph">♪</span></div>
+        <div class="pillar-imgwrap"><img class="pillar-img" src="img/pilar-sonido.jpg" alt="" loading="lazy"></div>
+        <h3 data-es="Meditación &amp; Sanación sonora" data-en="Meditation &amp; Sound healing">Meditación &amp; Sanación sonora</h3>
+        <p data-es="Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente." data-en="Guided meditations, conscious breathwork, and Tibetan-bowl circles to balance body and mind.">Meditaciones guiadas, respiración consciente y círculos de cuencos tibetanos para equilibrar cuerpo y mente.</p>
+        <a href="#eventos" class="pillar-cta"><span data-es="Explorar" data-en="Explore">Explorar</span> <span class="arr">→</span></a>
+      </article>
+      <article class="pillar rv d2">
+        <div class="pillar-num"><span>02 / 03</span><span class="glyph">❋</span></div>
+        <div class="pillar-imgwrap"><img class="pillar-img" src="img/pilar-nutricion.jpg" alt="" loading="lazy"></div>
+        <h3 data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</h3>
+        <p data-es="Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Enfoque integral, sin dietas." data-en="Nourish your body from love, not restriction. An integrative approach, free of diet culture.">Guía para nutrir tu cuerpo desde un lugar de amor, no de restricción. Enfoque integral, sin dietas.</p>
+        <a href="#eventos" class="pillar-cta"><span data-es="Explorar" data-en="Explore">Explorar</span> <span class="arr">→</span></a>
+      </article>
+      <article class="pillar rv d3">
+        <div class="pillar-num"><span>03 / 03</span><span class="glyph">♡</span></div>
+        <div class="pillar-imgwrap"><img class="pillar-img" src="img/pilar-comunidad.jpg" alt="" loading="lazy"></div>
+        <h3 data-es="Comunidad" data-en="Sisterhood">Comunidad</h3>
+        <p data-es="Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola." data-en="A space where women find each other, hold each other, and grow together. Because no journey is walked alone.">Un espacio donde mujeres se encuentran, se sostienen y crecen juntas. Porque ningún viaje se hace sola.</p>
+        <a href="#eventos" class="pillar-cta"><span data-es="Explorar" data-en="Explore">Explorar</span> <span class="arr">→</span></a>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- EVENTS -->
-<section class="events" id="eventos">
-  <div class="section-inner">
-    <p class="section-label" data-es="Próximos eventos" data-en="Upcoming events">Próximos eventos</p>
-    <h2 class="section-title">Encuentra tu <em>momento</em></h2>
+<!-- EVENT -->
+<section class="event-section" id="eventos">
+  <div class="wrap">
+    <div class="event-head">
+      <div class="l rv"><span class="eyebrow" data-es="Próximo encuentro" data-en="Next gathering">Próximo encuentro</span></div>
+      <div class="c rv"><span class="eyebrow no-rule" data-es="Enero 2027 · Fecha por anunciar" data-en="January 2027 · Date coming soon">Enero 2027 · Fecha por anunciar</span></div>
+      <div class="r rv"><span class="eyebrow">🐺</span></div>
+      <h2 class="rv d1" data-es="Recuerda tu <span class=&quot;italic&quot;>instinto.</span>" data-en="Remember your <span class=&quot;italic&quot;>instinct.</span>">Recuerda tu <span class="italic">instinto.</span></h2>
+    </div>
 
-    <!-- Featured: Glow Consciente -->
-    <article class="featured-event fade-in">
-      <div class="featured-event-header">
-        <span class="featured-badge" data-es="✦ Próximo encuentro" data-en="✦ Next gathering">✦ Próximo encuentro</span>
-        <h3 class="featured-event-title">Ella Vibra: <em>Glow Consciente</em></h3>
-        <p class="featured-event-tag" data-es="Encuentro de mujeres · 4 horas" data-en="Women's gathering · 4 hours">Encuentro de mujeres · 4 horas</p>
-      </div>
-
-      <div class="featured-event-meta">
-        <div class="meta-item">
-          <span class="meta-label" data-es="Fecha" data-en="Date">Fecha</span>
-          <span class="meta-value" data-es="Domingo, 3 de mayo, 2026" data-en="Sunday, May 3, 2026">Domingo, 3 de mayo, 2026</span>
+    <div class="invite rv d1">
+      <div class="invite-left">
+        <span class="invite-pill" data-es="✦ Cupos por abrir" data-en="✦ Spots opening soon">✦ Cupos por abrir</span>
+        <div class="invite-title">
+          <span class="k">Ella Vibra ·</span>
+          <span class="name"><em data-es="La Salvaje" data-en="La Salvaje">La Salvaje</em></span>
         </div>
-        <div class="meta-item">
-          <span class="meta-label" data-es="Hora" data-en="Time">Hora</span>
-          <span class="meta-value">4:00 — 8:00 PM</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label" data-es="Ubicación" data-en="Location">Ubicación</span>
-          <span class="meta-value" data-es="Miami, FL · Dirección al registrarte" data-en="Miami, FL · Address upon registration">Miami, FL · Dirección al registrarte</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label" data-es="Inversión" data-en="Investment">Inversión</span>
-          <span class="meta-value">$111 <span style="color:var(--muted);font-weight:400" data-es="· Cupo limitado a 25" data-en="· Limited to 25 spots">· Cupo limitado a 25</span></span>
+        <p class="invite-desc" data-es="La mujer que eras antes de que te domesticaran: la que tenía instinto, deseo y dirección propia, antes de los roles, las expectativas y el performance." data-en="The woman you were before you were tamed: the one with instinct, desire, and her own direction, before the roles, the expectations, the performance.">La mujer que eras antes de que te domesticaran: la que tenía instinto, deseo y dirección propia, antes de los roles, las expectativas y el performance.</p>
+        <p data-es="Un encuentro de cuatro horas para la que se perdió en lo que se supone que debe ser. Sanación sonora, meditación y nutrición consciente, sostenida por mujeres que se sienten como casa. Sin exigencia, sin performance, solo presencia real." data-en="A four-hour gathering for the woman who got lost in who she was supposed to be. Sound healing, meditation, and conscious nutrition, held by women who feel like home. No demands, no performance, just real presence.">Un encuentro de cuatro horas para la que se perdió en lo que se supone que debe ser. Sanación sonora, meditación y nutrición consciente, sostenida por mujeres que se sienten como casa. Sin exigencia, sin performance, solo presencia real.</p>
+        <div class="invite-ctas">
+          <!-- When a date is set: create a NEW $250 Stripe payment link (the one below is the old $111 Glow Consciente link), put it in href, and swap the first button for:
+          <a class="btn btn-accent" href="https://buy.stripe.com/eVqaEZ3Na3leaZn6dN5Rm05" target="_blank" rel="noreferrer"><span data-es="Reservar mi cupo · $250" data-en="Reserve my spot · $250">Reservar mi cupo · $250</span> <span class="arr">→</span></a>
+          -->
+          <a class="btn btn-accent" href="#lista"><span data-es="Avísame cuando abran cupos" data-en="Tell me when spots open">Avísame cuando abran cupos</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer"><span data-es="Comunidad WhatsApp" data-en="WhatsApp community">Comunidad WhatsApp</span></a>
         </div>
       </div>
-
-      <p class="featured-event-desc" data-es="Ella Vibra: Glow Consciente es una experiencia de cuatro horas diseñada para la mujer que ya sabe que el brillo real no viene de afuera — viene de estar presente, de decirse la verdad y de recordar quién es cuando nadie la necesita. A través de movimiento consciente, yoga facial, dinámicas de conexión, sound healing con cacao y una cena de longevidad, crearemos juntas un espacio para parar, sentir y volver a ti — sin exigencia, sin performance, solo presencia real." data-en="Ella Vibra: Glow Consciente is a four-hour experience designed for the woman who already knows that real glow doesn't come from the outside — it comes from being present, telling herself the truth, and remembering who she is when no one needs her. Through conscious movement, facial yoga, connection practices, sound healing with cacao, and a longevity dinner, we'll create a space together to pause, feel, and return to yourself — no demands, no performance, just real presence.">Ella Vibra: Glow Consciente es una experiencia de cuatro horas diseñada para la mujer que ya sabe que el brillo real no viene de afuera — viene de estar presente, de decirse la verdad y de recordar quién es cuando nadie la necesita. A través de movimiento consciente, yoga facial, dinámicas de conexión, sound healing con cacao y una cena de longevidad, crearemos juntas un espacio para parar, sentir y volver a ti — sin exigencia, sin performance, solo presencia real.</p>
-
-      <div class="featured-event-block">
-        <p class="block-label" data-es="Guiado por" data-en="Guided by">Guiado por</p>
-        <ul class="facilitator-list">
-          <li><strong>Camila Rodríguez</strong> · <span data-es="Amor Propio y Presencia" data-en="Self-Love & Presence">Amor Propio y Presencia</span></li>
-          <li><strong>Karin Farfán</strong> · <span data-es="Nutrición Consciente" data-en="Conscious Nourishment">Nutrición Consciente</span></li>
-          <li><strong>Andrea Briceño</strong> · <span data-es="Sanación Sonora y Energía" data-en="Sound Healing & Energy">Sanación Sonora y Energía</span></li>
-        </ul>
+      <div class="invite-right">
+        <div class="invite-photo">
+          <img src="img/encuentro.jpg" alt="Círculo de un encuentro Ella Vibra" loading="lazy">
+          <div class="ph-label" data-es="Reconectar con la mujer que eras." data-en="Reconnect with the woman you were.">Reconectar con la mujer que eras.</div>
+        </div>
+        <div class="invite-meta">
+          <dl><dt data-es="Fecha" data-en="Date">Fecha</dt><dd data-es="Enero 2027<span class=&quot;small&quot;>Fecha exacta por anunciar</span>" data-en="January 2027<span class=&quot;small&quot;>Exact date coming soon</span>">Enero 2027<span class="small">Fecha exacta por anunciar</span></dd></dl>
+          <dl><dt data-es="Hora" data-en="Time">Hora</dt><dd data-es="4 horas · tarde" data-en="4 hours · afternoon">4 horas · tarde</dd></dl>
+          <dl><dt data-es="Ubicación" data-en="Location">Ubicación</dt><dd data-es="Miami, FL<span class=&quot;small&quot;>Dirección privada al registrarte</span>" data-en="Miami, FL<span class=&quot;small&quot;>Private address upon registration</span>">Miami, FL<span class="small">Dirección privada al registrarte</span></dd></dl>
+          <dl><dt data-es="Inversión" data-en="Investment">Inversión</dt><dd data-es="$250<span class=&quot;small&quot;>Cupo limitado a 14</span>" data-en="$250<span class=&quot;small&quot;>Limited to 14 spots</span>">$250<span class="small">Cupo limitado a 14</span></dd></dl>
+        </div>
       </div>
+    </div>
 
-      <div class="featured-event-block">
-        <p class="block-label" data-es="Qué traer" data-en="What to bring">Qué traer</p>
+    <div class="invite-sub">
+      <div class="invite-block rv">
+        <h4 data-es="Guiado por" data-en="Guided by">Guiado por</h4>
+        <div class="guides-list">
+          <div class="guide"><div class="guide-avatar a"><img src="img/face-camila.jpg" alt="Camila Rodríguez"></div><div><div class="guide-name">Camila Rodríguez</div><div class="guide-role" data-es="Amor Propio y Presencia" data-en="Self-Love &amp; Presence">Amor Propio y Presencia</div></div></div>
+          <div class="guide"><div class="guide-avatar b"><img src="img/face-karin.jpg" alt="Karin Farfán"></div><div><div class="guide-name">Karin Farfán</div><div class="guide-role" data-es="Nutrición Consciente" data-en="Conscious Nourishment">Nutrición Consciente</div></div></div>
+          <div class="guide"><div class="guide-avatar c"><img src="img/face-andrea.jpg" alt="Andrea Briceño"></div><div><div class="guide-name">Andrea Briceño</div><div class="guide-role" data-es="Sanación Sonora y Energía" data-en="Sound Healing &amp; Energy">Sanación Sonora y Energía</div></div></div>
+        </div>
+      </div>
+      <div class="invite-block rv d1">
+        <h4 data-es="Encuentro anterior · Glow Consciente" data-en="Last gathering · Glow Consciente">Encuentro anterior · Glow Consciente</h4>
         <ul class="bring-list">
-          <li data-es="Ropa cómoda (tipo yoga) en tonos de primavera — Glow Goddess con blanco o amarillo (oro, kaki, beige). Mientras más natural te sientas, mejor." data-en="Comfortable clothing (yoga style) in spring tones — Glow Goddess with white or yellow (gold, khaki, beige). The more natural you feel, the better.">Ropa cómoda (tipo yoga) en tonos de primavera — Glow Goddess con blanco o amarillo (oro, kaki, beige). Mientras más natural te sientas, mejor.</li>
-          <li data-es="Te recomendamos venir con poco o nada de maquillaje para disfrutar plenamente de la experiencia de cuidado y conexión con tu piel." data-en="We recommend coming with little to no makeup so you can fully enjoy the experience of skincare and connection with your skin.">Te recomendamos venir con poco o nada de maquillaje para disfrutar plenamente de la experiencia de cuidado y conexión con tu piel.</li>
+          <li data-es="Domingo, 3 de mayo, 2026 · Miami" data-en="Sunday, May 3, 2026 · Miami">Domingo, 3 de mayo, 2026 · Miami</li>
+          <li data-es="Movimiento consciente, yoga facial y dinámicas de conexión." data-en="Conscious movement, facial yoga, and connection practices.">Movimiento consciente, yoga facial y dinámicas de conexión.</li>
+          <li data-es="Sound healing con cacao y una cena de longevidad." data-en="Sound healing with cacao and a longevity dinner.">Sound healing con cacao y una cena de longevidad.</li>
         </ul>
       </div>
+    </div>
 
-      <p class="featured-event-policy" data-es="Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro." data-en="No refunds. If an emergency arises, we save your spot for the next gathering.">Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro.</p>
+    <div class="event-fineprint" data-es="Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro." data-en="No refunds. If an emergency arises, we save your spot for the next gathering.">Sin reembolsos. Si surge una emergencia, guardamos tu cupo para el siguiente encuentro.</div>
+  </div>
+</section>
 
-      <div class="featured-event-actions">
-        <a href="https://buy.stripe.com/eVqaEZ3Na3leaZn6dN5Rm05" target="_blank" class="btn-primary" data-es="Reservar mi cupo · $111" data-en="Reserve my spot · $111">Reservar mi cupo · $111</a>
-        <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-ghost" data-es="Comunidad WhatsApp" data-en="WhatsApp Community">Comunidad WhatsApp</a>
+<!-- ARCHETYPES -->
+<section class="arquetipos" id="arquetipos">
+  <div class="wrap">
+    <div class="pillars-head">
+      <div class="rv">
+        <span class="eyebrow" data-es="El año de Ella Vibra" data-en="The Ella Vibra year">El año de Ella Vibra</span>
+        <h2 style="margin-top:24px" data-es="Un año,<br><span class=&quot;italic&quot;>cuatro arquetipos.</span>" data-en="One year,<br><span class=&quot;italic&quot;>four archetypes.</span>">Un año,<br><span class="italic">cuatro arquetipos.</span></h2>
       </div>
-    </article>
+      <div class="right rv d1">
+        <p data-es="Un encuentro por estación, cada uno guiado por un arquetipo que sostiene todo: el sonido, la meditación, la comida y el ritual." data-en="One gathering each season, each guided by an archetype that holds everything: the sound, the meditation, the food, and the ritual.">Un encuentro por estación, cada uno guiado por un arquetipo que sostiene todo: el sonido, la meditación, la comida y el ritual.</p>
+      </div>
+    </div>
+    <div class="arq-grid">
+      <article class="arq-card rv d1 is-next">
+        <div class="arq-imgwrap"><img class="arq-img" src="img/arq-salvaje.jpg" alt="La Salvaje" loading="lazy"></div>
+        <div class="arq-top"><span class="arq-month" data-es="Enero" data-en="January">Enero</span></div>
+        <h3>La Salvaje</h3>
+        <span class="arq-verb" data-es="Reconectar" data-en="Reconnect">Reconectar</span>
+        <p data-es="La mujer que eras antes de que te domesticaran: instinto, deseo y dirección propia, antes de los roles y el performance." data-en="The woman you were before you were tamed: instinct, desire, and a direction of your own, before the roles and the performance.">La mujer que eras antes de que te domesticaran: instinto, deseo y dirección propia, antes de los roles y el performance.</p>
+        <p class="arq-for" data-es="Para la que se perdió en lo que se supone que debe ser." data-en="For the one who got lost in who she was supposed to be.">Para la que se perdió en lo que se supone que debe ser.</p>
+        <span class="arq-next" data-es="Próximo encuentro" data-en="Next gathering">Próximo encuentro</span>
+      </article>
+      <article class="arq-card rv d2">
+        <div class="arq-imgwrap"><img class="arq-img" src="img/arq-herida.jpg" alt="La Herida" loading="lazy"></div>
+        <div class="arq-top"><span class="arq-month" data-es="Abril" data-en="April">Abril</span></div>
+        <h3>La Herida</h3>
+        <span class="arq-verb" data-es="Mirar" data-en="Look">Mirar</span>
+        <p data-es="El dolor que cargas en silencio: la culpa, el vacío, lo que nunca dijiste. No para quedarse ahí, porque la herida también es una puerta." data-en="The pain you carry in silence: the guilt, the emptiness, what you never said. Not to stay there, because the wound is also a door.">El dolor que cargas en silencio: la culpa, el vacío, lo que nunca dijiste. No para quedarse ahí, porque la herida también es una puerta.</p>
+        <p class="arq-for" data-es="Para la que sufre y no sabe cómo nombrarlo." data-en="For the one who hurts and can't name it.">Para la que sufre y no sabe cómo nombrarlo.</p>
+        
+      </article>
+      <article class="arq-card rv d3">
+        <div class="arq-imgwrap"><img class="arq-img" src="img/arq-sabia.jpg" alt="La Sabia" loading="lazy"></div>
+        <div class="arq-top"><span class="arq-month" data-es="Julio" data-en="July">Julio</span></div>
+        <h3>La Sabia</h3>
+        <span class="arq-verb" data-es="Construir" data-en="Build">Construir</span>
+        <p data-es="La mujer que quieres ser a los 60, 70, 80. Longevidad como pregunta: ¿estás construyendo una vida que puedas sostener?" data-en="The woman you want to be at 60, 70, 80. Longevity as a question: are you building a life you can sustain?">La mujer que quieres ser a los 60, 70, 80. Longevidad como pregunta: ¿estás construyendo una vida que puedas sostener?</p>
+        <p class="arq-for" data-es="Para la que vive tan rápido que no se pregunta hacia dónde va." data-en="For the one living so fast she never asks where she's going.">Para la que vive tan rápido que no se pregunta hacia dónde va.</p>
+        
+      </article>
+      <article class="arq-card rv d3">
+        <div class="arq-imgwrap"><img class="arq-img" src="img/arq-reina.jpg" alt="La Reina" loading="lazy"></div>
+        <div class="arq-top"><span class="arq-month" data-es="Octubre" data-en="October">Octubre</span></div>
+        <h3>La Reina</h3>
+        <span class="arq-verb" data-es="Reclamar" data-en="Reclaim">Reclamar</span>
+        <p data-es="La que ocupa su espacio sin pedir permiso, pone límites y se lidera a sí misma. No arrogancia: soberanía." data-en="The one who takes up space without asking permission, sets boundaries, and leads herself. Not arrogance: sovereignty.">La que ocupa su espacio sin pedir permiso, pone límites y se lidera a sí misma. No arrogancia: soberanía.</p>
+        <p class="arq-for" data-es="Para la que lleva toda la vida achicándose." data-en="For the one who has spent her life making herself small.">Para la que lleva toda la vida achicándose.</p>
+        
+      </article>
+    </div>
   </div>
 </section>
 
 <!-- RESOURCES -->
-<section class="hub" id="recursos">
-  <div class="section-inner">
-    <p class="section-label" data-es="Recursos" data-en="Resources">Recursos</p>
-    <h2 class="section-title">Herramientas para tu <em>camino</em></h2>
-    <div id="hub-container">
-      <div class="hub-empty">Cargando recursos...</div>
+<section class="recursos" id="recursos">
+  <div class="wrap">
+    <div class="recursos-head">
+      <div class="rv">
+        <span class="eyebrow" data-es="Recursos" data-en="Resources">Recursos</span>
+        <h2 style="margin-top:24px" data-es="Herramientas para tu<br><span class=&quot;italic&quot;>camino.</span>" data-en="Tools for your<br><span class=&quot;italic&quot;>path.</span>">Herramientas para tu<br><span class="italic">camino.</span></h2>
+      </div>
+      <div class="right rv d1">
+        <p data-es="Audios, guías y meditaciones — para sostenerte entre encuentros." data-en="Audios, guides, and meditations — to hold you between gatherings.">Audios, guías y meditaciones — para sostenerte entre encuentros.</p>
+      </div>
     </div>
+    <div id="hub-container"><div class="rec-empty" data-es="Cargando recursos..." data-en="Loading resources...">Cargando recursos...</div></div>
   </div>
 </section>
 
-<!-- COMMUNITY -->
-<section class="community" id="comunidad">
-  <div class="section-inner">
-    <div class="community-split">
-      <div class="fade-in">
-        <p class="section-label" data-es="Comunidad" data-en="Community">Comunidad</p>
-        <h2 class="section-title">No estás <em>sola</em></h2>
-        <p class="section-desc" style="margin-bottom:28px" data-es="Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son." data-en="Ella Vibra is a space for women who dare to heal, grow, and show up as they are.">Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-primary" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
-          <a href="https://www.instagram.com/ellavibramiami/" target="_blank" class="btn-ghost" data-es="Síguenos en Instagram" data-en="Follow on Instagram">Síguenos en Instagram</a>
-        </div>
+<!-- COMMUNITY / FOUNDERS -->
+<section class="founders" id="comunidad">
+  <div class="wrap">
+    <div class="founders-head">
+      <div class="rv">
+        <span class="eyebrow" data-es="Comunidad" data-en="Community">Comunidad</span>
+        <h2 style="margin-top:24px" data-es="No estás<br><span class=&quot;italic&quot;>sola.</span>" data-en="You are not<br><span class=&quot;italic&quot;>alone.</span>">No estás<br><span class="italic">sola.</span></h2>
       </div>
-      <div class="member-list fade-in">
-        <div class="member-row"><div class="avatar av-lav">CR</div><div><div class="member-name">Camila Rodriguez</div><div class="member-tag">Mindfulness Coaching</div></div><span class="member-badge badge-host">Host</span></div>
-        <div class="member-row"><div class="avatar av-amber">KF</div><div><div class="member-name">Karin Farfan</div><div class="member-tag" data-es="Nutrición consciente" data-en="Conscious nutrition">Nutrición consciente</div></div><span class="member-badge badge-host">Host</span></div>
-        <div class="member-row"><div class="avatar av-blush">AB</div><div><div class="member-name">Andrea Briceño</div><div class="member-tag" data-es="Coaching & Sanación sonora" data-en="Coaching & Sound healing">Coaching & Sanación sonora</div></div><span class="member-badge badge-host">Host</span></div>
+      <div class="right rv d1">
+        <p data-es="Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son." data-en="Ella Vibra is a space for women who dare to heal, grow, and show up as they are.">Ella Vibra es un espacio para mujeres que se atreven a sanar, crecer y mostrarse tal como son.</p>
+        <div class="ctas"><a href="https://www.instagram.com/ellavibramiami/" target="_blank" rel="noreferrer" class="btn btn-ghost">Instagram ✦</a></div>
       </div>
     </div>
+    <div class="founders-grid">
+      <article class="founder rv d1">
+        <div class="founder-portrait"><span class="founder-num">01 / 03</span><img src="img/host-camila.jpg" alt="Camila Rodríguez" loading="lazy"><div class="founder-tag" data-es="&quot;Volver a ti es siempre la respuesta.&quot;" data-en="&quot;Coming home to yourself is always the answer.&quot;">"Volver a ti es siempre la respuesta."</div></div>
+        <h3>Camila Rodríguez</h3>
+        <div class="role" data-es="Amor Propio y Presencia" data-en="Self-Love &amp; Presence">Amor Propio y Presencia</div>
+        <p class="bio" data-es="Psicoterapeuta, maestra de meditación y facilitadora de sanación sonora. Creadora de Azulita y co-creadora de Ella Vibra, integra psicoterapia, mindfulness, IFS y el sonido para sanar desde la raíz, no desde el síntoma." data-en="Psychotherapist, meditation teacher, and sound healing facilitator. Creator of Azulita and co-creator of Ella Vibra, she weaves psychotherapy, mindfulness, IFS, and sound to heal at the root, not the symptom.">Psicoterapeuta, maestra de meditación y facilitadora de sanación sonora. Creadora de Azulita y co-creadora de Ella Vibra, integra psicoterapia, mindfulness, IFS y el sonido para sanar desde la raíz, no desde el síntoma.</p>
+      <button type="button" class="bio-more" onclick="openBio('camila')"><span data-es="Conoce más" data-en="Learn more">Conoce más</span> <span>+</span></button>
+      </article>
+      <article class="founder rv d2">
+        <div class="founder-portrait"><span class="founder-num">02 / 03</span><img src="img/host-karin.jpg" alt="Karin Farfán" loading="lazy"><div class="founder-tag" data-es="&quot;Sana por dentro para brillar por fuera.&quot;" data-en="&quot;Heal within to glow without.&quot;">"Sana por dentro para brillar por fuera."</div></div>
+        <h3>Karin Farfán</h3>
+        <div class="role" data-es="Nutrición Consciente" data-en="Conscious Nourishment">Nutrición Consciente</div>
+        <p class="bio" data-es="Mentora de nutrición y bienestar consciente, creadora de Healthy Glow Philosophy. Certificada por el Institute for Integrative Nutrition y el Hippocrates Institute, y formada en prácticas ancestrales en Sudamérica." data-en="Conscious nutrition and wellness mentor, creator of Healthy Glow Philosophy. Certified by the Institute for Integrative Nutrition and the Hippocrates Institute, and trained in ancestral practices across South America.">Mentora de nutrición y bienestar consciente, creadora de Healthy Glow Philosophy. Certificada por el Institute for Integrative Nutrition y el Hippocrates Institute, y formada en prácticas ancestrales en Sudamérica.</p>
+      <button type="button" class="bio-more" onclick="openBio('karin')"><span data-es="Conoce más" data-en="Learn more">Conoce más</span> <span>+</span></button>
+      </article>
+      <article class="founder rv d3">
+        <div class="founder-portrait"><span class="founder-num">03 / 03</span><img src="img/host-andrea.jpg" alt="Andrea Briceño" loading="lazy"><div class="founder-tag" data-es="&quot;Sintoniza con tu verdad.&quot;" data-en="&quot;Tune in to your truth.&quot;">"Sintoniza con tu verdad."</div></div>
+        <h3>Andrea Briceño</h3>
+        <div class="role" data-es="Sanación Sonora y Energía" data-en="Sound Healing &amp; Energy">Sanación Sonora y Energía</div>
+        <p class="bio" data-es="Coach certificada en salud y bienestar intuitivo, psicóloga espiritual y facilitadora de sanación sonora (Shanti Method™). Conferencista, productora de medios y autora galardonada de Dasha: Descubriendo tu Don." data-en="Certified intuitive health and wellness coach, spiritual psychologist, and sound healing facilitator (Shanti Method™). Speaker, media producer, and award-winning author of Dasha: Descubriendo tu Don.">Coach certificada en salud y bienestar intuitivo, psicóloga espiritual y facilitadora de sanación sonora (Shanti Method™). Conferencista, productora de medios y autora galardonada de Dasha: Descubriendo tu Don.</p>
+      <button type="button" class="bio-more" onclick="openBio('andrea')"><span data-es="Conoce más" data-en="Learn more">Conoce más</span> <span>+</span></button>
+      </article>
+    </div>
+    <figure class="founders-photo rv"><img src="img/hosts-juntas.jpg" alt="Camila, Karin y Andrea, anfitrionas de Ella Vibra" loading="lazy"></figure>
+    <div class="founders-quote rv" data-es="Aquí no se enseña a brillar — se recuerda. Y nadie se va igual." data-en="Here no one is taught to shine — it's remembered. And no one leaves the same.">Aquí no se enseña a brillar — se recuerda. Y nadie se va igual.</div>
   </div>
 </section>
 
 <!-- JOIN -->
-<section class="waitlist" id="lista">
-  <div class="section-inner">
-    <p class="section-label" style="color:var(--lav-mid)" data-es="Únete" data-en="Join">Únete</p>
-    <h2 class="section-title" data-es="Forma parte de <em>Ella Vibra</em>" data-en="Become part of <em>Ella Vibra</em>">Forma parte de <em>Ella Vibra</em></h2>
-    <p class="section-desc" style="color:rgba(255,255,255,.5)" data-es="Únete a nuestra comunidad de WhatsApp y mantente al día con eventos, recursos y conversaciones que importan." data-en="Join our WhatsApp community to stay in touch with events, resources, and conversations that matter.">Únete a nuestra comunidad de WhatsApp y mantente al día con eventos, recursos y conversaciones que importan.</p>
-    <div style="margin-top:32px">
-      <a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" class="btn-primary" data-es="Unirme al WhatsApp ✦" data-en="Join WhatsApp ✦">Unirme al WhatsApp ✦</a>
+<section class="join" id="lista">
+  <div class="wrap">
+    <div class="join-inner">
+      <div class="rv">
+        <span class="eyebrow" data-es="Únete" data-en="Join">Únete</span>
+        <h2 style="margin-top:24px" data-es="Forma parte de<br><span class=&quot;italic&quot;>Ella Vibra.</span>" data-en="Be part of<br><span class=&quot;italic&quot;>Ella Vibra.</span>">Forma parte de<br><span class="italic">Ella Vibra.</span></h2>
+        <p data-es="Únete a nuestra comunidad de WhatsApp y entérate primero cuando abran cupos para el próximo encuentro, además de recursos y conversaciones que importan." data-en="Join our WhatsApp community and be the first to know when spots open for the next gathering, plus resources and conversations that matter.">Únete a nuestra comunidad de WhatsApp y entérate primero cuando abran cupos para el próximo encuentro, además de recursos y conversaciones que importan.</p>
+        <div class="join-ctas">
+          <a class="btn btn-primary" href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer"><span data-es="Unirme al WhatsApp" data-en="Join WhatsApp">Unirme al WhatsApp</span> <span class="arr">✦</span></a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/ellavibramiami/" target="_blank" rel="noreferrer"><span data-es="Síguenos en Instagram" data-en="Follow on Instagram">Síguenos en Instagram</span></a>
+        </div>
+      </div>
+      <div class="join-right rv d1">
+        <div>
+          <span class="join-eyebrow-card" data-es="La comunidad" data-en="The community">La comunidad</span>
+          <div class="join-quote" data-es="&quot;Un círculo donde caben todas tus partes.&quot;" data-en="&quot;A circle that holds every part of you.&quot;">"Un círculo donde caben todas tus partes."</div>
+        </div>
+        <div class="join-stats">
+          <div class="stat"><span class="n">3</span><span class="l" data-es="Facilitadoras" data-en="Facilitators">Facilitadoras</span></div>
+          <div class="stat"><span class="n">4</span><span class="l" data-es="Encuentros al año, uno por estación" data-en="Gatherings a year, one per season">Encuentros al año, uno por estación</span></div>
+          <div class="stat"><span class="n">Miami, FL</span><span class="l" data-es="Sede principal" data-en="Home base">Sede principal</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contacto">
-  <div class="section-inner">
-    <p class="section-label" data-es="Contacto" data-en="Contact">Contacto</p>
-    <h2 class="section-title">Escríbe<em>nos</em></h2>
-    <div class="contact-form fade-in">
-      <input class="contact-input" type="text" id="ct-name" placeholder="Tu nombre" data-placeholder-es="Tu nombre" data-placeholder-en="Your name">
-      <input class="contact-input" type="email" id="ct-email" placeholder="Tu correo" data-placeholder-es="Tu correo" data-placeholder-en="Your email">
-      <textarea class="contact-textarea" id="ct-msg" placeholder="Tu mensaje..." data-placeholder-es="Tu mensaje..." data-placeholder-en="Your message..."></textarea>
-      <button class="contact-submit" onclick="submitContact()" id="ct-btn" data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</button>
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="rv">
+        <span class="eyebrow" data-es="Contacto" data-en="Contact">Contacto</span>
+        <h2 style="margin-top:24px" data-es="Escríbe<span class=&quot;italic&quot;>nos.</span>" data-en="Write to <span class=&quot;italic&quot;>us.</span>">Escríbe<span class="italic">nos.</span></h2>
+        <p class="sub" data-es="¿Una pregunta, una colaboración, una historia que quieras compartir? Estamos aquí." data-en="A question, a collaboration, a story you want to share? We're here.">¿Una pregunta, una colaboración, una historia que quieras compartir? Estamos aquí.</p>
+        <dl class="contact-meta">
+          <div><dt>Email</dt><dd><a href="mailto:hola@ellavibra.com">hola@ellavibra.com</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ellavibramiami/" target="_blank" rel="noreferrer">@ellavibramiami</a></dd></div>
+          <div><dt data-es="Sede" data-en="Home base">Sede</dt><dd>Miami, FL</dd></div>
+        </dl>
+      </div>
+      <form class="form rv d1" id="contactForm" novalidate>
+        <div class="field"><label for="ct-name" data-es="Tu nombre" data-en="Your name">Tu nombre</label><input type="text" id="ct-name" required placeholder="Cómo te llamas" data-placeholder-es="Cómo te llamas" data-placeholder-en="Your full name"></div>
+        <div class="field"><label for="ct-email" data-es="Tu correo" data-en="Your email">Tu correo</label><input type="email" id="ct-email" required placeholder="tu@correo.com" data-placeholder-es="tu@correo.com" data-placeholder-en="you@email.com"></div>
+        <div class="field"><label for="ct-msg" data-es="Tu mensaje" data-en="Your message">Tu mensaje</label><textarea id="ct-msg" required placeholder="Cuéntanos qué te trae aquí…" data-placeholder-es="Cuéntanos qué te trae aquí…" data-placeholder-en="Tell us what brings you here…"></textarea></div>
+        <div class="form-foot">
+          <div class="form-note" data-es="Te respondemos en menos de 48 horas." data-en="We reply within 48 hours.">Te respondemos en menos de 48 horas.</div>
+          <button type="submit" class="btn btn-primary" id="ct-btn" data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
+</main>
 
-<footer>
-  <div class="footer-logo">Ella <span>Vibra</span></div>
-  <div class="footer-links">
-    <a href="https://www.instagram.com/ellavibramiami/" target="_blank" class="footer-ig" data-es="Síguenos en Instagram" data-en="Follow on Instagram">✦ @ellavibramiami</a>
-    <a href="#pilares">Pilares</a><a href="#eventos">Eventos</a>
-    <a href="#recursos">Recursos</a><a href="#contacto">Contacto</a>
-    <a href="#" onclick="openAdminLogin();return false;" style="color:rgba(255,255,255,.08)">·</a>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-mark"><span class="e">Ella</span><span data-orchid="92" class="fm-orchid"></span><em>Vibra</em></div>
+        <div class="footer-tag" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</div>
+      </div>
+      <div class="footer-col">
+        <h5 data-es="Explorar" data-en="Explore">Explorar</h5>
+        <ul>
+          <li><a href="#pilares" data-es="Pilares" data-en="Pillars">Pilares</a></li>
+          <li><a href="#eventos" data-es="Eventos" data-en="Events">Eventos</a></li>
+          <li><a href="#recursos" data-es="Recursos" data-en="Resources">Recursos</a></li>
+          <li><a href="#comunidad" data-es="Comunidad" data-en="Community">Comunidad</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-es="Conectar" data-en="Connect">Conectar</h5>
+        <ul>
+          <li><a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/ellavibramiami/" target="_blank" rel="noreferrer">Instagram</a></li>
+          <li><a href="mailto:hola@ellavibra.com">hola@ellavibra.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-es="Sede" data-en="Where">Sede</h5>
+        <ul>
+          <li><a href="#contacto">Miami, FL</a></li>
+          <li><a href="#contacto" data-es="Eventos privados" data-en="Private events">Eventos privados</a></li>
+          <li><a href="#contacto" data-es="Colaboraciones" data-en="Collaborations">Colaboraciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-foot">
+      <span>© 2026 Ella Vibra · <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></span>
+      <span><span data-es="Hecho con cuidado · Miami" data-en="Made with care · Miami">Hecho con cuidado · Miami</span> <a href="#" onclick="openAdminLogin();return false;" class="admin-dot" aria-label="Admin">·</a></span>
+    </div>
   </div>
-  <div class="footer-copy">© 2026 Ella Vibra</div>
 </footer>
+
+
+<div class="bio-back" id="bioModal" role="dialog" aria-modal="true" aria-label="Bio">
+  <div class="bio-card">
+    <button class="bio-x" type="button" onclick="closeBio()" aria-label="Cerrar">✕</button>
+    <img class="bio-img" src="" alt="">
+    <div class="bio-body">
+      <span class="eyebrow" data-es="Anfitriona · Ella Vibra" data-en="Host · Ella Vibra">Anfitriona · Ella Vibra</span>
+      <h3 class="bio-name"></h3>
+      <div class="bio-text"></div>
+      <div class="bio-quote"></div>
+    </div>
+  </div>
+</div>
 
 <!-- RSVP MODAL -->
 <div class="modal-overlay" id="rsvpModal">
@@ -1053,13 +2655,143 @@ async function deleteResource(id){
 }
 
 // FADE IN
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-setTimeout(()=>document.querySelector('.hero .fade-in').classList.add('visible'),100);
+// (old fade-in reveal removed; the plum design uses .rv reveals below)
 
 // INIT
-loadEvents();
+
+</script>
+<script>
+// ── Ella Vibra site (plum design) ──
+// Orchid brand mark, ported from the Claude Design orchid.jsx
+(function(){
+  const PETAL="M 0 0 C -10 -8 -22 -28 -22 -52 C -22 -72 -8 -86 -3 -90 Q 0 -92 0 -92 Q 0 -92 3 -90 C 8 -86 22 -72 22 -52 C 22 -28 10 -8 0 0 Z";
+  const VEIN="M 0 -4 Q -2 -45 0 -86";
+  const LIP="M -30 30 Q -34 8 -14 2 Q -6 -1 0 0 Q 6 -1 14 2 Q 34 8 30 30 Q 22 50 0 54 Q -22 50 -30 30 Z";
+  let n=0;
+  window.orchidSVG=function(size,variant,color){
+    const id='o'+(n++), line=variant==='line';
+    const p=color||'var(--accent)', s=color||'var(--accent-deep)', d=color?'rgba(0,0,0,.4)':'var(--bg-soft)', v=color?'rgba(0,0,0,.25)':'rgba(255,255,255,.35)';
+    let petals='';
+    for(const a of [0,-52,52,-104,104]){
+      petals+=`<g transform="rotate(${a})"><path d="${PETAL}" ${line?`fill="none" style="stroke:${p}" stroke-width="1.2"`:`fill="url(#pg${id})"`} stroke-linejoin="round"/>`+
+        `<path d="${VEIN}" fill="none" style="stroke:${line?p:v}" stroke-width="${line?.8:.7}" stroke-linecap="round" opacity="${line?.55:.6}"/>`+
+        (line?'':`<path d="M 0 -30 Q -8 -42 -12 -52" fill="none" style="stroke:${v}" stroke-width=".5" opacity=".5"/><path d="M 0 -30 Q 8 -42 12 -52" fill="none" style="stroke:${v}" stroke-width=".5" opacity=".5"/>`)+`</g>`;
+    }
+    return `<svg viewBox="-110 -110 220 220" width="${size}" height="${size}" role="img" aria-label="Ella Vibra">`+
+      `<defs><linearGradient id="pg${id}" x1="0" y1="-90" x2="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" style="stop-color:${p};stop-opacity:.95"/><stop offset="100%" style="stop-color:${s}"/></linearGradient>`+
+      `<radialGradient id="lg${id}" cx="0" cy="20" r="36" gradientUnits="userSpaceOnUse"><stop offset="0%" style="stop-color:${p}"/><stop offset="65%" style="stop-color:${s}"/></radialGradient></defs>`+
+      petals+`<g transform="translate(0 4)"><path d="${LIP}" ${line?`fill="none" style="stroke:${p}" stroke-width="1.2"`:`fill="url(#lg${id})"`}/>`+
+      (line?'':`<path d="M -24 16 Q -10 8 0 10 Q 10 8 24 16" fill="none" style="stroke:${d}" stroke-width="1.1" opacity=".55"/>`)+
+      `<ellipse cx="0" cy="14" rx="3.4" ry="6.5" ${line?`fill="none" style="stroke:${p}"`:`style="fill:${d}"`}/><circle cx="0" cy="9" r="2.2" ${line?`fill="none" style="stroke:${p}"`:`style="fill:${d}"`}/></g></svg>`;
+  };
+  document.querySelectorAll('[data-orchid]').forEach(el=>{
+    el.innerHTML=orchidSVG(el.dataset.orchid, el.dataset.variant, el.dataset.color);
+  });
+
+  // marquee
+  const words=['La Salvaje','Instinto','Deseo','Sanar','Crecer','Florecer juntas','Sonido','Comunidad'];
+  const half='<span>'+words.map(w=>`${w}<i class="dot">${orchidSVG(40)}</i>`).join('')+'</span>';
+  const mq=document.getElementById('marquee'); if(mq) mq.innerHTML=half+half;
+
+  // nav background on scroll
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled', window.scrollY>24);
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // mobile menu
+  const menu=document.getElementById('menu');
+  const setMenu=open=>{menu.classList.toggle('open',open);menu.setAttribute('aria-hidden',!open);document.body.classList.toggle('locked',open);};
+  document.getElementById('menuOpen').onclick=()=>setMenu(true);
+  document.getElementById('menuClose').onclick=()=>setMenu(false);
+  menu.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+  // language toggles
+  document.querySelectorAll('.lang-tog').forEach(b=>b.addEventListener('click',()=>setLang(lang==='es'?'en':'es')));
+
+  // scroll reveals
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -8% 0px',threshold:.05});
+  window.observeReveals=()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
+  observeReveals();
+
+  // contact form → existing Supabase + email notification
+  document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();submitContact();});
+
+  // splash
+  const splash=document.getElementById('splash');
+  if(splash){setTimeout(()=>splash.classList.add('gone'),700);setTimeout(()=>splash.remove(),2000);}
+})();
+
+// Language: swaps every [data-es]/[data-en] (HTML allowed) and placeholders
+function setLang(l){
+  lang=l; document.documentElement.lang=l;
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    const v=el.getAttribute('data-'+l); if(!v) return;
+    if(v.includes('<')) el.innerHTML=v; else el.textContent=v;
+  });
+  document.querySelectorAll('[data-placeholder-es]').forEach(el=>{el.placeholder=el.getAttribute('data-placeholder-'+l)||el.placeholder;});
+  document.querySelectorAll('.lang-tog span').forEach(s=>s.classList.toggle('on',s.dataset.l===l));
+  loadResources();
+}
+
+// Resources from Supabase, drawn as the design's library cards
+async function loadResources(){
+  const c=document.getElementById('hub-container'); if(!c) return;
+  const {data,error}=await sb.from('resources').select('*').eq('active',true).order('created_at',{ascending:false});
+  if(error||!data||!data.length){
+    c.innerHTML=`<div class="rec-empty">${lang==='es'?'Los recursos estarán disponibles pronto.':'Resources are coming soon.'}</div>`;return;
+  }
+  const covers=['a','b','c','d'];
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  c.innerHTML=`<div class="rec-grid">${data.map((r,i)=>{
+    const title=lang==='es'?r.title_es:(r.title_en||r.title_es);
+    const kind=TYPE_LABELS[r.type]||r.type||'';
+    const tag=r.file_url?'a':'article';
+    return `<${tag} class="rec-card rv in" ${r.file_url?`href="${esc(r.file_url)}" target="_blank" rel="noreferrer"`:''}>
+      <div class="rec-cover ${covers[i%4]}">
+        <span class="rec-tag">${esc(kind)}</span>
+        ${r.duration?`<span class="rec-dur">${esc(r.duration)}</span>`:''}
+        <div class="rec-play">${r.type==='pdf'?'↓':'▶'}</div>
+      </div>
+      <div class="rec-foot"><h4>${esc(title)}</h4><div class="kind">${esc(kind)}</div></div>
+    </${tag}>`;}).join('')}</div>
+    <div class="rec-foot-row"><span class="count">${String(data.length).padStart(2,'0')} ${lang==='es'?'recursos':'resources'}</span></div>`;
+}
 loadResources();
+
+// Full host bios for the "Conoce más" pop-up
+const BIOS={
+  camila:{name:'Camila Rodríguez',img:'img/host-camila.jpg',
+    es:['Camila Rodríguez es psicoterapeuta, maestra de meditación y facilitadora de sanación sonora, creadora de Azulita y co-creadora de Ella Vibra. Con más de una década de experiencia en el cruce entre la psicología clínica y la sanación somática, acompaña a sus clientes a llegar a la raíz —no al síntoma— integrando psicoterapia, mindfulness, el modelo IFS (Sistemas de Familia Interna) y el poder vibracional del sonido. Además, recientemente completó el Certificado en Terapias Asistidas con Psicodélicos e Investigación (CPTR) del California Institute of Integral Studies, profundizando su trabajo en la sanación del trauma con medicinas psicodélicas.',
+        'Reconocida por unir lo clínico y lo profundo, Camila guía a quienes buscan reconectar con su cuerpo, comprenderse a sí mismos y recuperar su poder interior desde adentro hacia afuera. Su trabajo nace de su propio camino de sanación y de la certeza de que sanar no es arreglar lo roto, sino recordar quién se es.'],
+    en:['Camila Rodríguez is a psychotherapist, meditation teacher, and sound healing facilitator, creator of Azulita and co-creator of Ella Vibra. With more than a decade of experience where clinical psychology meets somatic healing, she helps clients reach the root, not the symptom, weaving together psychotherapy, mindfulness, the IFS (Internal Family Systems) model, and the vibrational power of sound. She recently completed the Certificate in Psychedelic-Assisted Therapies and Research (CPTR) at the California Institute of Integral Studies, deepening her work in healing trauma with psychedelic medicines.',
+        'Known for bridging the clinical and the profound, Camila guides those who want to reconnect with their body, understand themselves, and reclaim their inner power from the inside out. Her work grows from her own healing path and the certainty that healing is not fixing what is broken, but remembering who you are.'],
+    quote:{es:'"Volver a ti es siempre la respuesta." — Camila',en:'"Coming home to yourself is always the answer." — Camila'}},
+  karin:{name:'Karin Farfán',img:'img/host-karin.jpg',
+    es:['Karin Tatiana es mentora de nutrición y bienestar consciente y creadora de Healthy Glow Philosophy. Durante más de 8 años ha profundizado en el arte de transformar la salud desde una visión integral, combinando educación formal con sabiduría ancestral. Está certificada por el Institute for Integrative Nutrition en Nueva York, el Hippocrates Institute en Florida, y en prácticas ancestrales en distintos lugares de Sudamérica.',
+        'Ha acompañado a muchas personas a reconectar con su cuerpo, elevar su energía y recuperar su autoestima desde adentro hacia afuera. Hoy su misión es empoderar a las mujeres a liderar su salud con herramientas simples, poderosas y sostenibles que transformen la manera en que se ven, se cuidan y viven su versión más saludable posible.'],
+    en:['Karin Tatiana is a conscious nutrition and wellness mentor and the creator of Healthy Glow Philosophy. For more than 8 years she has deepened the art of transforming health from an integrative view, combining formal education with ancestral wisdom. She is certified by the Institute for Integrative Nutrition in New York and the Hippocrates Institute in Florida, and trained in ancestral practices across South America.',
+        'She has guided many people to reconnect with their body, raise their energy, and rebuild their self-esteem from the inside out. Today her mission is to empower women to lead their own health with simple, powerful, sustainable tools that transform how they see themselves, care for themselves, and live their healthiest possible version.'],
+    quote:{es:'"Sana por dentro para brillar por fuera." — Karin',en:'"Heal within to glow without." — Karin'}},
+  andrea:{name:'Andrea Briceño',img:'img/host-andrea.jpg',
+    es:['Andrea Briceño es coach certificada en salud y bienestar intuitivo, psicóloga espiritual y facilitadora de sanación sonora bajo el Shanti Method™. También es conferencista, productora de medios y autora galardonada del libro infantil Dasha: Descubriendo tu Don. Con más de 15 años de experiencia en medios —incluyendo Univision, NBC, Netflix y más— Andrea combina narrativas poderosas con estrategia para generar transformación en individuos y equipos a través de la comunicación.',
+        'Reconocida por su presencia magnética y su voz auténtica, Andrea ayuda a las personas a reconectar con su cuerpo, replantear su mentalidad y recuperar su poder interior. Su trabajo integra bienestar emocional, aceptación del cuerpo, amor propio y la energía de la manifestación, con el poder adicional de la sanación vibracional a través del sonido.',
+        'Ya sea guiando un baño de sonido, acompañando a un cliente o liderando una experiencia transformadora, la misión de Andrea es la misma: ayudar a otros a sintonizar con su verdad, sanar desde adentro y vivir una vida más alineada y abundante.'],
+    en:['Andrea Briceño is a certified intuitive health and wellness coach, spiritual psychologist, and sound healing facilitator trained in the Shanti Method™. She is also a speaker, media producer, and award-winning author of the children\'s book Dasha: Descubriendo tu Don. With more than 15 years in media, including Univision, NBC, Netflix and more, Andrea pairs powerful storytelling with strategy to spark transformation in individuals and teams through communication.',
+        'Known for her magnetic presence and authentic voice, Andrea helps people reconnect with their body, reframe their mindset, and reclaim their inner power. Her work brings together emotional wellbeing, body acceptance, self-love, and the energy of manifestation, with the added power of vibrational sound healing.',
+        'Whether she is guiding a sound bath, supporting a client, or leading a transformational experience, Andrea\'s mission is the same: to help others tune in to their truth, heal from within, and live a more aligned and abundant life.'],
+    quote:{es:'"Impulsada por una pasión por la expresión auténtica y el impacto con propósito, mi misión es ayudar a individuos y organizaciones a liderar con valentía, conexión y claridad." — Andrea',en:'"Driven by a passion for authentic expression and purposeful impact, my mission is to help individuals and organizations lead with courage, connection, and clarity." — Andrea'}}
+};
+function openBio(k){
+  const b=BIOS[k]; const m=document.getElementById('bioModal');
+  m.querySelector('.bio-img').src=b.img; m.querySelector('.bio-img').alt=b.name;
+  m.querySelector('.bio-name').textContent=b.name;
+  m.querySelector('.bio-text').innerHTML=b[lang].map(p=>`<p>${p}</p>`).join('');
+  m.querySelector('.bio-quote').textContent=b.quote[lang];
+  m.classList.add('open'); document.body.classList.add('locked'); m.querySelector('.bio-x').focus();
+}
+function closeBio(){document.getElementById('bioModal').classList.remove('open');document.body.classList.remove('locked');}
+document.getElementById('bioModal').addEventListener('click',e=>{if(e.target.id==='bioModal')closeBio();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBio();});
 </script>
 </body>
 </html>
