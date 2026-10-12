@@ -575,6 +575,19 @@
     .hero-corner{ display:none }
   }
 
+/* ── waitlist form ── */
+  .wl-box{ margin-top:28px; display:flex; flex-direction:column; gap:14px }
+  .wl-lead{ font-size:15px; color:var(--ink-soft); line-height:1.55 }
+  .wl-form{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
+  .wl-form input{ font:400 15px/1.2 var(--sans); padding:14px 16px; border:1px solid var(--line); border-radius:999px; background:var(--bg-soft); color:var(--ink); min-width:0 }
+  .wl-form input:focus{ outline:none; border-color:var(--accent) }
+  .wl-form .btn{ grid-column:1 / -1; justify-content:center }
+  .wl-done{ display:flex; flex-direction:column; gap:6px; padding:18px 20px; border-radius:16px; background:color-mix(in srgb, var(--accent) 10%, var(--bg)); color:var(--ink-soft); font-size:15px; line-height:1.5 }
+  .wl-done[hidden], .wl-form[hidden]{ display:none }
+  .wl-done strong{ font-family:var(--serif); font-weight:400; font-size:22px; color:var(--accent-deep) }
+  .wl-wa{ font:500 12px/1 var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-mute); align-self:flex-start; border-bottom:1px solid var(--line); padding-bottom:5px }
+  @media (max-width:560px){ .wl-form{ grid-template-columns:1fr } }
+
 /* ── archetypes ── */
   .arquetipos{ padding:120px 0 100px; background:color-mix(in srgb, var(--bg-deep) 35%, var(--bg)) }
   .arquetipos .pillars-head h2{ font-weight:400; font-size:clamp(44px,6vw,84px) }
@@ -1671,7 +1684,7 @@ a.rec-card{ color:inherit }
       <div class="hero-left">
         <div class="hero-cap rv">
           <span data-es="Comunidad de bienestar femenino · Miami, FL" data-en="Women's wellness community · Miami, FL">Comunidad de bienestar femenino · Miami, FL</span>
-          <span><b>🐺 La Salvaje</b> · <span data-es="Enero 2027" data-en="January 2027">Enero 2027</span></span>
+          <span><b>🐺 La Salvaje</b> · <span data-es="30 de enero, 2027" data-en="January 30, 2027">30 de enero, 2027</span></span>
         </div>
         <h1 class="ev-mark rv d1">
           <span class="ella">Ella</span>
@@ -1794,26 +1807,32 @@ a.rec-card{ color:inherit }
   <div class="wrap">
     <div class="event-head">
       <div class="l rv"><span class="eyebrow" data-es="Próximo encuentro" data-en="Next gathering">Próximo encuentro</span></div>
-      <div class="c rv"><span class="eyebrow no-rule" data-es="Enero 2027 · Fecha por anunciar" data-en="January 2027 · Date coming soon">Enero 2027 · Fecha por anunciar</span></div>
+      <div class="c rv"><span class="eyebrow no-rule" data-es="Sábado 30 de enero, 2027" data-en="Saturday, January 30, 2027">Sábado 30 de enero, 2027</span></div>
       <div class="r rv"><span class="eyebrow">🐺</span></div>
       <h2 class="rv d1" data-es="Recuerda tu <span class=&quot;italic&quot;>instinto.</span>" data-en="Remember your <span class=&quot;italic&quot;>instinct.</span>">Recuerda tu <span class="italic">instinto.</span></h2>
     </div>
 
     <div class="invite rv d1">
       <div class="invite-left">
-        <span class="invite-pill" data-es="✦ Cupos por abrir" data-en="✦ Spots opening soon">✦ Cupos por abrir</span>
+        <span class="invite-pill" data-es="✦ Lista de espera abierta" data-en="✦ Waitlist open">✦ Lista de espera abierta</span>
         <div class="invite-title">
           <span class="k">Ella Vibra ·</span>
           <span class="name"><em data-es="La Salvaje" data-en="La Salvaje">La Salvaje</em></span>
         </div>
         <p class="invite-desc" data-es="La mujer que eras antes de que te domesticaran: la que tenía instinto, deseo y dirección propia, antes de los roles, las expectativas y el performance." data-en="The woman you were before you were tamed: the one with instinct, desire, and her own direction, before the roles, the expectations, the performance.">La mujer que eras antes de que te domesticaran: la que tenía instinto, deseo y dirección propia, antes de los roles, las expectativas y el performance.</p>
         <p data-es="Un encuentro de cuatro horas para la que se perdió en lo que se supone que debe ser. Sanación sonora, meditación y nutrición consciente, sostenida por mujeres que se sienten como casa. Sin exigencia, sin performance, solo presencia real." data-en="A four-hour gathering for the woman who got lost in who she was supposed to be. Sound healing, meditation, and conscious nutrition, held by women who feel like home. No demands, no performance, just real presence.">Un encuentro de cuatro horas para la que se perdió en lo que se supone que debe ser. Sanación sonora, meditación y nutrición consciente, sostenida por mujeres que se sienten como casa. Sin exigencia, sin performance, solo presencia real.</p>
-        <div class="invite-ctas">
-          <!-- When a date is set: create a NEW $250 Stripe payment link (the one below is the old $111 Glow Consciente link), put it in href, and swap the first button for:
-          <a class="btn btn-accent" href="https://buy.stripe.com/eVqaEZ3Na3leaZn6dN5Rm05" target="_blank" rel="noreferrer"><span data-es="Reservar mi cupo · $250" data-en="Reserve my spot · $250">Reservar mi cupo · $250</span> <span class="arr">→</span></a>
-          -->
-          <a class="btn btn-accent" href="#lista"><span data-es="Avísame cuando abran cupos" data-en="Tell me when spots open">Avísame cuando abran cupos</span> <span class="arr">→</span></a>
-          <a class="btn btn-ghost" href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer"><span data-es="Comunidad WhatsApp" data-en="WhatsApp community">Comunidad WhatsApp</span></a>
+        <div class="wl-box" id="wl-box">
+          <p class="wl-lead" data-es="Los cupos son limitados. Únete a la lista de espera y te escribimos primero cuando abran." data-en="Spots are limited. Join the waitlist and you'll hear from us first when they open.">Los cupos son limitados. Únete a la lista de espera y te escribimos primero cuando abran.</p>
+          <form class="wl-form" onsubmit="event.preventDefault();submitWaitlist()">
+            <input id="wl-name" type="text" autocomplete="name" required data-placeholder-es="Tu nombre" data-placeholder-en="Your name" placeholder="Tu nombre">
+            <input id="wl-email" type="email" autocomplete="email" required data-placeholder-es="Tu correo" data-placeholder-en="Your email" placeholder="Tu correo">
+            <button id="wl-btn" class="btn btn-accent" type="submit"><span data-es="Unirme a la lista de espera" data-en="Join the waitlist">Unirme a la lista de espera</span> <span class="arr">→</span></button>
+          </form>
+          <div class="wl-done" id="wl-done" hidden>
+            <strong data-es="Estás en la lista ✦" data-en="You're on the list ✦">Estás en la lista ✦</strong>
+            <span data-es="Te enviamos un correo de confirmación. Serás de las primeras en saber cuando abran los cupos." data-en="We sent you a confirmation email. You'll be among the first to know when spots open.">Te enviamos un correo de confirmación. Serás de las primeras en saber cuando abran los cupos.</span>
+          </div>
+          <a class="wl-wa" href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer"><span data-es="O únete a la comunidad de WhatsApp" data-en="Or join the WhatsApp community">O únete a la comunidad de WhatsApp</span> →</a>
         </div>
       </div>
       <div class="invite-right">
@@ -1822,10 +1841,10 @@ a.rec-card{ color:inherit }
           <div class="ph-label" data-es="Reconectar con la mujer que eras." data-en="Reconnect with the woman you were.">Reconectar con la mujer que eras.</div>
         </div>
         <div class="invite-meta">
-          <dl><dt data-es="Fecha" data-en="Date">Fecha</dt><dd data-es="Enero 2027<span class=&quot;small&quot;>Fecha exacta por anunciar</span>" data-en="January 2027<span class=&quot;small&quot;>Exact date coming soon</span>">Enero 2027<span class="small">Fecha exacta por anunciar</span></dd></dl>
+          <dl><dt data-es="Fecha" data-en="Date">Fecha</dt><dd data-es="Sábado 30 de enero<span class=&quot;small&quot;>2027</span>" data-en="Saturday, January 30<span class=&quot;small&quot;>2027</span>">Sábado 30 de enero<span class="small">2027</span></dd></dl>
           <dl><dt data-es="Hora" data-en="Time">Hora</dt><dd data-es="4 horas · tarde" data-en="4 hours · afternoon">4 horas · tarde</dd></dl>
           <dl><dt data-es="Ubicación" data-en="Location">Ubicación</dt><dd data-es="Miami, FL<span class=&quot;small&quot;>Dirección privada al registrarte</span>" data-en="Miami, FL<span class=&quot;small&quot;>Private address upon registration</span>">Miami, FL<span class="small">Dirección privada al registrarte</span></dd></dl>
-          <dl><dt data-es="Inversión" data-en="Investment">Inversión</dt><dd data-es="$250<span class=&quot;small&quot;>Cupo limitado a 14</span>" data-en="$250<span class=&quot;small&quot;>Limited to 14 spots</span>">$250<span class="small">Cupo limitado a 14</span></dd></dl>
+          <dl><dt data-es="Cupo" data-en="Spots">Cupo</dt><dd data-es="Limitado a 14 mujeres<span class=&quot;small&quot;>Prioridad para la lista de espera</span>" data-en="Limited to 14 women<span class=&quot;small&quot;>Waitlist gets first access</span>">Limitado a 14 mujeres<span class="small">Prioridad para la lista de espera</span></dd></dl>
         </div>
       </div>
     </div>
@@ -2181,7 +2200,7 @@ a.rec-card{ color:inherit }
     </div>
 
     <div class="admin-section" id="admin-waitlist">
-      <div class="admin-header"><h2 class="admin-title">Lista de espera</h2></div>
+      <div class="admin-header"><h2 class="admin-title">Lista de espera <span id="wl-count" style="font-size:18px;color:var(--ink-mute)"></span></h2><div><button class="admin-add-btn" onclick="copyWaitlistEmails()">Copiar correos</button> <button class="admin-add-btn" onclick="downloadWaitlistCSV()">Descargar CSV</button></div></div>
       <table class="admin-table">
         <thead><tr><th>Nombre</th><th>Correo</th><th>Fecha</th></tr></thead>
         <tbody id="waitlist-tbody"><tr><td colspan="3" class="admin-empty">Cargando...</td></tr></tbody>
@@ -2289,16 +2308,14 @@ async function loadResources() {
 // WAITLIST
 async function submitWaitlist() {
   const name=document.getElementById('wl-name').value.trim();
-  const email=document.getElementById('wl-email').value.trim();
+  const email=document.getElementById('wl-email').value.trim().toLowerCase();
   if(!name||!email){toast(lang==='es'?'Completa todos los campos.':'Fill in all fields.',true);return;}
-  const btn=document.getElementById('wl-btn'); btn.disabled=true; btn.textContent='...';
+  const btn=document.getElementById('wl-btn'); const label=btn.innerHTML; btn.disabled=true; btn.textContent='...';
   const {error}=await sb.from('waitlist').insert([{name,email}]);
-  if(error){toast(error.code==='23505'?(lang==='es'?'Ya estás en la lista ✦':'Already on the list ✦'):(lang==='es'?'Algo salió mal.':'Something went wrong.'),error.code!=='23505');}
-  else{document.getElementById('wl-name').value='';document.getElementById('wl-email').value='';toast(lang==='es'?'¡Listo! Te avisamos pronto ✦':'Done! We\'ll be in touch ✦');
-    loadWaitlist();loadDashboard();
-    fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist',name,email})}).catch(()=>{});
-  }
-  btn.disabled=false; btn.textContent=lang==='es'?'Reservar mi lugar ✦':'Save my spot ✦';
+  if(error && error.code!=='23505'){toast(lang==='es'?'Algo salió mal. Intenta de nuevo.':'Something went wrong. Please try again.',true);btn.disabled=false;btn.innerHTML=label;return;}
+  document.querySelector('#wl-box .wl-form').hidden=true;
+  document.getElementById('wl-done').hidden=false;
+  if(!error){fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist_salvaje',name,email})}).catch(()=>{});}
 }
 
 // RSVP
@@ -2508,11 +2525,24 @@ async function loadAdminResources(){
     </tr>
   `).join('');
 }
+let WAITLIST=[];
 async function loadWaitlist(){
   const {data}=await sb.from('waitlist').select('*').order('created_at',{ascending:false});
+  WAITLIST=data||[];
+  const c=document.getElementById('wl-count'); if(c) c.textContent='('+WAITLIST.length+')';
   const tbody=document.getElementById('waitlist-tbody');
   if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="3" class="admin-empty">Nadie aún.</td></tr>';return;}
-  tbody.innerHTML=data.map(r=>`<tr><td>${r.name}</td><td>${r.email}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
+  const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  tbody.innerHTML=data.map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
+}
+function copyWaitlistEmails(){
+  const list=WAITLIST.map(r=>r.email).join(', ');
+  navigator.clipboard.writeText(list).then(()=>toast('Correos copiados ✦'),()=>prompt('Copia los correos:',list));
+}
+function downloadWaitlistCSV(){
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const rows=[['Nombre','Correo','Fecha'].map(q).join(',')].concat(WAITLIST.map(r=>[r.name,r.email,new Date(r.created_at).toLocaleDateString('es')].map(q).join(',')));
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}));a.download='ella-vibra-lista-de-espera.csv';a.click();
 }
 async function loadRSVPs(){
   const {data}=await sb.from('rsvps').select('*').order('created_at',{ascending:false});
