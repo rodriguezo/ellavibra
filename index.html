@@ -2456,11 +2456,14 @@ sb.auth.onAuthStateChange((_,session)=>{
 });
 
 // ADMIN LOGIN
+// Only these team emails can open the admin panel (the database policies enforce the same list)
+const ADMIN_EMAILS=['mcamilagarcia@gmail.com','abcarolina8@gmail.com','ellavibrateam@gmail.com','officialkarinfarfan@gmail.com'];
 function openAdminLogin(){document.getElementById('adminLoginModal').classList.add('open')}
 async function submitAdminLogin(){
   const email=document.getElementById('admin-email').value.trim();
   const pass=document.getElementById('admin-pass').value;
   const btn=document.getElementById('admin-login-btn'); btn.disabled=true;
+  if(!ADMIN_EMAILS.includes(email.toLowerCase())){toast('Acceso denegado.',true);btn.disabled=false;return;}
   const {error}=await sb.auth.signInWithPassword({email,password:pass});
   if(error){toast('Acceso denegado.',true);btn.disabled=false;return;}
   document.getElementById('adminLoginModal').classList.remove('open');
@@ -2472,6 +2475,8 @@ async function submitAdminLogin(){
 
 // ADMIN
 async function openAdmin(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session||!ADMIN_EMAILS.includes((session.user.email||'').toLowerCase())){toast('Acceso denegado.',true);return;}
   document.getElementById('adminPanel').classList.add('open');
   loadDashboard(); loadAdminEvents(); loadAdminResources(); loadWaitlist(); loadRSVPs(); loadContacts();
 }
