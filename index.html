@@ -2312,10 +2312,16 @@ async function submitWaitlist() {
   if(!name||!email){toast(lang==='es'?'Completa todos los campos.':'Fill in all fields.',true);return;}
   const btn=document.getElementById('wl-btn'); const label=btn.innerHTML; btn.disabled=true; btn.textContent='...';
   const {error}=await sb.from('waitlist').insert([{name,email}]);
-  if(error && error.code!=='23505'){toast(lang==='es'?'Algo salió mal. Intenta de nuevo.':'Something went wrong. Please try again.',true);btn.disabled=false;btn.innerHTML=label;return;}
+  const dup=error&&error.code==='23505';
+  if(error&&!dup) console.error('waitlist insert failed',error);
+  if(!dup){
+    // Always email the signup and the team, so no signup is lost even if the database save fails
+    let ok=false;
+    try{const r=await fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist_salvaje',name,email,dbError:error?(error.message||error.code||'error'):null})});ok=r.ok;}catch(e){}
+    if(error&&!ok){toast(lang==='es'?'Algo salió mal. Escríbenos a hola@ellavibra.com.':'Something went wrong. Email us at hola@ellavibra.com.',true);btn.disabled=false;btn.innerHTML=label;return;}
+  }
   document.querySelector('#wl-box .wl-form').hidden=true;
   document.getElementById('wl-done').hidden=false;
-  if(!error){fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist_salvaje',name,email})}).catch(()=>{});}
 }
 
 // RSVP

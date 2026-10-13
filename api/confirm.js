@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
   
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const { type, name, email, event_name } = req.body;
+  const { type, name, email, event_name, dbError } = req.body || {};
 
   let subject, html;
 
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
         to: 'ellavibrateam@gmail.com',
         reply_to: email,
         subject: `Nueva en la lista de espera: ${safe(name)}`,
-        html: `<p style="font-family:Georgia,serif;font-size:15px">Nueva inscripción en la lista de espera de <strong>La Salvaje</strong>:</p><p style="font-family:Georgia,serif;font-size:15px"><strong>${safe(name)}</strong><br><a href="mailto:${safe(email)}">${safe(email)}</a></p><p style="font-family:Georgia,serif;font-size:13px;color:#7C4A66">La lista completa está en el panel de administración de ellavibra.com.</p>`
+        html: `<p style="font-family:Georgia,serif;font-size:15px">Nueva inscripción en la lista de espera de <strong>La Salvaje</strong>:</p><p style="font-family:Georgia,serif;font-size:15px"><strong>${safe(name)}</strong><br><a href="mailto:${safe(email)}">${safe(email)}</a></p>${dbError ? `<p style="font-family:Georgia,serif;font-size:13px;color:#B22463"><strong>Ojo:</strong> esta persona NO quedó guardada en la lista del panel (error de la base de datos: ${safe(dbError)}). Guarda este correo.</p>` : `<p style="font-family:Georgia,serif;font-size:13px;color:#7C4A66">La lista completa está en el panel de administración de ellavibra.com.</p>`}`
       });
     } catch (e) {}
   } else if (type === 'rsvp') {
