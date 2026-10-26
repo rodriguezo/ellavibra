@@ -397,11 +397,13 @@
   }
   .hero-grid{
     display:grid;
-    grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
-    gap:48px 64px;
-    align-items:end;
+    grid-template-columns: minmax(0,1fr);
+    gap:40px;
   }
-  .hero-side{ padding-bottom:18px }
+  .hero-side{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px 64px; align-items:start }
+  .hero-side .hero-tag{ grid-row:1 / span 2 }
+  .hero-side .hero-body{ margin-top:0 }
+  .hero-side .hero-tag{ margin-top:0 }
   .hero-left{ position:relative; padding-top:32px }
 
   .hero-cap{
@@ -572,8 +574,9 @@
   @media (max-width:980px){
     .hero{ padding:120px 0 60px }
     .hero-grid{ grid-template-columns:1fr; gap:32px }
-    .hero-right{ aspect-ratio: 16/10; order:-1 }
-    .hero-side{ padding-bottom:0 }
+    .hero-right{ aspect-ratio: 16/10 }
+    .hero-side{ grid-template-columns:1fr }
+    .hero-side .hero-tag{ grid-row:auto }
     .hero-corner{ display:none }
   }
 
@@ -1710,17 +1713,17 @@ a.rec-card{ color:inherit }
           <span class="vibra">Vibra<span data-orchid="64" class="mark-orchid"></span></span>
         </h1>
       </div>
+      <div class="hero-right rv d2">
+        <div class="hero-photo">
+          <img src="img/hero-grupo.jpg" alt="Mujeres de la comunidad Ella Vibra reunidas en un encuentro en Miami" loading="eager">
+          <div class="hero-photo-quote" data-es="&quot;Cuando una vibra, vibramos todas.&quot;" data-en="&quot;When one of us vibrates, we all do.&quot;">"Cuando una vibra, vibramos todas."</div>
+        </div>
+      </div>
       <div class="hero-side">
         <div class="hero-tag rv d2" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</div>
         <p class="hero-body rv d3" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real." data-en="A sacred space for women seeking transformation through meditation, conscious nutrition, and real community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real.</p>
         <div class="hero-ctas rv d4">
           <a href="#eventos" class="btn btn-primary"><span data-es="Próximo encuentro: Mujer Salvaje" data-en="Next gathering: Mujer Salvaje">Próximo encuentro: Mujer Salvaje</span> <span class="arr">↓</span></a>
-        </div>
-      </div>
-      <div class="hero-right rv d2">
-        <div class="hero-photo">
-          <img src="img/hero-grupo.jpg" alt="Mujeres de la comunidad Ella Vibra reunidas en un encuentro en Miami" loading="eager">
-          <div class="hero-photo-quote" data-es="&quot;Cuando una vibra, vibramos todas.&quot;" data-en="&quot;When one of us vibrates, we all do.&quot;">"Cuando una vibra, vibramos todas."</div>
         </div>
       </div>
     </div>
@@ -1926,7 +1929,7 @@ a.rec-card{ color:inherit }
       </article>
       <article class="pillar rv d3">
         <div class="pillar-num"><span>03 / 04</span><span class="glyph">✧</span></div>
-        <div class="pillar-imgwrap"><img class="pillar-img" src="img/host-camila.jpg" alt="" loading="lazy"></div>
+        <div class="pillar-imgwrap"><img class="pillar-img" src="img/pilar-psicologia.jpg" alt="" loading="lazy"></div>
         <h3 data-es="Psicología &amp; Amor propio" data-en="Psychology &amp; Self-love">Psicología &amp; Amor propio</h3>
         <p data-es="Herramientas de la psicoterapia y el mindfulness para entender tus patrones sin juzgarlos, escucharte con compasión y volver a elegirte." data-en="Tools from psychotherapy and mindfulness to understand your patterns without judgment, listen to yourself with compassion, and choose yourself again.">Herramientas de la psicoterapia y el mindfulness para entender tus patrones sin juzgarlos, escucharte con compasión y volver a elegirte.</p>
         <a href="#eventos" class="pillar-cta"><span data-es="Explorar" data-en="Explore">Explorar</span> <span class="arr">→</span></a>
