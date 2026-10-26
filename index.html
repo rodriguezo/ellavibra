@@ -397,10 +397,11 @@
   }
   .hero-grid{
     display:grid;
-    grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
-    gap:64px;
+    grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
+    gap:48px 64px;
     align-items:end;
   }
+  .hero-side{ padding-bottom:18px }
   .hero-left{ position:relative; padding-top:32px }
 
   .hero-cap{
@@ -474,8 +475,8 @@
   /* right column image stack */
   .hero-right{
     position:relative;
-    aspect-ratio: 3 / 2;
-    align-self:center;
+    grid-column:1 / -1;
+    aspect-ratio: 2 / 1;
   }
   .hero-photo{
     position:absolute; inset:0;
@@ -486,7 +487,7 @@
   .hero-photo::after{
     content:"";
     position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(42,31,23,.22) 100%);
+    background:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(30,10,24,.5) 100%);
     pointer-events:none;
   }
   .hero-photo img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block;
@@ -508,13 +509,14 @@
   .hero-photo-mark .num{ font-size:14px; letter-spacing:.05em }
 
   .hero-photo-quote{
+    z-index:1;
     position:absolute;
-    left:18px; right:18px; bottom:18px;
+    left:28px; right:28px; bottom:24px;
     color:var(--bg-soft);
     font-family:var(--serif);
     font-style:italic;
     font-weight:300;
-    font-size:18px;
+    font-size:clamp(18px,2vw,26px);
     line-height:1.35;
     text-shadow:0 1px 4px rgba(0,0,0,.3);
   }
@@ -570,7 +572,8 @@
   @media (max-width:980px){
     .hero{ padding:120px 0 60px }
     .hero-grid{ grid-template-columns:1fr; gap:32px }
-    .hero-right{ aspect-ratio: 4/3.4; min-height:auto; max-height:520px; order:-1 }
+    .hero-right{ aspect-ratio: 16/10; order:-1 }
+    .hero-side{ padding-bottom:0 }
     .hero-corner{ display:none }
   }
 
@@ -1706,6 +1709,8 @@ a.rec-card{ color:inherit }
           <span class="ella">Ella</span>
           <span class="vibra">Vibra<span data-orchid="64" class="mark-orchid"></span></span>
         </h1>
+      </div>
+      <div class="hero-side">
         <div class="hero-tag rv d2" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</div>
         <p class="hero-body rv d3" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real." data-en="A sacred space for women seeking transformation through meditation, conscious nutrition, and real community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real.</p>
         <div class="hero-ctas rv d4">
