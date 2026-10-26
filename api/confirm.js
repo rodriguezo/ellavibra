@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
   
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const { type, name, email, event_name, dbError } = req.body || {};
+  const { type, name, email, event_name, plan, dbError } = req.body || {};
 
   let subject, html;
 
@@ -25,12 +25,14 @@ export default async function handler(req, res) {
     </div>`;
   } else if (type === 'waitlist_salvaje') {
     const safe = (v) => String(v || '').replace(/[<>&"]/g, '');
+    const planLabel = { las4: 'Sí, la serie completa de 4 encuentros', salvaje: 'Por ahora solo un encuentro' }[plan] || '';
     subject = 'Estás en la lista de espera · La Salvaje';
     html = `<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;padding:40px 24px;color:#2D0E22;background:#FDFAF6">
       <h1 style="font-size:32px;font-weight:400;margin-bottom:4px">Ella <em style="color:#DC4080">Vibra</em></h1>
       <p style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#7C4A66;margin-bottom:32px">La Salvaje · Sábado 30 de enero, 2027 · Miami</p>
       <p style="font-size:16px;line-height:1.7">Hola <strong>${safe(name)}</strong>,</p>
       <p style="font-size:16px;line-height:1.7;margin-top:16px">Ya estás en la lista de espera de <strong>La Salvaje</strong>, nuestro primer encuentro del año.</p>
+      ${planLabel ? `<p style="font-size:16px;line-height:1.7;margin-top:16px">¿Te interesa la serie completa? <strong>${planLabel}</strong>.</p>` : ''}
       <p style="font-size:16px;line-height:1.7;margin-top:16px">Los cupos son limitados a 14 mujeres. Cuando abramos las inscripciones te escribiremos a ti primero, antes que a nadie, con todos los detalles.</p>
       <p style="font-size:16px;line-height:1.7;margin-top:16px">Mientras tanto, únete a nuestra comunidad de WhatsApp:</p>
       <p style="margin-top:12px"><a href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" style="display:inline-block;background:#DC4080;color:#fff;padding:12px 24px;border-radius:40px;text-decoration:none;font-family:sans-serif;font-size:14px;font-weight:500">Unirme al WhatsApp ✦</a></p>
@@ -45,7 +47,7 @@ export default async function handler(req, res) {
         to: 'ellavibrateam@gmail.com',
         reply_to: email,
         subject: `Nueva en la lista de espera: ${safe(name)}`,
-        html: `<p style="font-family:Georgia,serif;font-size:15px">Nueva inscripción en la lista de espera de <strong>La Salvaje</strong>:</p><p style="font-family:Georgia,serif;font-size:15px"><strong>${safe(name)}</strong><br><a href="mailto:${safe(email)}">${safe(email)}</a></p>${dbError ? `<p style="font-family:Georgia,serif;font-size:13px;color:#B22463"><strong>Ojo:</strong> esta persona NO quedó guardada en la lista del panel (error de la base de datos: ${safe(dbError)}). Guarda este correo.</p>` : `<p style="font-family:Georgia,serif;font-size:13px;color:#7C4A66">La lista completa está en el panel de administración de ellavibra.com.</p>`}`
+        html: `<p style="font-family:Georgia,serif;font-size:15px">Nueva inscripción en la lista de espera de <strong>La Salvaje</strong>:</p><p style="font-family:Georgia,serif;font-size:15px"><strong>${safe(name)}</strong><br><a href="mailto:${safe(email)}">${safe(email)}</a>${planLabel ? `<br>¿Serie completa?: <strong>${planLabel}</strong>` : ''}</p>${dbError ? `<p style="font-family:Georgia,serif;font-size:13px;color:#B22463"><strong>Ojo:</strong> esta persona NO quedó guardada en la lista del panel (error de la base de datos: ${safe(dbError)}). Guarda este correo.</p>` : `<p style="font-family:Georgia,serif;font-size:13px;color:#7C4A66">La lista completa está en el panel de administración de ellavibra.com.</p>`}`
       });
     } catch (e) {}
   } else if (type === 'rsvp') {

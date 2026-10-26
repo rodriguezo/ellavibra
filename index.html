@@ -582,12 +582,29 @@
   .wl-form input{ font:400 15px/1.2 var(--sans); padding:14px 16px; border:1px solid var(--line); border-radius:999px; background:var(--bg-soft); color:var(--ink); min-width:0 }
   .wl-form input:focus{ outline:none; border-color:var(--accent) }
   .wl-form .btn{ grid-column:1 / -1; justify-content:center }
+  .wl-plan{ grid-column:1 / -1; border:0; padding:4px 4px 2px; margin:0; display:flex; flex-wrap:wrap; gap:8px 22px; font-size:14px; color:var(--ink-soft) }
+  .wl-plan legend{ font:500 14px/1.4 var(--sans); color:var(--ink); margin-bottom:10px; padding:0 }
+  .wl-plan label{ display:inline-flex; align-items:center; gap:8px; cursor:pointer }
+  .wl-plan input{ accent-color:var(--accent); width:16px; height:16px; margin:0 }
   .wl-done{ display:flex; flex-direction:column; gap:6px; padding:18px 20px; border-radius:16px; background:color-mix(in srgb, var(--accent) 10%, var(--bg)); color:var(--ink-soft); font-size:15px; line-height:1.5 }
   .wl-done[hidden], .wl-form[hidden]{ display:none }
   .wl-done strong{ font-family:var(--serif); font-weight:400; font-size:22px; color:var(--accent-deep) }
   @media (max-width:560px){ .wl-form{ grid-template-columns:1fr } }
 
 /* ── archetypes ── */
+  .series{ margin-top:48px; padding:36px; border:1px solid var(--line); background:var(--bg); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:28px 40px; align-items:center }
+  .series-copy h3{ font-family:var(--serif); font-weight:400; font-size:clamp(28px,3vw,40px); line-height:1.1; color:var(--ink); margin-top:14px }
+  .series-copy h3 em{ font-style:italic; color:var(--accent) }
+  .series-opts{ display:grid; grid-template-columns:1fr 1fr; gap:14px }
+  .series-opt{ position:relative; display:flex; flex-direction:column; gap:8px; padding:22px; border:1px solid var(--line); border-radius:16px; background:var(--bg-soft) }
+  .series-opt.is-best{ border-color:var(--accent); background:color-mix(in srgb, var(--accent) 7%, var(--bg)) }
+  .series-opt .tag{ position:absolute; top:-11px; right:16px; font:500 10px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:#fff; background:var(--accent); padding:6px 10px; border-radius:999px }
+  .series-opt .l{ font:500 11px/1.2 var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute) }
+  .series-opt .p{ font-family:var(--serif); font-size:44px; line-height:1; color:var(--ink) }
+  .series-opt .s{ font-size:14px; line-height:1.5; color:var(--ink-soft) }
+  .series-cta{ grid-column:1 / -1; justify-self:start }
+  @media (max-width:980px){ .series{ grid-template-columns:1fr; padding:28px 22px } }
+  @media (max-width:560px){ .series-opts{ grid-template-columns:1fr; gap:18px } }
   .arquetipos{ padding:88px 0 56px; background:color-mix(in srgb, var(--bg-deep) 35%, var(--bg)) }
   .arquetipos .pillars-head, .pillars .pillars-head{ grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) }
   .arquetipos .pillars-head{ margin-bottom:48px }
@@ -600,7 +617,7 @@
   .arq-card:hover{ background:var(--bg) }
   .arq-card.is-next{ background:var(--bg) }
   .arq-card.is-next::before{ content:""; position:absolute; top:-1px; left:0; right:0; height:3px; background:var(--accent) }
-  .arq-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:2px }
+  .arq-top{ display:flex; justify-content:space-between; align-items:center; margin-top:6px; padding-top:14px; border-top:1px solid var(--line) }
   .arq-imgwrap{ width:100%; aspect-ratio:4/5; overflow:hidden; margin-bottom:12px; background:var(--bg-deep) }
   .arq-img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s ease }
   .arq-card:hover .arq-img{ transform:scale(1.04) }
@@ -1721,40 +1738,57 @@ a.rec-card{ color:inherit }
     <div class="arq-grid">
       <article class="arq-card rv d1 is-next">
         <div class="arq-imgwrap"><img class="arq-img" src="img/arq-salvaje.jpg" alt="Mujer Salvaje" loading="lazy"></div>
-        <div class="arq-top"><span class="arq-month" data-es="Enero" data-en="January">Enero</span></div>
         <h3>Mujer Salvaje</h3>
         <span class="arq-verb" data-es="Reconectar" data-en="Reconnect">Reconectar</span>
         <p data-es="La mujer que eras antes de que te domesticaran: instinto, deseo y dirección propia, antes de los roles y el performance." data-en="The woman you were before you were tamed: instinct, desire, and a direction of your own, before the roles and the performance.">La mujer que eras antes de que te domesticaran: instinto, deseo y dirección propia, antes de los roles y el performance.</p>
         <p class="arq-for" data-es="Para la que se perdió en lo que se supone que debe ser." data-en="For the one who got lost in who she was supposed to be.">Para la que se perdió en lo que se supone que debe ser.</p>
         <span class="arq-next" data-es="Próximo encuentro" data-en="Next gathering">Próximo encuentro</span>
+        <div class="arq-top"><span class="arq-month" data-es="30 de enero, 2027" data-en="January 30, 2027">30 de enero, 2027</span><span class="arq-month" data-es="1 de 4" data-en="1 of 4">1 de 4</span></div>
       </article>
       <article class="arq-card rv d2">
         <div class="arq-imgwrap"><img class="arq-img" src="img/arq-herida.jpg" alt="Mujer Valiente" loading="lazy"></div>
-        <div class="arq-top"><span class="arq-month" data-es="Abril" data-en="April">Abril</span></div>
         <h3>Mujer Valiente</h3>
         <span class="arq-verb" data-es="Mirar" data-en="Look">Mirar</span>
         <p data-es="El dolor que cargas en silencio: la culpa, el vacío, lo que nunca dijiste. No para quedarse ahí, porque la herida también es una puerta." data-en="The pain you carry in silence: the guilt, the emptiness, what you never said. Not to stay there, because the wound is also a door.">El dolor que cargas en silencio: la culpa, el vacío, lo que nunca dijiste. No para quedarse ahí, porque la herida también es una puerta.</p>
         <p class="arq-for" data-es="Para la que sufre y no sabe cómo nombrarlo." data-en="For the one who hurts and can't name it.">Para la que sufre y no sabe cómo nombrarlo.</p>
-        
+        <div class="arq-top"><span class="arq-month" data-es="Abril 2027" data-en="April 2027">Abril 2027</span><span class="arq-month" data-es="2 de 4" data-en="2 of 4">2 de 4</span></div>
       </article>
       <article class="arq-card rv d3">
         <div class="arq-imgwrap"><img class="arq-img" src="img/arq-sabia.jpg" alt="Mujer Sabia" loading="lazy"></div>
-        <div class="arq-top"><span class="arq-month" data-es="Julio" data-en="July">Julio</span></div>
         <h3>Mujer Sabia</h3>
         <span class="arq-verb" data-es="Construir" data-en="Build">Construir</span>
         <p data-es="La mujer que quieres ser a los 60, 70, 80. Longevidad como pregunta: ¿estás construyendo una vida que puedas sostener?" data-en="The woman you want to be at 60, 70, 80. Longevity as a question: are you building a life you can sustain?">La mujer que quieres ser a los 60, 70, 80. Longevidad como pregunta: ¿estás construyendo una vida que puedas sostener?</p>
         <p class="arq-for" data-es="Para la que vive tan rápido que no se pregunta hacia dónde va." data-en="For the one living so fast she never asks where she's going.">Para la que vive tan rápido que no se pregunta hacia dónde va.</p>
-        
+        <div class="arq-top"><span class="arq-month" data-es="Julio 2027" data-en="July 2027">Julio 2027</span><span class="arq-month" data-es="3 de 4" data-en="3 of 4">3 de 4</span></div>
       </article>
       <article class="arq-card rv d3">
         <div class="arq-imgwrap"><img class="arq-img" src="img/arq-reina.jpg" alt="Mujer Diosa/Reina" loading="lazy"></div>
-        <div class="arq-top"><span class="arq-month" data-es="Octubre" data-en="October">Octubre</span></div>
         <h3>Mujer Diosa/Reina</h3>
         <span class="arq-verb" data-es="Reclamar" data-en="Reclaim">Reclamar</span>
         <p data-es="La que ocupa su espacio sin pedir permiso, pone límites y se lidera a sí misma. No arrogancia: soberanía." data-en="The one who takes up space without asking permission, sets boundaries, and leads herself. Not arrogance: sovereignty.">La que ocupa su espacio sin pedir permiso, pone límites y se lidera a sí misma. No arrogancia: soberanía.</p>
         <p class="arq-for" data-es="Para la que lleva toda la vida achicándose." data-en="For the one who has spent her life making herself small.">Para la que lleva toda la vida achicándose.</p>
-        
+        <div class="arq-top"><span class="arq-month" data-es="Octubre 2027" data-en="October 2027">Octubre 2027</span><span class="arq-month" data-es="4 de 4" data-en="4 of 4">4 de 4</span></div>
       </article>
+    </div>
+    <div class="series rv">
+      <div class="series-copy">
+        <span class="eyebrow" data-es="Una serie de 4 encuentros" data-en="A series of 4 gatherings">Una serie de 4 encuentros</span>
+        <h3 data-es="Vive uno, o vive el <em>recorrido completo.</em>" data-en="Join one, or take the <em>whole journey.</em>">Vive uno, o vive el <em>recorrido completo.</em></h3>
+      </div>
+      <div class="series-opts">
+        <div class="series-opt">
+          <span class="p">1</span>
+          <span class="l" data-es="Un encuentro" data-en="One gathering">Un encuentro</span>
+          <span class="s" data-es="Elige la mujer que más resuene contigo." data-en="Choose the woman who resonates most with you.">Elige la mujer que más resuene contigo.</span>
+        </div>
+        <div class="series-opt is-best">
+          <span class="tag" data-es="Precio especial" data-en="Special price">Precio especial</span>
+          <span class="p">4</span>
+          <span class="l" data-es="El recorrido completo" data-en="The whole journey">El recorrido completo</span>
+          <span class="s" data-es="Tu lugar asegurado en los 4 encuentros del año." data-en="Your spot secured at all 4 gatherings of the year.">Tu lugar asegurado en los 4 encuentros del año.</span>
+        </div>
+      </div>
+      <a href="#eventos" class="btn btn-primary series-cta"><span data-es="Unirme a la lista de espera" data-en="Join the waitlist">Unirme a la lista de espera</span> <span class="arr">↓</span></a>
     </div>
   </div>
 </section>
@@ -1775,7 +1809,7 @@ a.rec-card{ color:inherit }
       <div class="invite-left">
         <span class="invite-pill" data-es="✦ Lista de espera abierta" data-en="✦ Waitlist open">✦ Lista de espera abierta</span>
         <div class="invite-title">
-          <span class="k">Ella Vibra ·</span>
+          <span class="k" data-es="Encuentro 1 de 4 ·" data-en="Gathering 1 of 4 ·">Encuentro 1 de 4 ·</span>
           <span class="name"><em data-es="Mujer Salvaje" data-en="Mujer Salvaje">Mujer Salvaje</em></span>
         </div>
         <p class="invite-desc" data-es="Hubo un tiempo en que sabías lo que querías antes de pensarlo. Te reías fuerte, bailabas sin mirar quién te veía, confiabas en lo que sentías en el cuerpo. Después llegaron los roles, las expectativas, el “eso no se hace”. Y esa mujer instintiva no desapareció." data-en="There was a time when you knew what you wanted before you thought about it. You laughed out loud, danced without checking who was watching, trusted what you felt in your body. Then came the roles, the expectations, the “that’s not done.” And that instinctive woman didn’t disappear.">Hubo un tiempo en que sabías lo que querías antes de pensarlo. Te reías fuerte, bailabas sin mirar quién te veía, confiabas en lo que sentías en el cuerpo. Después llegaron los roles, las expectativas, el “eso no se hace”. Y esa mujer instintiva no desapareció.</p>
@@ -1786,6 +1820,11 @@ a.rec-card{ color:inherit }
           <form class="wl-form" onsubmit="event.preventDefault();submitWaitlist()">
             <input id="wl-name" type="text" autocomplete="name" required data-placeholder-es="Tu nombre" data-placeholder-en="Your name" placeholder="Tu nombre">
             <input id="wl-email" type="email" autocomplete="email" required data-placeholder-es="Tu correo" data-placeholder-en="Your email" placeholder="Tu correo">
+            <fieldset class="wl-plan">
+              <legend data-es="¿Te interesaría vivir la serie completa de 4 encuentros?" data-en="Would you be interested in the full series of 4 gatherings?">¿Te interesaría vivir la serie completa de 4 encuentros?</legend>
+              <label><input type="radio" name="wl-plan" value="las4" required> <span data-es="Sí" data-en="Yes">Sí</span></label>
+              <label><input type="radio" name="wl-plan" value="salvaje"> <span data-es="No, por ahora solo uno" data-en="No, just one for now">No, por ahora solo uno</span></label>
+            </fieldset>
             <button id="wl-btn" class="btn btn-accent" type="submit"><span data-es="Unirme a la lista de espera" data-en="Join the waitlist">Unirme a la lista de espera</span> <span class="arr">→</span></button>
           </form>
           <div class="wl-done" id="wl-done" hidden>
@@ -2173,8 +2212,8 @@ a.rec-card{ color:inherit }
     <div class="admin-section" id="admin-waitlist">
       <div class="admin-header"><h2 class="admin-title">Lista de espera <span id="wl-count" style="font-size:18px;color:var(--ink-mute)"></span></h2><div><button class="admin-add-btn" onclick="copyWaitlistEmails()">Copiar correos</button> <button class="admin-add-btn" onclick="downloadWaitlistCSV()">Descargar CSV</button></div></div>
       <table class="admin-table">
-        <thead><tr><th>Nombre</th><th>Correo</th><th>Fecha</th></tr></thead>
-        <tbody id="waitlist-tbody"><tr><td colspan="3" class="admin-empty">Cargando...</td></tr></tbody>
+        <thead><tr><th>Nombre</th><th>Correo</th><th>Interés</th><th>Fecha</th></tr></thead>
+        <tbody id="waitlist-tbody"><tr><td colspan="4" class="admin-empty">Cargando...</td></tr></tbody>
       </table>
     </div>
 
@@ -2283,13 +2322,16 @@ async function submitWaitlist() {
   const email=document.getElementById('wl-email').value.trim().toLowerCase();
   if(!name||!email){toast(lang==='es'?'Completa todos los campos.':'Fill in all fields.',true);return;}
   const btn=document.getElementById('wl-btn'); const label=btn.innerHTML; btn.disabled=true; btn.textContent='...';
-  const {error}=await sb.from('waitlist').insert([{name,email}]);
+  const plan=(document.querySelector('input[name="wl-plan"]:checked')||{}).value||'';
+  let {error}=await sb.from('waitlist').insert([{name,email,plan}]);
+  // Until the plan column exists, save without it; the team email still carries the choice
+  if(error&&error.code!=='23505'&&/plan/.test(error.message||'')) ({error}=await sb.from('waitlist').insert([{name,email}]));
   const dup=error&&error.code==='23505';
   if(error&&!dup) console.error('waitlist insert failed',error);
   if(!dup){
     // Always email the signup and the team, so no signup is lost even if the database save fails
     let ok=false;
-    try{const r=await fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist_salvaje',name,email,dbError:error?(error.message||error.code||'error'):null})});ok=r.ok;}catch(e){}
+    try{const r=await fetch('/api/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'waitlist_salvaje',name,email,plan,dbError:error?(error.message||error.code||'error'):null})});ok=r.ok;}catch(e){}
     if(error&&!ok){toast(lang==='es'?'Algo salió mal. Escríbenos a hola@ellavibra.com.':'Something went wrong. Email us at hola@ellavibra.com.',true);btn.disabled=false;btn.innerHTML=label;return;}
   }
   document.querySelector('#wl-box .wl-form').hidden=true;
@@ -2512,14 +2554,15 @@ async function loadAdminResources(){
   `).join('');
 }
 let WAITLIST=[];
+const PLAN_LABEL={las4:'Sí, la serie',salvaje:'No, solo uno'};
 async function loadWaitlist(){
   const {data}=await sb.from('waitlist').select('*').order('created_at',{ascending:false});
   WAITLIST=data||[];
   const c=document.getElementById('wl-count'); if(c) c.textContent='('+WAITLIST.length+')';
   const tbody=document.getElementById('waitlist-tbody');
-  if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="3" class="admin-empty">Nadie aún.</td></tr>';return;}
+  if(!data||data.length===0){tbody.innerHTML='<tr><td colspan="4" class="admin-empty">Nadie aún.</td></tr>';return;}
   const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  tbody.innerHTML=data.map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
+  tbody.innerHTML=data.map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${esc(PLAN_LABEL[r.plan]||'')}</td><td>${new Date(r.created_at).toLocaleDateString('es')}</td></tr>`).join('');
 }
 function copyWaitlistEmails(){
   const list=WAITLIST.map(r=>r.email).join(', ');
@@ -2527,7 +2570,7 @@ function copyWaitlistEmails(){
 }
 function downloadWaitlistCSV(){
   const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-  const rows=[['Nombre','Correo','Fecha'].map(q).join(',')].concat(WAITLIST.map(r=>[r.name,r.email,new Date(r.created_at).toLocaleDateString('es')].map(q).join(',')));
+  const rows=[['Nombre','Correo','Interés','Fecha'].map(q).join(',')].concat(WAITLIST.map(r=>[r.name,r.email,PLAN_LABEL[r.plan]||'',new Date(r.created_at).toLocaleDateString('es')].map(q).join(',')));
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}));a.download='ella-vibra-lista-de-espera.csv';a.click();
 }
 async function loadRSVPs(){
