@@ -1976,6 +1976,7 @@ a.rec-card{ color:inherit }
         <div class="field"><label for="ct-name" data-es="Tu nombre" data-en="Your name">Tu nombre</label><input type="text" id="ct-name" required placeholder="Cómo te llamas" data-placeholder-es="Cómo te llamas" data-placeholder-en="Your full name"></div>
         <div class="field"><label for="ct-email" data-es="Tu correo" data-en="Your email">Tu correo</label><input type="email" id="ct-email" required placeholder="tu@correo.com" data-placeholder-es="tu@correo.com" data-placeholder-en="you@email.com"></div>
         <div class="field"><label for="ct-msg" data-es="Tu mensaje" data-en="Your message">Tu mensaje</label><textarea id="ct-msg" required placeholder="Cuéntanos qué te trae aquí…" data-placeholder-es="Cuéntanos qué te trae aquí…" data-placeholder-en="Tell us what brings you here…"></textarea></div>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="ct-website">Website</label><input type="text" id="ct-website" tabindex="-1" autocomplete="off"></div>
         <div class="form-foot">
           <div class="form-note" data-es="Te respondemos en menos de 48 horas." data-en="We reply within 48 hours.">Te respondemos en menos de 48 horas.</div>
           <button type="submit" class="btn btn-primary" id="ct-btn" data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</button>
@@ -2362,17 +2363,20 @@ async function submitRSVP(){
 }
 
 // CONTACT
+const ctLoadedAt=Date.now();
 async function submitContact(){
+  // Spam trap: bots fill the hidden field; pretend success and send nothing
+  if(document.getElementById('ct-website').value){toast(lang==='es'?'Mensaje enviado ✦':'Message sent ✦');return;}
   const name=document.getElementById('ct-name').value.trim();
   const email=document.getElementById('ct-email').value.trim();
   const message=document.getElementById('ct-msg').value.trim();
   if(!name||!email||!message){toast(lang==='es'?'Completa todos los campos.':'Fill in all fields.',true);return;}
   const btn=document.getElementById('ct-btn'); btn.disabled=true; btn.textContent='...';
-  const {error}=await sb.from('contacts').insert([{name,email,message}]);
-  if(error){toast(lang==='es'?'Algo salió mal.':'Something went wrong.',true);}
+  // The server filters spam, saves to the database and emails the team
+  let ok=false;
+  try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message,website:'',elapsed:Date.now()-ctLoadedAt})});ok=r.ok;}catch(e){}
+  if(!ok){toast(lang==='es'?'Algo salió mal.':'Something went wrong.',true);}
   else{
-    // Notify the team by email (non-blocking — toast still shows on failure)
-    fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message})}).catch(()=>{});
     document.getElementById('ct-name').value='';document.getElementById('ct-email').value='';document.getElementById('ct-msg').value='';
     toast(lang==='es'?'Mensaje enviado ✦':'Message sent ✦');
   }
