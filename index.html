@@ -527,7 +527,6 @@
 
   /* small running marquee */
   .hero-marquee{
-    margin-top:96px;
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
     padding:18px 0;
@@ -585,7 +584,6 @@
   .wl-done{ display:flex; flex-direction:column; gap:6px; padding:18px 20px; border-radius:16px; background:color-mix(in srgb, var(--accent) 10%, var(--bg)); color:var(--ink-soft); font-size:15px; line-height:1.5 }
   .wl-done[hidden], .wl-form[hidden]{ display:none }
   .wl-done strong{ font-family:var(--serif); font-weight:400; font-size:22px; color:var(--accent-deep) }
-  .wl-wa{ font:500 12px/1 var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-mute); align-self:flex-start; border-bottom:1px solid var(--line); padding-bottom:5px }
   @media (max-width:560px){ .wl-form{ grid-template-columns:1fr } }
 
 /* ── archetypes ── */
@@ -1693,8 +1691,7 @@ a.rec-card{ color:inherit }
         <div class="hero-tag rv d2" data-es="Sanar. Crecer. Florecer juntas." data-en="Heal. Grow. Flourish together.">Sanar. Crecer. Florecer juntas.</div>
         <p class="hero-body rv d3" data-es="Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real." data-en="A sacred space for women seeking transformation through meditation, conscious nutrition, and real community.">Un espacio sagrado para mujeres que buscan transformación a través de la meditación, la nutrición consciente y la comunidad real.</p>
         <div class="hero-ctas rv d4">
-          <a href="#lista" class="btn btn-primary"><span data-es="Únete a la comunidad" data-en="Join the community">Únete a la comunidad</span> <span class="arr">→</span></a>
-          <a href="#eventos" class="btn btn-ghost"><span data-es="Ver próximo encuentro" data-en="See next gathering">Ver próximo encuentro</span> <span class="arr">↓</span></a>
+          <a href="#eventos" class="btn btn-primary"><span data-es="Próximo encuentro: Mujer Salvaje" data-en="Next gathering: Mujer Salvaje">Próximo encuentro: Mujer Salvaje</span> <span class="arr">↓</span></a>
         </div>
       </div>
       <div class="hero-right rv d2">
@@ -1707,7 +1704,6 @@ a.rec-card{ color:inherit }
     </div>
     <div class="hero-corner">Miami, FL<br>Mujer Salvaje · MMXXVII</div>
   </div>
-  <div class="hero-marquee" aria-hidden="true"><div class="hero-marquee-inner" id="marquee"></div></div>
 </section>
 
 <!-- ARCHETYPES -->
@@ -1763,6 +1759,8 @@ a.rec-card{ color:inherit }
   </div>
 </section>
 
+<div class="hero-marquee" aria-hidden="true"><div class="hero-marquee-inner" id="marquee"></div></div>
+
 <!-- EVENT -->
 <section class="event-section" id="eventos">
   <div class="wrap">
@@ -1792,9 +1790,8 @@ a.rec-card{ color:inherit }
           </form>
           <div class="wl-done" id="wl-done" hidden>
             <strong data-es="Estás en la lista ✦" data-en="You're on the list ✦">Estás en la lista ✦</strong>
-            <span data-es="Te enviamos un correo de confirmación. Serás de las primeras en saber cuando abran los cupos." data-en="We sent you a confirmation email. You'll be among the first to know when spots open.">Te enviamos un correo de confirmación. Serás de las primeras en saber cuando abran los cupos.</span>
+            <span data-es="Te enviamos un correo de confirmación con el enlace a nuestra comunidad de WhatsApp. Serás de las primeras en saber cuando abran los cupos." data-en="We sent you a confirmation email with the link to our WhatsApp community. You'll be among the first to know when spots open.">Te enviamos un correo de confirmación con el enlace a nuestra comunidad de WhatsApp. Serás de las primeras en saber cuando abran los cupos.</span>
           </div>
-          <a class="wl-wa" href="https://chat.whatsapp.com/Lu6osQCJLZY8Uo6pk3zeFg?mode=wwt" target="_blank" rel="noreferrer"><span data-es="O únete a la comunidad de WhatsApp" data-en="Or join the WhatsApp community">O únete a la comunidad de WhatsApp</span> →</a>
         </div>
       </div>
       <div class="invite-right">
